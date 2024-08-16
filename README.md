@@ -107,8 +107,9 @@ return [
 ];
 ```
 
-If you want to use the SMS method, you need to provide an SMS service. You can check the [Laravel Notifications documentation](https://laravel-notification-channels.com/about/) for ready-to-use services. **Also make sure your user model has a `phone` attribute.**
+If you want to use the SMS method, you need to provide an SMS service. You can check the [Laravel Notifications documentation](https://laravel-notification-channels.com/about/) for ready-to-use services. 
 
+**Also make sure your user model has a `phone` attribute.**
 
 ## Testing
 
