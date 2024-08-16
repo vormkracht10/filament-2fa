@@ -29,8 +29,6 @@ class PasswordReset extends Page implements HasForms
             redirect()->intended(Filament::getUrl());
         }
 
-        $this->form->fill();
-
         if (session('status')) {
             Notification::make()
                 ->title(session('status'))

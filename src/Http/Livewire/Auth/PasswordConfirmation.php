@@ -15,8 +15,6 @@ class PasswordConfirmation extends Component implements HasForms
 
     public function mount(): void
     {
-        $this->form->fill();
-
         if (session('status')) {
             Notification::make()
                 ->title(session('status'))

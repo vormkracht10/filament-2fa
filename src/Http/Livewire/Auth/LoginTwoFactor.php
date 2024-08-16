@@ -33,8 +33,6 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
         if ($request->challengedUser()) {
             $this->challengedUser = $request->challengedUser();
         }
-
-        $this->form->fill();
     }
 
     public function hasLogo(): bool
