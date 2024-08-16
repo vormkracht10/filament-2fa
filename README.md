@@ -51,10 +51,6 @@ class User extends Authenticatable implements FilamentUser
 
 ## Usage
 
-```php
-$twoFactorAuth = new Vormkracht10\TwoFactorAuth();
-echo $twoFactorAuth->echoPhrase('Hello, Vormkracht10!');
-```
 
 ## Testing
 
