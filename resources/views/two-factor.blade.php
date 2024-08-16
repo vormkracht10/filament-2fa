@@ -17,7 +17,7 @@
             </div>
 
             @if (!auth()->user()->hasEnabledTwoFactorAuthentication() || $this->showingRecoveryCodes)
-                <div class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+                <div class="bg-white shadow-sm sm:rounded-xl md:col-span-2">
 
                     @if (!$this->showTwoFactor())
                         <div class="px-4 py-6 sm:p-8">
