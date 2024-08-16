@@ -146,15 +146,6 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
 
     protected function forceFortifyConfig(): void
     {
-        /**
-         * This is the default Fortify configuration. These seem not to be used
-         * in the application. I will leave them here for reference.
-         */
-        Fortify::createUsersUsing(CreateNewUser::class);
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
-        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
-        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-
         config([
             'filament.auth.pages.login' => Login::class,
             'fortify.views' => true,
