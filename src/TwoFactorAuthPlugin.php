@@ -2,8 +2,10 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
-use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Contracts\Plugin;
+use Filament\Navigation\MenuItem;
+use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 class TwoFactorAuthPlugin implements Plugin
 {
@@ -14,7 +16,16 @@ class TwoFactorAuthPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        //
+        $panel
+            ->userMenuItems([
+                'two-factor-authentication' => MenuItem::make()
+                    ->icon('heroicon-o-lock-closed')
+                    ->label(__('filament-two-factor-auth::Two-Factor Authentication'))
+                    ->url(fn (): string => TwoFactor::getUrl()),
+            ])
+            ->pages([
+                TwoFactor::class,
+            ]);
     }
 
     public function boot(Panel $panel): void

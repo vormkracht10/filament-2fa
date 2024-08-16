@@ -21,4 +21,5 @@ return [
     'Confirm' => 'Confirm',
     'Verify' => 'Verify',
     'Code' => 'Code',
+    'Two-Factor Authentication' => 'Two-Factor Authentication',
 ];
