@@ -21,7 +21,7 @@ This package helps you integrate Laravel Fortify with ease in your Filament apps
 ![Authenticator app](./docs/authenticator-app.png)
 
 ### Using email or SMS as two factor method
-![Email or SMS](./docs/email-sms.png)
+![Email or SMS](./docs/email-or-sms.png)
 
 ### Recovery codes
 ![Recovery codes](./docs/recovery-codes.png)
