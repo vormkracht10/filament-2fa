@@ -43,7 +43,7 @@ class TwoFactor extends Page implements HasForms
         return false;
     }
 
-    public function getTitle(): string|Htmlable
+    public function getTitle(): string | Htmlable
     {
         return __('Two-Factor Authentication');
     }
