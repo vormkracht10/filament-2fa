@@ -27,7 +27,8 @@ class TwoFactorAuthPlugin implements Plugin
             ])
             ->pages([
                 TwoFactor::class,
-            ]);
+            ])
+            ->viteTheme('vendor/vormkracht10/filament-two-factor-auth/resources/dist/filament-two-factor-auth.css');
     }
 
     public function boot(Panel $panel): void
