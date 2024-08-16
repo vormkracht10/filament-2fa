@@ -2,9 +2,9 @@
 
 namespace Vormkracht10\TwoFactorAuth\Http\Middleware;
 
+use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable as DefaultRedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable as DefaultRedirectIfTwoFactorAuthenticatable;
 
 class RedirectIfTwoFactorAuthenticatable extends DefaultRedirectIfTwoFactorAuthenticatable
 {
@@ -22,7 +22,7 @@ class RedirectIfTwoFactorAuthenticatable extends DefaultRedirectIfTwoFactorAuthe
         if (Fortify::confirmsTwoFactorAuthentication()) {
             if (
                 optional($user)->two_factor_secret &&
-                !is_null(optional($user)->two_factor_confirmed_at) &&
+                ! is_null(optional($user)->two_factor_confirmed_at) &&
                 in_array(TwoFactorAuthenticatable::class, class_uses_recursive($user))
             ) {
                 return $this->twoFactorChallengeResponse($request, $user);
