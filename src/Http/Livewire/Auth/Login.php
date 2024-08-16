@@ -30,8 +30,6 @@ class Login extends BaseLogin
 
     protected static string $view = 'filament-two-factor-auth::auth.login';
 
-    protected static string $layout = 'filament-two-factor-auth::layouts.login';
-
     public $email = '';
 
     public $password = '';
