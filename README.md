@@ -6,8 +6,11 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/filament-two-factor-auth.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-two-factor-auth)
 
 
+This package helps you integrate Laravel Fortify with ease in your Filament apps. We provide the views and logic to enable two factor authentication in your Filament app. Possible authentication methods are:
 
-This package helps you integrate Laravel Fortify with ease in your Filament apps. 
+- Email
+- SMS
+- Authenticator app
 
 ## Installation
 
@@ -85,6 +88,26 @@ protected $listen = [
 ];
 ```
 ## Usage
+
+### Configuration
+
+The authentication methods can be configured in the `config/filament-two-factor-auth.php` file (which is published during the install command). 
+
+You can simply add or remove (comment) the methods you want to use:
+
+```php
+return [
+    'options' => [
+        TwoFactorType::email,
+        TwoFactorType::phone,
+        TwoFactorType::authenticator,
+    ],
+
+    'sms_service' => null, // For example: MessageBird::class
+];
+```
+
+If you want to use the SMS method, you need to provide an SMS service. You can check the [Laravel Notifications documentation](https://laravel-notification-channels.com/about/) for ready-to-use services. **Also make sure your user model has a `phone` attribute.**
 
 
 ## Testing

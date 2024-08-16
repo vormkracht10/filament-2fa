@@ -10,6 +10,7 @@ enum TwoFactorType: string
 
     case authenticator = 'authenticator';
     case email = 'email';
+    case phone = 'phone';
 
     public static function values(): array
     {
@@ -19,8 +20,9 @@ enum TwoFactorType: string
     public function label(): string
     {
         return match ($this) {
-            self::email => __('E-mail'),
+            self::email => __('Email'),
             self::authenticator => __('Authenticator app'),
+            self::phone => __('SMS'),
         };
     }
 }

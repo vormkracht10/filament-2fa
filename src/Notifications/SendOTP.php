@@ -32,7 +32,18 @@ class SendOTP extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return $notifiable->two_factor_type === TwoFactorType::email ? ['mail'] : [];
+        if ($notifiable->two_factor_type === TwoFactorType::email) {
+            return ['mail'];
+        }
+
+        if (
+            $notifiable->two_factor_type === TwoFactorType::phone && 
+            in_array(TwoFactorType::phone, config('filament-two-factor-auth.options'))
+        ) {
+            return [config('filament-two-factor-auth.sms_service')];
+        }
+    
+        return [];
     }
 
     /**
