@@ -1,0 +1,23 @@
+{
+    "Secure your account": "Beveilig uw account",
+    "Your account has been secured with two factor authentication": "Uw account is beveiligd met tweestaps-verificatie",
+    "Add additional security to your account using two factor authentication": "Voeg extra beveiliging toe aan uw account met tweestaps-verificatie",
+    "You have three options to confirm your identity, please choose one of the options below to continue": "U heeft drie opties om uw identiteit te bevestigen, kies een van de onderstaande opties om door te gaan",
+    "Two-Factor Authentication enabled": "Tweestaps-verificatie ingeschakeld",
+    "Or scan the QR code with your authenticator app": "Of scan de QR-code met uw authenticator-app",
+    "The secret key to setup the authenticator app is": "De geheime sleutel om de authenticator-app in te stellen is",
+    "Save these recovery codes in a secure place as they can be used to recover access to your account if you lose your device.": "Bewaar deze herstelcodes op een veilige plaats, omdat ze kunnen worden gebruikt om toegang tot uw account te herstellen als u uw apparaat verliest.",
+    "Cancel": "Annuleren",
+    "Login": "Inloggen",
+    "Authenticate with your Authentication code": "Verifieer met uw authenticatiecode",
+    "Reset Password": "Wachtwoord Resetten",
+    "Submit": "Verzenden",
+    "Resend": "Opnieuw Verzenden",
+    "Successfully resend the OTP code": "OTP-code succesvol opnieuw verzonden",
+    "Recovery code": "Herstelcode",
+    "Password Confirmation": "Wachtwoordbevestiging",
+    "Confirm": "Bevestigen",
+    "Verify": "Verifiëren",
+    "Code": "Code",
+    "Two-Factor Authentication": "Tweestaps-verificatie"
+}
