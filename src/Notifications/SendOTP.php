@@ -4,14 +4,14 @@ namespace Vormkracht10\TwoFactorAuth\Notifications;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Vormkracht10\TwoFactorAuth\Actions\GenerateOTP;
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
+use Illuminate\Notifications\Notification;
+use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
-use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
+use Vormkracht10\TwoFactorAuth\Actions\GenerateOTP;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 
 class SendOTP extends Notification implements ShouldQueue
 {
@@ -64,7 +64,7 @@ class SendOTP extends Notification implements ShouldQueue
      */
     public function getTwoFactorCode(User $notifiable): ?string
     {
-        if (!$notifiable->two_factor_secret) {
+        if (! $notifiable->two_factor_secret) {
             return null;
         }
 
