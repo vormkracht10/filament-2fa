@@ -2,9 +2,9 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
-use Filament\Panel;
 use Filament\Contracts\Plugin;
 use Filament\Navigation\MenuItem;
+use Filament\Panel;
 use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 class TwoFactorAuthPlugin implements Plugin
