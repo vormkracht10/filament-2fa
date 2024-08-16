@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Vormkracht10\TwoFactorAuth\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class TwoFactorAuthCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-two-factor-auth';
 
     public $description = 'My command';
 
