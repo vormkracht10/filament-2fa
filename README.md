@@ -23,7 +23,7 @@ composer require vormkracht10/filament-two-factor-auth
 You can easily install the plugin by running the following command:
 
 ```bash
- php artisan filament-two-factor-auth:install
+php artisan filament-two-factor-auth:install
 ```
 
 If you don't have [Laravel Fortify](https://laravel.com/docs/11.x/fortify) installed yet, you can install it by running the following commands:
