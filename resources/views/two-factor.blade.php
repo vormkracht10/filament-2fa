@@ -41,7 +41,7 @@
                                 <div class="sm:col-span-6">
 
 
-                                    @if (auth()->user()->showQrCode())
+                                    @if ($this->showQrCode)
                                         <div class="text-center space-y-8">
                                             <div>
                                                 @unless ($showingQrCode)

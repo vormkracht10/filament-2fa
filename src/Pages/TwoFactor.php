@@ -29,6 +29,8 @@ class TwoFactor extends Page implements HasForms
 
     public bool $showingRecoveryCodes = false;
 
+    public bool $showQrCode = false;
+
     public string $code;
 
     protected static string $view = 'filament-two-factor-auth::two-factor';
@@ -121,6 +123,7 @@ class TwoFactor extends Page implements HasForms
 
                 if (count($formData) > 0) {
                     auth()->user()->update($formData);
+                    $this->showQrCode = true;
                 }
 
                 $this->enableTwoFactorAuthentication(app(EnableTwoFactorAuthentication::class));
