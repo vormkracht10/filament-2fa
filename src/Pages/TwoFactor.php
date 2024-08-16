@@ -121,9 +121,14 @@ class TwoFactor extends Page implements HasForms
                     $formData['two_factor_type'] = TwoFactorType::tryFrom($this->twoFactorData['option']);
                 }
 
+                if ($formData['two_factor_type'] === TwoFactorType::email) {
+                    $this->showQrCode = false;
+                } else {
+                    $this->showQrCode = true;
+                }
+
                 if (count($formData) > 0) {
                     auth()->user()->update($formData);
-                    $this->showQrCode = true;
                 }
 
                 $this->enableTwoFactorAuthentication(app(EnableTwoFactorAuthentication::class));
