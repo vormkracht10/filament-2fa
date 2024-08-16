@@ -9,6 +9,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
@@ -38,6 +39,11 @@ class TwoFactor extends Page implements HasForms
     public static function shouldRegisterNavigation(): bool
     {
         return false;
+    }
+
+    public function getTitle(): string|Htmlable
+    {
+        return __('Two-Factor Authentication');
     }
 
     public function mount()
