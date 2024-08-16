@@ -7,7 +7,7 @@
         </x-slot>
     @endif
     <h2 class="mt-20 text-lg font-semibold text-gray-900 text-center">
-        {{ __('Authenticate with your Authentication code') }}
+        {{ __('Authenticate with your code') }}
     </h2>
     
     <form method="POST" action="{{ route('two-factor.login') }}" class="space-y-8">
