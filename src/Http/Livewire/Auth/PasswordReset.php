@@ -2,14 +2,14 @@
 
 namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
 
-use Filament\Pages\Page;
 use Filament\Facades\Filament;
-use Illuminate\Contracts\View\View;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
+use Filament\Pages\Page;
+use Illuminate\Contracts\View\View;
 
 class PasswordReset extends Page implements HasForms
 {
@@ -18,7 +18,9 @@ class PasswordReset extends Page implements HasForms
     protected static string $layout = 'filament-two-factor-auth::layouts.login';
 
     public ?string $email = '';
+
     public ?string $password = '';
+
     public ?string $token = '';
 
     public function mount(): void

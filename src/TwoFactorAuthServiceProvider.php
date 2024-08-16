@@ -2,43 +2,43 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
-use Livewire\Livewire;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Laravel\Fortify\Fortify;
-use Laravel\Fortify\Features;
-use Filament\Support\Assets\Js;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Asset;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Route;
 use App\Actions\Fortify\CreateNewUser;
-use Spatie\LaravelPackageTools\Package;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Support\Facades\Redirect;
 use App\Actions\Fortify\ResetUserPassword;
-use Filament\Support\Facades\FilamentIcon;
 use App\Actions\Fortify\UpdateUserPassword;
-use Filament\Support\Facades\FilamentAsset;
-use Illuminate\Support\Facades\RateLimiter;
-use Filament\Support\Assets\AlpineComponent;
-use Livewire\Features\SupportTesting\Testable;
 use App\Actions\Fortify\UpdateUserProfileInformation;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Login;
-use Laravel\Fortify\Http\Responses\TwoFactorLoginResponse;
-use Vormkracht10\TwoFactorAuth\Testing\TestsTwoFactorAuth;
-use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
-use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordReset;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\LoginTwoFactor;
+use Filament\Support\Assets\AlpineComponent;
+use Filament\Support\Assets\Asset;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentIcon;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordConfirmation;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\RequestPasswordReset;
-use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
 use Laravel\Fortify\Contracts\TwoFactorLoginResponse as TwoFactorLoginResponseContract;
+use Laravel\Fortify\Features;
+use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Responses\TwoFactorLoginResponse;
+use Livewire\Features\SupportTesting\Testable;
+use Livewire\Livewire;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Login;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\LoginTwoFactor;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordConfirmation;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordReset;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\RequestPasswordReset;
+use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
+use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
 use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
+use Vormkracht10\TwoFactorAuth\Testing\TestsTwoFactorAuth;
 
 class TwoFactorAuthServiceProvider extends PackageServiceProvider
 {
@@ -121,10 +121,10 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         $this->overrideFortifyViews();
 
         Route::domain(config('filament.domain'))
-        ->middleware(config('filament.middleware.base'))
-        ->name('filament.')
-        ->group(function () {
-            /**
+            ->middleware(config('filament.middleware.base'))
+            ->name('filament.')
+            ->group(function () {
+                /**
              * We do not need to override logout response and logout path as:
              * - logout response for both filament and fortify does
              *    basically the same things except fortify handle for api calls
@@ -132,15 +132,15 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
              * - filament's logout route is at /filament/logout
              */
 
-            /**
+                /**
              * Redeclare filament.auth.login route as fortify override it
              * This route name is used multiple places in filament.
              */
-            Route::prefix(config('filament.path'))->group(function () {
-                Route::get('/filament-login', fn() => Redirect::route('login'))
-                    ->name('auth.login');
+                Route::prefix(config('filament.path'))->group(function () {
+                    Route::get('/filament-login', fn () => Redirect::route('login'))
+                        ->name('auth.login');
+                });
             });
-        });
     }
 
     protected function forceFortifyConfig(): void
@@ -210,10 +210,10 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
 
     protected function registerContractsAndComponents(): void
     {
-        Livewire::component((new PasswordReset())->getName(), PasswordReset::class);
-        Livewire::component((new RequestPasswordReset())->getName(), RequestPasswordReset::class);
-        Livewire::component((new LoginTwoFactor())->getName(), LoginTwoFactor::class);
-        Livewire::component((new TwoFactor())->getName(), TwoFactor::class);
+        Livewire::component((new PasswordReset)->getName(), PasswordReset::class);
+        Livewire::component((new RequestPasswordReset)->getName(), RequestPasswordReset::class);
+        Livewire::component((new LoginTwoFactor)->getName(), LoginTwoFactor::class);
+        Livewire::component((new TwoFactor)->getName(), TwoFactor::class);
 
         $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
         $this->app->singleton(TwoFactorLoginResponseContract::class, TwoFactorLoginResponse::class);

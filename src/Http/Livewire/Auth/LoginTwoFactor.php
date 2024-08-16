@@ -3,23 +3,23 @@
 namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
 
 use App\Models\User;
-use Filament\Pages\Page;
-use Filament\Actions\Action;
 use App\Notifications\SendOTP;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
-use Filament\Actions\Contracts\HasActions;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Pages\Concerns\InteractsWithFormActions;
-use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Filament\Actions\Action;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
+use Filament\Pages\Concerns\InteractsWithFormActions;
+use Filament\Pages\Page;
+use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 
-class LoginTwoFactor extends Page implements HasForms, HasActions
+class LoginTwoFactor extends Page implements HasActions, HasForms
 {
-    use InteractsWithForms;
     use InteractsWithFormActions;
+    use InteractsWithForms;
     use WithRateLimiting;
 
     protected static string $layout = 'filament-two-factor-auth::layouts.login';
@@ -50,7 +50,7 @@ class LoginTwoFactor extends Page implements HasForms, HasActions
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
             ->action(function () {
-                if (!$this->throttle()) {
+                if (! $this->throttle()) {
                     return;
                 }
 
@@ -67,6 +67,7 @@ class LoginTwoFactor extends Page implements HasForms, HasActions
     {
         try {
             $this->rateLimit(1);
+
             return true;
         } catch (TooManyRequestsException $exception) {
             Notification::make()
@@ -80,6 +81,7 @@ class LoginTwoFactor extends Page implements HasForms, HasActions
                 ]) : null)
                 ->danger()
                 ->send();
+
             return false;
         }
     }
