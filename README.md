@@ -20,12 +20,6 @@ You can install the package via composer:
 composer require vormkracht10/filament-two-factor-auth
 ```
 
-You can easily install the plugin by running the following command:
-
-```bash
-php artisan filament-two-factor-auth:install
-```
-
 If you don't have [Laravel Fortify](https://laravel.com/docs/11.x/fortify) installed yet, you can install it by running the following commands:
 
 ```bash
@@ -34,6 +28,12 @@ composer require laravel/fortify
 php artisan fortify:install
 
 php artisan migrate
+```
+
+You can then easily install the plugin by running the following command:
+
+```bash
+php artisan filament-two-factor-auth:install
 ```
 
 Then add the plugin to your `PanelProvider`:
