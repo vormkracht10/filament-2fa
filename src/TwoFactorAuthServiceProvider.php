@@ -278,7 +278,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_filament-two-factor-auth_table',
+            'add_two_factor_type_column_to_users_table',
         ];
     }
 }

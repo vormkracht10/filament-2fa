@@ -49,6 +49,23 @@ class User extends Authenticatable implements FilamentUser
 }
 ```
 
+Also define the `two_factor_type` cast on your user model:
+
+```php
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
+
+// ...
+
+protected function casts(): array
+{
+    return [
+        'two_factor_type' => TwoFactorType::class,
+    ];
+}
+```
+
+> ❗ When using `fillable` instead of `guarded` on your model, make sure to add `two_factor_type` to the `$fillable` array.
+
 In case you're not using Laravel 11 yet, you will probably need to manually register the event listener in your `EventServiceProvider`:
 
 ```php
