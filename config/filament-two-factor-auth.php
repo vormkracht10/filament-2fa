@@ -11,7 +11,7 @@ return [
     |
     | This value determines which two factor authentication options are available.
     | Simply add or remove the options you want to use.
-    | 
+    |
     | Available options: email, phone, authenticator
     |
     */
@@ -27,7 +27,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This value determines which SMS service to use. For ready-to-use notification
-    | channels, you can check out the documentation (SMS) here: 
+    | channels, you can check out the documentation (SMS) here:
     | https://laravel-notification-channels.com/
     |
     */
