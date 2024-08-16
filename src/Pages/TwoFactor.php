@@ -107,7 +107,7 @@ class TwoFactor extends Page implements HasForms
     public function enableAction(): Action
     {
         return Action::make('enable')
-            ->label(__('Activate 2FA'))
+            ->label(__('Activate'))
             ->color('primary')
             ->action(function ($data) {
 
@@ -153,7 +153,7 @@ class TwoFactor extends Page implements HasForms
     public function disableAction(): Action
     {
         return Action::make('disable')
-            ->label(auth()->user()->two_factor_confirmed_at ? __('Deactivate 2FA') : __('Cancel'))
+            ->label(auth()->user()->two_factor_confirmed_at ? __('DeActivate') : __('Cancel'))
             ->color('danger')
             ->action(function ($data) {
                 if (isset($data['current_password']) && $data['current_password']) {

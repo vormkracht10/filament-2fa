@@ -19,5 +19,7 @@
     "Confirm": "Bevestigen",
     "Verify": "Verifiëren",
     "Code": "Code",
-    "Two-Factor Authentication": "Tweestaps-verificatie"
+    "Two-Factor Authentication": "Tweestaps-verificatie",
+    "Activate": "Activeer",
+    "Deactivate": "Deactiveer"
 }
