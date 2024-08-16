@@ -1,29 +1,27 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "vormkracht10/filament-two-factor-auth",
+    "description": "This package helps you integrate Laravel Fortify with ease in your Filament apps. ",
     "keywords": [
-        ":vendor_name",
+        "vormkracht10",
         "laravel",
-        ":package_slug"
+        "filament-two-factor-auth"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/vormkracht10/filament-two-factor-auth",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/vormkracht10/filament-two-factor-auth/issues",
+        "source": "https://github.com/vormkracht10/filament-two-factor-auth"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Baspa",
+            "email": "hello@baspa.dev",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
         "filament/filament": "^3.0",
-        "filament/forms": "^3.0",
-        "filament/tables": "^3.0",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
@@ -36,18 +34,17 @@
         "pestphp/pest-plugin-laravel": "^2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.26"
+        "phpstan/phpstan-phpunit": "^1.0"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Vormkracht10\\TwoFactorAuth\\": "src/",
+            "Vormkracht10\\TwoFactorAuth\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "Vormkracht10\\TwoFactorAuth\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -67,10 +64,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Vormkracht10\\TwoFactorAuth\\TwoFactorAuthServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "TwoFactorAuth": "Vormkracht10\\TwoFactorAuth\\Facades\\TwoFactorAuth"
             }
         }
     },
