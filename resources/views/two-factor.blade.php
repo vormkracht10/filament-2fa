@@ -24,7 +24,9 @@
 
 
                             <p class="text-sm">
-                                {{ __('You have three options to confirm your identity, please choose one of the options below to continue') }}.
+                                {{ __('You have :amount options to confirm your identity, please choose one of the options below to continue', 
+                                    ['amount' => $this->twoFactorOptionsCount]
+                                ) }}.
                             </p>
                             <hr class="my-4" />
 

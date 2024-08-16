@@ -34,6 +34,8 @@ class TwoFactor extends Page implements HasForms
 
     public string $code;
 
+    public ?int $twoFactorOptionsCount = null;
+
     protected static string $view = 'filament-two-factor-auth::two-factor';
 
     public static function shouldRegisterNavigation(): bool
@@ -48,6 +50,8 @@ class TwoFactor extends Page implements HasForms
 
     public function mount()
     {
+        $this->twoFactorOptionsCount = config('filament-two-factor-auth.options') ? count(config('filament-two-factor-auth.options')) : 0;
+
         if (
             Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm') &&
             is_null(Auth::user()->two_factor_confirmed_at)
