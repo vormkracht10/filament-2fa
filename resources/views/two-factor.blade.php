@@ -42,9 +42,8 @@
                             <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div class="sm:col-span-6">
 
-
                                     @if ($this->showQrCode)
-                                        <div class="text-center space-y-8">
+                                        <div class="text-center space-y-8 mb-4">
                                             <div>
                                                 @unless ($showingQrCode)
                                                     <div class="font-bold">
