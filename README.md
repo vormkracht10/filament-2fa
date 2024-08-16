@@ -49,6 +49,24 @@ class User extends Authenticatable implements FilamentUser
 }
 ```
 
+In case you're not using Laravel 11 yet, you will probably need to manually register the event listener in your `EventServiceProvider`:
+
+```php
+use Laravel\Fortify\Events\TwoFactorAuthenticationEnabled;
+use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
+use Vormkracht10\TwoFactorAuth\Listeners\SendTwoFactorCodeListener;
+
+// ...
+
+protected $listen = [
+    TwoFactorAuthenticationChallenged::class => [
+        SendTwoFactorCodeListener::class,
+    ],
+    TwoFactorAuthenticationEnabled::class => [
+        SendTwoFactorCodeListener::class,
+    ],
+];
+```
 ## Usage
 
 
