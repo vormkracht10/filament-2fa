@@ -30,7 +30,7 @@ class PasswordConfirmation extends Component implements HasForms
         return [
             TextInput::make('password')
                 ->extraInputAttributes(['name' => 'password'])
-                ->label(__('filament-two-factor-auth::Password'))
+                ->label(__('Password'))
                 ->password()
                 ->required(),
         ];
@@ -40,9 +40,9 @@ class PasswordConfirmation extends Component implements HasForms
     {
         return view('filament-two-factor-auth::auth.password-confirmation')
             ->layout('filament::components.layouts.app', [
-                'title' => __('filament-two-factor-auth::Password Confirmation'),
+                'title' => __('Password Confirmation'),
                 'breadcrumbs' => [
-                    __('filament-two-factor-auth::Password Confirmation'),
+                    __('Password Confirmation'),
                 ],
             ]);
     }

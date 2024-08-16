@@ -9,14 +9,14 @@
         ])>
 
             <h2 class="font-bold tracking-tight text-center text-2xl">
-                {{ __('filament-two-factor-auth::Confirm') }}
+                {{ __('Confirm') }}
             </h2>
 
             @csrf
             {{ $this->form }}
 
             <x-filament::button type="submit" class="w-full">
-                {{ __('filament-two-factor-auth::Confirm') }}
+                {{ __('Confirm') }}
             </x-filament::button>
         </form>
 

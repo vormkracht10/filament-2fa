@@ -45,7 +45,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     public function resend(): ?Action
     {
         return Action::make('resend')
-            ->label(__('filament-two-factor-auth::Resend'))
+            ->label(__('Resend'))
             ->color('info')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
@@ -57,7 +57,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
                 $this->challengedUser->notify(app(SendOTP::class));
 
                 Notification::make()
-                    ->title(__('filament-two-factor-auth::Successfully resend the OTP code'))
+                    ->title(__('Successfully resend the OTP code'))
                     ->success()
                     ->send();
             });
@@ -91,10 +91,10 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
         return [
             TextInput::make('code')
                 ->extraInputAttributes(['name' => 'code'])
-                ->label(__('filament-two-factor-auth::Code')),
+                ->label(__('Code')),
             TextInput::make('recovery_code')
                 ->extraInputAttributes(['name' => 'recovery_code'])
-                ->label(__('filament-two-factor-auth::Recovery code')),
+                ->label(__('Recovery code')),
 
         ];
     }

@@ -20,7 +20,7 @@ class TwoFactorAuthPlugin implements Plugin
             ->userMenuItems([
                 'two-factor-authentication' => MenuItem::make()
                     ->icon('heroicon-o-lock-closed')
-                    ->label(__('filament-two-factor-auth::Two-Factor Authentication'))
+                    ->label(__('Two-Factor Authentication'))
                     ->url(fn (): string => TwoFactor::getUrl()),
             ])
             ->pages([

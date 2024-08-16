@@ -9,7 +9,7 @@
                 </a>
             </div>
             <h2 class="mt-20 text-lg font-semibold text-gray-900">
-                {{ __('filament-two-factor-auth::Reset Password') }}
+                {{ __('Reset Password') }}
             </h2>
 
             <form method="POST" action="{{ route('password.email') }}" class="space-y-8">
@@ -19,11 +19,11 @@
                 <div class="flex items-center justify-between">
                     <x-filament::button color="secondary" class="w-full" type="button" tag="a" outlined
                         href="{{ route('login') }}">
-                        {{ __('filament-two-factor-auth::Cancel')}}
+                        {{ __('Cancel')}}
                     </x-filament::button>
 
                     <x-filament::button type="submit" class="w-full" color="info">
-                        {{ __('filament-two-factor-auth::Submit') }}
+                        {{ __('Submit') }}
                     </x-filament::button>
 
 

@@ -6,12 +6,12 @@
 
                 @if (!$showingRecoveryCodes && auth()->user()->two_factor_confirmed_at)
                     <p class="mt-1 text-sm leading-6 text-gray-600 mb-4">
-                        {{ __('filament-two-factor-auth::Your account has been secured with two factor authentication') }}.
+                        {{ __('Your account has been secured with two factor authentication') }}.
                     </p>
                     {{ $this->disableAction() }}
                 @else
                     <p class="mt-1 text-sm leading-6 text-gray-600 mb-4">
-                        {{ __('filament-two-factor-auth::Add additional security to your account using two factor authentication') }}.
+                        {{ __('Add additional security to your account using two factor authentication') }}.
                     </p>
                 @endif
             </div>
@@ -24,7 +24,7 @@
 
 
                             <p class="text-sm">
-                                {{ __('filament-two-factor-auth::You have three options to confirm your identity, please choose one of the options below to continue') }}.
+                                {{ __('You have three options to confirm your identity, please choose one of the options below to continue') }}.
                             </p>
                             <hr class="my-4" />
 
@@ -46,18 +46,18 @@
                                             <div>
                                                 @unless ($showingQrCode)
                                                     <div class="font-bold">
-                                                        {!! __('filament-two-factor-auth::Two-Factor Authentication enabled') !!}
+                                                        {!! __('Two-Factor Authentication enabled') !!}
                                                     </div>
                                                 @else
                                                     <div class="font-bold">
-                                                        {!! __('filament-two-factor-auth::Or scan the QR code with your authenticator app') !!}.
+                                                        {!! __('Or scan the QR code with your authenticator app') !!}.
                                                     </div>
                                                     <div class="flex items-center justify-center mt-2">
                                                         {!! auth()->user()->twoFactorQrCodeSvg() !!}
                                                     </div>
                                                     <br />
                                                     <p class="text-sm">
-                                                        {!! __('filament-two-factor-auth::The secret key to setup the authenticator app is') !!}: <br />
+                                                        {!! __('The secret key to setup the authenticator app is') !!}: <br />
                                                         <span
                                                             class="font-bold mt-4">{{ decrypt(auth()->user()->two_factor_secret) }}</span>
                                                     </p>
