@@ -19,8 +19,8 @@ enum TwoFactorType: string
     public function label(): string
     {
         return match ($this) {
-            static::email => __('E-mail'),
-            static::authenticator => __('Authenticator app'),
+            self::email => __('E-mail'),
+            self::authenticator => __('Authenticator app'),
         };
     }
 }

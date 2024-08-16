@@ -2,12 +2,12 @@
 
 namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
 
-use Livewire\Component;
-use Illuminate\Contracts\View\View;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
+use Illuminate\Contracts\View\View;
+use Livewire\Component;
 
 class PasswordConfirmation extends Component implements HasForms
 {

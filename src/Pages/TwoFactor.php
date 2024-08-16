@@ -2,21 +2,20 @@
 
 namespace Vormkracht10\TwoFactorAuth\Pages;
 
-use Filament\Forms\Form;
-use Filament\Pages\Page;
 use Filament\Actions\Action;
-use Laravel\Fortify\Features;
-
 use Filament\Forms\Components\Radio;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
 use Filament\Notifications\Notification;
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
-use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
-use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
+use Filament\Pages\Page;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
+use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
+use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
+use Laravel\Fortify\Features;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 
 class TwoFactor extends Page implements HasForms
 {
@@ -32,7 +31,7 @@ class TwoFactor extends Page implements HasForms
 
     public string $code;
 
-    protected static string $view = "filament-two-factor-auth::two-factor";
+    protected static string $view = 'filament-two-factor-auth::two-factor';
 
     public static function shouldRegisterNavigation(): bool
     {
@@ -58,19 +57,19 @@ class TwoFactor extends Page implements HasForms
 
     public function requireConfirmation(): bool
     {
-        return !$this->passwordIsConfirmed();
+        return ! $this->passwordIsConfirmed();
     }
 
     public function getConfirmationForm(): array
     {
         return [
-            TextInput::make("current_password")
+            TextInput::make('current_password')
                 ->label(__('Password'))
                 ->dehydrateStateUsing(fn ($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
-                ->rule("current_password"),
+                ->rule('current_password'),
         ];
     }
 
@@ -80,7 +79,7 @@ class TwoFactor extends Page implements HasForms
             Radio::make('option')
                 ->label(__('Authentication method'))
                 ->hiddenLabel()
-                ->options(TwoFactorType::array())
+                ->options(TwoFactorType::array()),
         ])->statePath('twoFactorData');
     }
 
@@ -165,7 +164,7 @@ class TwoFactor extends Page implements HasForms
     /** This method is used in the view */
     private function showTwoFactor(): bool
     {
-        return !empty(Auth::user()->two_factor_secret);
+        return ! empty(Auth::user()->two_factor_secret);
     }
 
     public function enableTwoFactorAuthentication(EnableTwoFactorAuthentication $enable): void
