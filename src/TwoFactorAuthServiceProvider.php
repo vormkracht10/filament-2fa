@@ -2,10 +2,6 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\ResetUserPassword;
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
