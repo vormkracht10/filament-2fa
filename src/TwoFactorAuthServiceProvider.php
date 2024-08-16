@@ -2,6 +2,7 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
+use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
