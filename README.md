@@ -17,30 +17,36 @@ You can install the package via composer:
 composer require vormkracht10/filament-two-factor-auth
 ```
 
-You can publish and run the migrations with:
+You can easily install the plugin by running the following command:
 
 ```bash
-php artisan vendor:publish --tag="filament-two-factor-auth-migrations"
+ php artisan filament-two-factor-auth:install
+```
+
+If you don't have [Laravel Fortify](https://laravel.com/docs/11.x/fortify) installed yet, you can install it by running the following commands:
+
+```bash
+composer require laravel/fortify
+
+php artisan fortify:install
+
 php artisan migrate
 ```
 
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="filament-two-factor-auth-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="filament-two-factor-auth-views"
-```
-
-This is the contents of the published config file:
+Then add the plugin to your `PanelProvider`:
 
 ```php
-return [
-];
+->plugin(TwoFactorAuthPlugin::make())
+```
+
+Make sure your user uses the `TwoFactorAuthenticatable` trait:
+
+```php 
+class User extends Authenticatable implements FilamentUser
+{
+    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
+    // ...
+}
 ```
 
 ## Usage
