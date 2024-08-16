@@ -99,7 +99,7 @@ class TwoFactor extends Page implements HasForms
     {
         return $form->schema([
             TextInput::make('code')
-                ->label(__('OTP code'))
+                ->label(__('Code'))
                 ->validationAttribute('OTP code')
                 ->inlineLabel()
                 ->required(),
