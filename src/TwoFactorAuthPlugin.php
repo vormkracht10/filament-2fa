@@ -6,6 +6,7 @@ use Filament\Contracts\Plugin;
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
 use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Login;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\LoginTwoFactor;
 use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 class TwoFactorAuthPlugin implements Plugin
@@ -27,6 +28,7 @@ class TwoFactorAuthPlugin implements Plugin
             ])
             ->pages([
                 TwoFactor::class,
+                LoginTwoFactor::class,
             ])
             ->viteTheme('vendor/vormkracht10/filament-two-factor-auth/resources/dist/filament-two-factor-auth.css');
     }

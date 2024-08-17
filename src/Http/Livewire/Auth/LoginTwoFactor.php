@@ -3,18 +3,18 @@
 namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
 
 use App\Models\User;
-use App\Notifications\SendOTP;
-use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
-use DanHarrin\LivewireRateLimiting\WithRateLimiting;
-use Filament\Actions\Action;
-use Filament\Actions\Contracts\HasActions;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Notifications\Notification;
-use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
+use Filament\Actions\Action;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Concerns\InteractsWithForms;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Filament\Pages\Concerns\InteractsWithFormActions;
+use Vormkracht10\TwoFactorAuth\Notifications\SendOTP;
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class LoginTwoFactor extends Page implements HasActions, HasForms
 {
@@ -25,6 +25,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     protected static string $layout = 'filament-two-factor-auth::layouts.login';
 
     protected static string $view = 'filament-two-factor-auth::auth.login-two-factor';
+
+    protected static bool $shouldRegisterNavigation = false;
 
     public ?User $challengedUser = null;
 
@@ -40,11 +42,10 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
         return false;
     }
 
-    public function resend(): ?Action
+    public function resend(): Action
     {
         return Action::make('resend')
             ->label(__('Resend'))
-            ->color('info')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
             ->action(function () {

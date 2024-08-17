@@ -6,17 +6,17 @@
             {{ $this->registerAction }}
         </x-slot>
     @endif
-    <h2 class="mt-10 text-lg font-semibold text-gray-900 text-center">
+    <h2 class="mt-5 text-lg font-semibold text-gray-900 text-center">
         {{ __('Authenticate with your code') }}
     </h2>
-    
+    {{ $this->resend }}
     <form method="POST" action="{{ route('two-factor.login') }}" class="space-y-8">
 
         @csrf
         {{ $this->form }}
 
         <div class="flex items-center justify-between mt-6">
-            <x-filament::button type="submit" class="w-full" color="info">
+            <x-filament::button type="submit" class="w-full">
                 {{ __('Login') }}
             </x-filament::button>
         </div>
