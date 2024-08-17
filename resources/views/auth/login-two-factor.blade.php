@@ -6,7 +6,7 @@
             {{ $this->registerAction }}
         </x-slot>
     @endif
-    <h2 class="mt-20 text-lg font-semibold text-gray-900 text-center">
+    <h2 class="mt-10 text-lg font-semibold text-gray-900 text-center">
         {{ __('Authenticate with your code') }}
     </h2>
     
