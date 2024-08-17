@@ -41,9 +41,13 @@ If you don't have [Laravel Fortify](https://laravel.com/docs/11.x/fortify) insta
 
 ```bash
 composer require laravel/fortify
+```
 
+```bash
 php artisan fortify:install
+```
 
+```bash
 php artisan migrate
 ```
 
