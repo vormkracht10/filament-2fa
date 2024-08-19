@@ -3,18 +3,18 @@
 namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
 
 use App\Models\User;
-use Filament\Pages\Page;
-use Filament\Actions\Action;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
-use Filament\Actions\Contracts\HasActions;
-use Filament\Forms\Concerns\InteractsWithForms;
-use DanHarrin\LivewireRateLimiting\WithRateLimiting;
-use Filament\Pages\Concerns\InteractsWithFormActions;
-use Vormkracht10\TwoFactorAuth\Notifications\SendOTP;
-use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Filament\Actions\Action;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
+use Filament\Pages\Concerns\InteractsWithFormActions;
+use Filament\Pages\Page;
+use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
+use Vormkracht10\TwoFactorAuth\Notifications\SendOTP;
 
 class LoginTwoFactor extends Page implements HasActions, HasForms
 {
