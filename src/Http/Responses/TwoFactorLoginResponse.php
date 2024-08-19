@@ -18,7 +18,7 @@ class TwoFactorLoginResponse implements LoginResponseContract
         $panel = Filament::getPanel(session()->get('panel'));
 
         session()->forget('panel');
-        
+
         return redirect()->intended($panel->getUrl());
     }
 }
