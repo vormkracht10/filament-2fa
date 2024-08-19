@@ -75,6 +75,8 @@ class Login extends BaseLogin
 
     public function loginWithFortify()
     {
+        session()->put('panel', Filament::getCurrentPanel()->getId());
+
         try {
             $this->rateLimit(5);
         } catch (TooManyRequestsException $exception) {

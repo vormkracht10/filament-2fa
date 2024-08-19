@@ -15,6 +15,6 @@ class TwoFactorChallengeViewResponse implements LoginResponseContract
      */
     public function toResponse($request)
     {
-        return redirect()->intended(Filament::getUrl());
+        return redirect()->intended(Filament::getCurrentPanel()->getUrl());
     }
 }

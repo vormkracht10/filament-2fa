@@ -26,7 +26,7 @@ class PasswordReset extends Page implements HasForms
     public function mount(): void
     {
         if (Filament::auth()->check()) {
-            redirect()->intended(Filament::getUrl());
+            redirect()->intended(Filament::getCurrentPanel()->getUrl());
         }
 
         if (session('status')) {

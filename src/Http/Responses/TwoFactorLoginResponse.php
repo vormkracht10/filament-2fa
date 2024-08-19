@@ -15,6 +15,10 @@ class TwoFactorLoginResponse implements LoginResponseContract
      */
     public function toResponse($request)
     {
-        return redirect()->intended(Filament::getUrl());
+        $panel = Filament::getPanel(session()->get('panel'));
+
+        session()->forget('panel');
+
+        return redirect()->intended($panel->getUrl());
     }
 }
