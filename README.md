@@ -128,6 +128,12 @@ return [
 ];
 ```
 
+If you want to use the SMS method, you need to provide an SMS service. You can check the [Laravel Notifications documentation](https://laravel-notification-channels.com/about/) for ready-to-use services. 
+
+**Also make sure your user model has a `phone` attribute.**
+
+### Customization
+
 If you want to fully customize the pages, you can override the classes in the `config/filament-two-factor-auth.php` file:
 
 ```php
@@ -144,11 +150,6 @@ return [
 ```
 
 Make sure you extend the original classes from the package.
-
-
-If you want to use the SMS method, you need to provide an SMS service. You can check the [Laravel Notifications documentation](https://laravel-notification-channels.com/about/) for ready-to-use services. 
-
-**Also make sure your user model has a `phone` attribute.**
 
 ## Testing
 
