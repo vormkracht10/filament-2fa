@@ -2,39 +2,33 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
-use Filament\Support\Assets\AlpineComponent;
-use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
-use Laravel\Fortify\Contracts\TwoFactorLoginResponse as TwoFactorLoginResponseContract;
-use Laravel\Fortify\Features;
-use Laravel\Fortify\Fortify;
-use Laravel\Fortify\Http\Responses\TwoFactorLoginResponse;
-use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Features;
+use Filament\Support\Assets\Js;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Asset;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\Redirect;
+use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\Facades\FilamentAsset;
+use Illuminate\Support\Facades\RateLimiter;
+use Filament\Support\Assets\AlpineComponent;
+use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Login;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\LoginTwoFactor;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordConfirmation;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordReset;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\RequestPasswordReset;
-use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
-use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
-use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Laravel\Fortify\Http\Responses\TwoFactorLoginResponse;
 use Vormkracht10\TwoFactorAuth\Testing\TestsTwoFactorAuth;
+use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
+use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
+use Laravel\Fortify\Contracts\TwoFactorLoginResponse as TwoFactorLoginResponseContract;
 
 class TwoFactorAuthServiceProvider extends PackageServiceProvider
 {
@@ -143,7 +137,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     protected function forceFortifyConfig(): void
     {
         config([
-            'filament.auth.pages.login' => Login::class,
+            'filament.auth.pages.login' => config('filament-two-factor-auth.login'),
             'fortify.views' => true,
             'fortify.home' => config('filament.home_url'),
             'forms.dark_mode' => config('filament.dark_mode'),
@@ -166,16 +160,16 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     protected function overrideFortifyViews(): void
     {
         Fortify::loginView(function () {
-            return app()->call(Login::class);
+            return app()->call(config('filament.auth.pages.login'));
         });
 
         if (Features::enabled(Features::resetPasswords())) {
             Fortify::requestPasswordResetLinkView(function () {
-                return app()->call(RequestPasswordReset::class);
+                return app()->call(config('filament-two-factor-auth.request_password_reset'));
             });
 
             Fortify::resetPasswordView(function ($request) {
-                return app()->call(PasswordReset::class);
+                return app()->call(config('filament-two-factor-auth.password_reset'));
             });
         }
 
@@ -186,22 +180,34 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         }
 
         Fortify::confirmPasswordView(function () {
-            return app()->call(PasswordConfirmation::class);
+            return app()->call(config('filament-two-factor-auth.password_confirmation'));
         });
 
         if (Features::enabled(Features::twoFactorAuthentication())) {
             Fortify::twoFactorChallengeView(function () {
-                return app()->call(LoginTwoFactor::class);
+                return app()->call(config('filament-two-factor-auth.challenge'));
             });
         }
     }
 
     protected function registerContractsAndComponents(): void
     {
-        Livewire::component((new PasswordReset)->getName(), PasswordReset::class);
-        Livewire::component((new RequestPasswordReset)->getName(), RequestPasswordReset::class);
-        Livewire::component((new LoginTwoFactor)->getName(), LoginTwoFactor::class);
-        Livewire::component((new TwoFactor)->getName(), TwoFactor::class);
+        Livewire::component(
+            'password-reset',
+            config('filament-two-factor-auth.password_reset')
+        );
+        Livewire::component(
+            'request-password-reset',
+            config('filament-two-factor-auth.request_password_reset')
+        );
+        Livewire::component(
+            'login-two-factor',
+            config('filament-two-factor-auth.challenge')
+        );
+        Livewire::component(
+            'two-factor',
+            config('filament-two-factor-auth.two_factor_settings')
+        );
 
         $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
         $this->app->singleton(TwoFactorLoginResponseContract::class, TwoFactorLoginResponse::class);
