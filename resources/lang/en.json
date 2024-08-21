@@ -23,8 +23,9 @@
     "Two-Factor Authentication": "Two-Factor Authentication",
     "Two-Factor Authentication enabled": "Two-Factor Authentication enabled",
     "Verify": "Verify",
-"You have :amount options to confirm your identity, please choose one of the options below to continue": "You have :amount options to confirm your identity, please choose one of the options below to continue",
+    "You have :amount options to confirm your identity, please choose one of the options below to continue": "You have :amount options to confirm your identity, please choose one of the options below to continue",
     "Your account has been secured with two factor authentication": "Your account has been secured with two factor authentication",
     "Your security code for :app": "Your security code for :app",
-    "Your security code is": "Your security code is"
+    "Your security code is": "Your security code is",
+    "Options": "Options"
 }
