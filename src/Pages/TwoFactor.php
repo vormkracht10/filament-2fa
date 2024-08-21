@@ -43,7 +43,7 @@ class TwoFactor extends Page implements HasForms
         return false;
     }
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return __('Two-Factor Authentication');
     }
@@ -69,7 +69,7 @@ class TwoFactor extends Page implements HasForms
 
     public function requireConfirmation(): bool
     {
-        return ! $this->passwordIsConfirmed();
+        return !$this->passwordIsConfirmed();
     }
 
     public function getConfirmationForm(): array
@@ -77,7 +77,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -91,7 +91,9 @@ class TwoFactor extends Page implements HasForms
             Radio::make('option')
                 ->label(__('Authentication method'))
                 ->hiddenLabel()
-                ->options(TwoFactorType::array()),
+                ->options(collect(config('filament-two-factor-auth.options'))->mapWithKeys(function ($option) {
+                    return [$option->value => $option->getLabel()];
+                }))
         ])->statePath('twoFactorData');
     }
 
@@ -120,7 +122,6 @@ class TwoFactor extends Page implements HasForms
             ->label(__('Activate'))
             ->color('primary')
             ->action(function ($data) {
-
                 $formData = [];
 
                 if (isset($data['email'])) {
@@ -185,7 +186,7 @@ class TwoFactor extends Page implements HasForms
     /** This method is used in the view */
     private function showTwoFactor(): bool
     {
-        return ! empty(Auth::user()->two_factor_secret);
+        return !empty(Auth::user()->two_factor_secret);
     }
 
     public function enableTwoFactorAuthentication(EnableTwoFactorAuthentication $enable): void
