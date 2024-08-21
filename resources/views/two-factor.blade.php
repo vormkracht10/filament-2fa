@@ -1,47 +1,46 @@
 <x-filament-panels::page>
-    <div class="space-y-10 divide-y divide-gray-900/10">
+    <div class="space-y-10 divide-y divide-gray-900/10 ">
         <div class="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
-            <div class="pr-4 sm:px-0 {{ !$showingRecoveryCodes && auth()->user()->two_factor_confirmed_at ? 'col-span-3' : '' }}">
-                <h2 class="text-base font-semibold leading-7 text-gray-900">{{ __('Secure your account') }}</h2>
+            <div class="pr-4 sm:px-0">
+                <h2 class="text-base font-semibold leading-7 dark:bg-white">
+                    {{ __('Secure your account') }}
+                </h2>
 
                 @if (!$showingRecoveryCodes && auth()->user()->two_factor_confirmed_at)
-                    <p class="mt-1 text-sm leading-6 text-gray-600 mb-4">
+                    <p class="mt-1 text-sm leading-6 dark:bg-white mb-4">
                         {{ __('Your account has been secured with two factor authentication') }}.
                     </p>
-                    {{ $this->disableAction() }}
                 @else
-                    <p class="mt-1 text-sm leading-6 text-gray-600 mb-4">
+                    <p class="mt-1 text-sm leading-6 dark:bg-white mb-4">
                         {{ __('Add additional security to your account using two factor authentication') }}.
                     </p>
                 @endif
             </div>
 
-            @if (!auth()->user()->hasEnabledTwoFactorAuthentication() || $this->showingRecoveryCodes)
-                <div class="bg-white shadow-sm sm:rounded-xl md:col-span-2">
+            <x-filament::section class="md:col-span-2">
+                <x-slot name="description">
+                    {{ __('You can disable two factor authentication at any time by using the button below') }}.
+                </x-slot>
 
+                @if (! $showingRecoveryCodes && auth()->user()->two_factor_confirmed_at)
+                    {{ $this->disableAction() }}
+                @else
+                    <x-slot name="description">
+                        {{ __('You have :amount options to confirm your identity, please choose one of the options below to continue',['amount' => $this->twoFactorOptionsCount]) }}.
+                    </x-slot>
+                @endif
+
+                @if (!auth()->user()->hasEnabledTwoFactorAuthentication() || $this->showingRecoveryCodes)
                     @if (!$this->showTwoFactor())
-                        <div class="px-4 py-6 sm:p-8">
+                        {{ $this->twoFactorOptionForm }}
 
-
-                            <p class="text-sm">
-                                {{ __('You have :amount options to confirm your identity, please choose one of the options below to continue', 
-                                    ['amount' => $this->twoFactorOptionsCount]
-                                ) }}.
-                            </p>
-                            <hr class="my-4" />
-
-                            {{ $this->twoFactorOptionForm }}
-
-                            <div class="mt-4 flex items-end justify-end"> {{ $this->enableAction() }} </div>
-                        </div>
+                        <div class="mt-4 flex items-end justify-end"> {{ $this->enableAction() }} </div>
                     @endif
 
                     @if ($this->showTwoFactor())
                         <div class="px-4 py-6 sm:p-8">
-
                             <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div class="sm:col-span-6">
-
                                     @if ($this->showQrCode)
                                         <div class="text-center space-y-8 mb-4">
                                             <div>
@@ -56,11 +55,11 @@
                                                     <div class="flex items-center justify-center mt-2">
                                                         {!! auth()->user()->twoFactorQrCodeSvg() !!}
                                                     </div>
-                                                    <br />
+                                                    <br/>
                                                     <p class="text-sm">
-                                                        {!! __('The secret key to setup the authenticator app is') !!}: <br />
+                                                        {!! __('The secret key to setup the authenticator app is') !!}: <br/>
                                                         <span
-                                                            class="font-bold mt-4">{{ decrypt(auth()->user()->two_factor_secret) }}</span>
+                                                                class="font-bold mt-4">{{ decrypt(auth()->user()->two_factor_secret) }}</span>
                                                     </p>
                                                 @endunless
                                             </div>
@@ -99,13 +98,12 @@
                                             {{ $this->confirmAction() }}
                                         @endif
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     @endif
-                </div>
-            @endif
+                @endif
+            </x-filament::section>
         </div>
     </div>
 </x-filament-panels::page>
