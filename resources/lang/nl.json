@@ -15,7 +15,7 @@
     "Resend": "Opnieuw Verzenden",
     "Reset Password": "Wachtwoord Resetten",
     "SMS": "SMS",
-    "Save these recovery codes in a secure place as they can be used to recover access to your account if you lose your device.": "Bewaar deze herstelcodes op een veilige plaats, omdat ze kunnen worden gebruikt om toegang tot uw account te herstellen als u uw apparaat verliest.",
+    "Save these recovery codes in a secure place as they can be used to recover access to your account if you lose your device": "Bewaar deze herstelcodes op een veilige plaats, omdat ze kunnen worden gebruikt om toegang tot uw account te herstellen als u uw apparaat verliest",
     "Secure your account": "Beveilig uw account",
     "Submit": "Verzenden",
     "Successfully resend the OTP code": "OTP-code succesvol opnieuw verzonden",
@@ -27,5 +27,6 @@
     "Your account has been secured with two factor authentication": "Uw account is beveiligd met tweestaps-verificatie",
     "Your security code for :app": "Uw beveiligingscode voor :app",
     "Your security code is": "Uw beveiligingscode is",
-    "Options": "Opties"
+    "Options": "Opties",
+    "Generate new recovery codes": "Genereer nieuwe herstelcodes"
 }
