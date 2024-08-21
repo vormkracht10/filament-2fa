@@ -27,5 +27,6 @@
     "Your account has been secured with two factor authentication": "Your account has been secured with two factor authentication",
     "Your security code for :app": "Your security code for :app",
     "Your security code is": "Your security code is",
-    "Generate new recovery codes": "Generate new recovery codes"
+    "Generate new recovery codes": "Generate new recovery codes",
+    "You can disable two factor authentication at any time by using the button below": "You can disable two factor authentication at any time by using the button below"
 }
