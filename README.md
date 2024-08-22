@@ -5,7 +5,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/filament-two-factor-auth.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-two-factor-auth)
 
 
-This package helps you integrate Laravel Fortify with ease in your Filament apps. We provide the views and logic to enable Two Factor Authentication (2FA) in your Filament app. Possible authentication methods are:
+This package adds Two Factor Authentication for your Laravel Filament app, using the first party package Laravel Fortify. We provide the views and logic to enable Two Factor Authentication (2FA) in your Filament app. Possible authentication methods are:
 
 - Email
 - SMS
