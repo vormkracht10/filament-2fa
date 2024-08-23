@@ -1,40 +1,43 @@
 # Filament Two Factor Authentication (2FA) plugin
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/filament-two-factor-auth.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-two-factor-auth)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/filament-two-factor-auth/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vormkracht10/filament-two-factor-auth/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/filament-two-factor-auth.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-two-factor-auth)
-
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/filament-2fa.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-2fa)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/filament-2fa/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vormkracht10/filament-2fa/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/filament-2fa.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-2fa)
 
 This package adds Two Factor Authentication for your Laravel Filament app, using the first party package Laravel Fortify. We provide the views and logic to enable Two Factor Authentication (2FA) in your Filament app. Possible authentication methods are:
 
-- Email
-- SMS
-- Authenticator app
+-   Email
+-   SMS
+-   Authenticator app
 
 ## Features and screenshots
 
 ### Enable Two Factor Authentication (2FA)
+
 ![Enable Two Factor Authentication (2FA)](./docs/two-factor-page.png)
 
 ### Using authenticator app as two factor method
+
 ![Authenticator app](./docs/authenticator-app.png)
 
 ### Using email or SMS as two factor method
+
 ![Email or SMS](./docs/email-or-sms.png)
 
 ### Recovery codes
+
 ![Recovery codes](./docs/recovery-codes.png)
 
 ### Two Factor authentication challenge
-![Two Factor challenge](./docs/code-challenge.png)
 
+![Two Factor challenge](./docs/code-challenge.png)
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require vormkracht10/filament-two-factor-auth
+composer require vormkracht10/filament-2fa
 ```
 
 If you don't have [Laravel Fortify](https://laravel.com/docs/11.x/fortify) installed yet, you can install it by running the following commands:
@@ -65,7 +68,7 @@ Then add the plugin to your `PanelProvider`:
 
 Make sure your user uses the `TwoFactorAuthenticatable` trait:
 
-```php 
+```php
 class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
@@ -108,11 +111,12 @@ protected $listen = [
     ],
 ];
 ```
+
 ## Usage
 
 ### Configuration
 
-The authentication methods can be configured in the `config/filament-two-factor-auth.php` file (which is published during the install command). 
+The authentication methods can be configured in the `config/filament-two-factor-auth.php` file (which is published during the install command).
 
 You can simply add or remove (comment) the methods you want to use:
 
@@ -128,7 +132,7 @@ return [
 ];
 ```
 
-If you want to use the SMS method, you need to provide an SMS service. You can check the [Laravel Notifications documentation](https://laravel-notification-channels.com/about/) for ready-to-use services. 
+If you want to use the SMS method, you need to provide an SMS service. You can check the [Laravel Notifications documentation](https://laravel-notification-channels.com/about/) for ready-to-use services.
 
 **Also make sure your user model has a `phone` attribute.**
 
@@ -171,8 +175,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Baspa](https://github.com/vormkracht10)
-- [All Contributors](../../contributors)
+-   [Baspa](https://github.com/vormkracht10)
+-   [All Contributors](../../contributors)
 
 ## License
 

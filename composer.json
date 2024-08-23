@@ -1,15 +1,15 @@
 {
-    "name": "vormkracht10/filament-two-factor-auth",
+    "name": "vormkracht10/filament-2fa",
     "description": "This package helps you integrate Laravel Fortify with ease in your Filament apps. ",
     "keywords": [
         "vormkracht10",
         "laravel",
-        "filament-two-factor-auth"
+        "filament-2fa"
     ],
-    "homepage": "https://github.com/vormkracht10/filament-two-factor-auth",
+    "homepage": "https://github.com/vormkracht10/filament-2fa",
     "support": {
-        "issues": "https://github.com/vormkracht10/filament-two-factor-auth/issues",
-        "source": "https://github.com/vormkracht10/filament-two-factor-auth"
+        "issues": "https://github.com/vormkracht10/filament-2fa/issues",
+        "source": "https://github.com/vormkracht10/filament-2fa"
     },
     "license": "MIT",
     "authors": [
