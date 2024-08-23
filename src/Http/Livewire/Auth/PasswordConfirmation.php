@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
 
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
