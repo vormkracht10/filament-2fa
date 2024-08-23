@@ -2,28 +2,28 @@
 
 namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
 
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Actions\Action;
-use Illuminate\Http\Request;
-use Laravel\Fortify\Fortify;
-use Laravel\Fortify\Features;
 use Filament\Facades\Filament;
-use Illuminate\Routing\Pipeline;
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\Facades\Blade;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Notifications\Notification;
 use Filament\Pages\Auth\Login as BaseLogin;
-use Laravel\Fortify\Actions\CanonicalizeUsername;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Pipeline;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\HtmlString;
 use Laravel\Fortify\Actions\AttemptToAuthenticate;
-use Livewire\Features\SupportRedirects\Redirector;
+use Laravel\Fortify\Actions\CanonicalizeUsername;
 use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
-use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
-use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use Laravel\Fortify\Features;
+use Laravel\Fortify\Fortify;
+use Livewire\Features\SupportRedirects\Redirector;
 use Vormkracht10\TwoFactorAuth\Http\Middleware\RedirectIfTwoFactorAuthenticatable;
+use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
 
 class Login extends BaseLogin
 {
@@ -74,7 +74,7 @@ class Login extends BaseLogin
         ];
     }
 
-    public function loginWithFortify(): LoginResponse|Redirector|null
+    public function loginWithFortify(): LoginResponse | Redirector | null
     {
         session()->put('panel', Filament::getCurrentPanel()?->getId() ?? null);
 
