@@ -16,7 +16,7 @@ trait EnumArraySerializableTrait
     {
         $names = static::names();
 
-        $values = array_filter(static::values(), fn($value) => $value !== null);
+        $values = array_filter(static::values(), fn ($value) => $value !== null);
 
         return array_combine($names, $values);
     }
