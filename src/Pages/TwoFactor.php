@@ -20,8 +20,14 @@ use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 
 class TwoFactor extends Page implements HasForms
 {
+    /**
+     * @var array<string, mixed>
+     */
     public array $twoFactorData = [];
 
+    /**
+     * @var array<string, mixed>
+     */
     public array $otpCodeData = [];
 
     public bool $showingQrCode = false;
@@ -48,7 +54,7 @@ class TwoFactor extends Page implements HasForms
         return __('Two-Factor Authentication');
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->twoFactorOptionsCount = config('filament-two-factor-auth.options') ? count(config('filament-two-factor-auth.options')) : 0;
 
@@ -72,7 +78,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
