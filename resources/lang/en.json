@@ -15,7 +15,7 @@
     "Resend": "Resend",
     "Reset Password": "Reset Password",
     "SMS": "SMS",
-    "Save these recovery codes in a secure place as they can be used to recover access to your account if you lose your device.": "Save these recovery codes in a secure place as they can be used to recover access to your account if you lose your device.",
+    "Save these recovery codes in a secure place as they can be used to recover access to your account if you lose your device": "Save these recovery codes in a secure place as they can be used to recover access to your account if you lose your device",
     "Secure your account": "Secure your account",
     "Submit": "Submit",
     "Successfully resend the OTP code": "Successfully resend the OTP code",
@@ -27,5 +27,7 @@
     "Your account has been secured with two factor authentication": "Your account has been secured with two factor authentication",
     "Your security code for :app": "Your security code for :app",
     "Your security code is": "Your security code is",
-    "The provided two factor authentication code was invalid.": "The provided two factor authentication code was invalid."
+    "The provided two factor authentication code was invalid.": "The provided two factor authentication code was invalid.",
+    "Generate new recovery codes": "Generate new recovery codes",
+    "You can disable two factor authentication at any time by using the button below": "You can disable two factor authentication at any time by using the button below"
 }

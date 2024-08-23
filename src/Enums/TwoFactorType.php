@@ -2,9 +2,10 @@
 
 namespace Vormkracht10\TwoFactorAuth\Enums;
 
+use Filament\Support\Contracts\HasLabel;
 use Vormkracht10\TwoFactorAuth\Traits\EnumArraySerializableTrait;
 
-enum TwoFactorType: string
+enum TwoFactorType: string implements HasLabel
 {
     use EnumArraySerializableTrait;
 
@@ -17,7 +18,7 @@ enum TwoFactorType: string
         return array_map(fn ($type) => $type->label(), self::cases());
     }
 
-    public function label(): string
+    public function getLabel(): ?string
     {
         return match ($this) {
             self::email => __('Email'),

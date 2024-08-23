@@ -91,7 +91,9 @@ class TwoFactor extends Page implements HasForms
             Radio::make('option')
                 ->label(__('Authentication method'))
                 ->hiddenLabel()
-                ->options(TwoFactorType::array()),
+                ->options(collect(config('filament-two-factor-auth.options'))->mapWithKeys(function ($option) {
+                    return [$option->value => $option->getLabel()];
+                })),
         ])->statePath('twoFactorData');
     }
 
@@ -120,7 +122,6 @@ class TwoFactor extends Page implements HasForms
             ->label(__('Activate'))
             ->color('primary')
             ->action(function ($data) {
-
                 $formData = [];
 
                 if (isset($data['email'])) {
