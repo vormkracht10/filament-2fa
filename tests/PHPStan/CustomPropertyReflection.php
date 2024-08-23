@@ -5,10 +5,10 @@ namespace Vormkracht10\TwoFactorAuth\Tests\PHPStan;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\NullType;
 
 class CustomPropertyReflection implements PropertyReflection
 {
@@ -16,12 +16,12 @@ class CustomPropertyReflection implements PropertyReflection
 
     private Type $type;
 
-    public function __construct(ClassReflection $declaringClass, Type $type = null)
+    public function __construct(ClassReflection $declaringClass, ?Type $type = null)
     {
         $this->declaringClass = $declaringClass;
         $this->type = $type ?? new UnionType([
             new ObjectType('Carbon\Carbon'),
-            new NullType(),
+            new NullType,
         ]);
     }
 
