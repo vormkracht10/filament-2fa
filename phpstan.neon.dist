@@ -8,6 +8,8 @@ parameters:
         - config
         - database
     tmpDir: build/phpstan
+    parallel:
+        maximumNumberOfProcesses: 1
 
 services:
     -
