@@ -9,6 +9,7 @@ use PHPStan\Type\Type;
 class CustomPropertyReflection implements PropertyReflection
 {
     private $declaringClass;
+
     private $type;
 
     public function __construct(ClassReflection $declaringClass, Type $type)

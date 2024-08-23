@@ -17,6 +17,7 @@ class UserPropertiesClassReflectionExtension implements PropertiesClassReflectio
     public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
     {
         $type = new ObjectType('Carbon\Carbon');
+
         return new CustomPropertyReflection($classReflection, $type);
     }
 }
