@@ -4,6 +4,7 @@ namespace Vormkracht10\TwoFactorAuth\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
@@ -11,6 +12,7 @@ use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
 use Vormkracht10\TwoFactorAuth\Actions\GenerateOTP;
 use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
+use Vormkracht10\TwoFactorAuth\Mail\TwoFactorCodeMail;
 
 class SendOTP extends Notification implements ShouldQueue
 {
@@ -48,13 +50,10 @@ class SendOTP extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $notifiable): Mailable
     {
-        return (new MailMessage)
-            ->subject(__('Your security code for :app', ['app' => config('app.name')]))
-            ->markdown('filament-two-factor-auth::emails.two-factor-code', [
-                'code' => $this->getTwoFactorCode($notifiable),
-            ]);
+        return (new TwoFactorCodeMail($this->getTwoFactorCode($notifiable)))
+            ->to($notifiable->email);
     }
 
     /**
@@ -76,7 +75,7 @@ class SendOTP extends Notification implements ShouldQueue
      */
     public function getTwoFactorCode(object $notifiable): ?string
     {
-        if (! $notifiable->two_factor_secret) {
+        if (!$notifiable->two_factor_secret) {
             return null;
         }
 
