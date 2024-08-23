@@ -2,9 +2,10 @@
 
 namespace Vormkracht10\TwoFactorAuth\Tests\PHPStan;
 
+use PHPStan\Type\Type;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertyReflection;
-use PHPStan\Type\Type;
+use RectorPrefix202408\OndraM\CiDetector\TrinaryLogic;
 
 class CustomPropertyReflection implements PropertyReflection
 {
@@ -43,9 +44,9 @@ class CustomPropertyReflection implements PropertyReflection
         return true;
     }
 
-    public function isDeprecated(): bool
+    public function isDeprecated(): TrinaryLogic
     {
-        return false;
+        return TrinaryLogic::createNo();
     }
 
     public function getDeprecatedDescription(): ?string
