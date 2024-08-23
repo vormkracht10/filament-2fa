@@ -23,10 +23,15 @@ class PasswordConfirmation extends Component implements HasForms
         }
     }
 
+    /**
+     * Get the form schema.
+     *
+     * @return array<int, \Filament\Forms\Components\TextInput>
+     */
     protected function getFormSchema(): array
     {
         return [
-            TextInput::make('password')
+            \Filament\Forms\Components\TextInput::make('password')
                 ->extraInputAttributes(['name' => 'password'])
                 ->label(__('Password'))
                 ->password()

@@ -68,15 +68,19 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
 
             return true;
         } catch (TooManyRequestsException $exception) {
+            $translation = __('filament-panels::pages/auth/email-verification/email-verification-prompt.notifications.notification_resend_throttled');
+            $translationArray = is_array($translation) ? $translation : [];
+
             Notification::make()
                 ->title(__('filament-panels::pages/auth/email-verification/email-verification-prompt.notifications.notification_resend_throttled.title', [
                     'seconds' => $exception->secondsUntilAvailable,
                     'minutes' => $exception->minutesUntilAvailable,
                 ]))
-                ->body(array_key_exists('body', __('filament-panels::pages/auth/email-verification/email-verification-prompt.notifications.notification_resend_throttled') ?: []) ? __('filament-panels::pages/auth/email-verification/email-verification-prompt.notifications.notification_resend_throttled.body', [
-                    'seconds' => $exception->secondsUntilAvailable,
-                    'minutes' => $exception->minutesUntilAvailable,
-                ]) : null)
+                ->body(array_key_exists('body', $translationArray) ?
+                    __('filament-panels::pages/auth/email-verification/email-verification-prompt.notifications.notification_resend_throttled.body', [
+                        'seconds' => $exception->secondsUntilAvailable,
+                        'minutes' => $exception->minutesUntilAvailable,
+                    ]) : [])
                 ->danger()
                 ->send();
 
