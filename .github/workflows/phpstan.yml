@@ -1,6 +1,10 @@
 name: PHPStan
 
 on:
+  pull_request:
+    paths:
+      - '**.php'
+      - 'phpstan.neon.dist'
   push:
     paths:
       - '**.php'
