@@ -30,5 +30,7 @@
     "The provided two factor authentication code was invalid.": "The provided two factor authentication code was invalid.",
     "Generate new recovery codes": "Generate new recovery codes",
     "You can disable two factor authentication at any time by using the button below": "You can disable two factor authentication at any time by using the button below",
+    "If you didn't try to log in, please change your password immediately to protect your account.": "If you didn't try to log in, please change your password immediately to protect your account.",
+    "You recently requested to log in to your account. To complete the login, please use the following two-factor authentication (2FA) code:": "You recently requested to log in to your account. To complete the login, please use the following two-factor authentication (2FA) code:",
     "Hello": "Hello"
 }
