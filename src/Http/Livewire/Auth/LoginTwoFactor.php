@@ -27,7 +27,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public ?object $challengedUser = null;
+    public mixed $challengedUser = null;
 
     public function mount(TwoFactorLoginRequest $request): void
     {
