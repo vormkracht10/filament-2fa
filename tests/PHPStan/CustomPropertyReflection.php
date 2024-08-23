@@ -54,9 +54,9 @@ class CustomPropertyReflection implements PropertyReflection
         return null;
     }
 
-    public function isInternal(): bool
+    public function isInternal(): TrinaryLogic
     {
-        return false;
+        return TrinaryLogic::createNo();
     }
 
     public function getDocComment(): ?string
