@@ -42,6 +42,8 @@ class TwoFactor extends Page implements HasForms
 
     public ?int $twoFactorOptionsCount = null;
 
+    public mixed $user = null;
+
     protected static string $view = 'filament-two-factor-auth::two-factor';
 
     public static function shouldRegisterNavigation(): bool
@@ -58,11 +60,13 @@ class TwoFactor extends Page implements HasForms
     {
         $this->twoFactorOptionsCount = config('filament-two-factor-auth.options') ? count(config('filament-two-factor-auth.options')) : 0;
 
+        $this->user = Auth::user();
+
         if (
             Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm') &&
-            is_null(Auth::user()->two_factor_confirmed_at)
+            is_null($this->user->two_factor_confirmed_at)
         ) {
-            app(DisableTwoFactorAuthentication::class)(Auth::user());
+            app(DisableTwoFactorAuthentication::class)($this->user);
         }
 
         if (session('status') == 'two-factor-authentication-enabled') {
@@ -73,6 +77,9 @@ class TwoFactor extends Page implements HasForms
         }
     }
 
+    /**
+     * @return array<int, \Filament\Forms\Components\TextInput>
+     */
     public function getConfirmationForm(): array
     {
         return [
@@ -92,9 +99,17 @@ class TwoFactor extends Page implements HasForms
             Radio::make('option')
                 ->label(__('Authentication method'))
                 ->hiddenLabel()
-                ->options(collect(config('filament-two-factor-auth.options'))->mapWithKeys(function ($option) {
-                    return [$option->value => $option->getLabel()];
-                })),
+                ->options(
+                    /** @var \Illuminate\Support\Collection<int, TwoFactorType> $options */
+                    collect(config('filament-two-factor-auth.options', [
+                        TwoFactorType::email,
+                        TwoFactorType::phone,
+                        TwoFactorType::authenticator,
+                    ]))
+                        ->mapWithKeys(function (TwoFactorType $option): array {
+                            return [$option->value => $option->getLabel()];
+                        })
+                ),
         ])->statePath('twoFactorData');
     }
 
@@ -133,16 +148,17 @@ class TwoFactor extends Page implements HasForms
                     $formData['two_factor_type'] = TwoFactorType::tryFrom($this->twoFactorData['option']);
                 }
 
+                /** @var array{two_factor_type: TwoFactorType|null, email?: mixed} $formData */
                 if (
-                    $formData['two_factor_type'] === TwoFactorType::email ||
-                    $formData['two_factor_type'] === TwoFactorType::phone
+                    isset($formData['two_factor_type']) &&
+                    ($formData['two_factor_type'] === TwoFactorType::email || $formData['two_factor_type'] === TwoFactorType::phone)
                 ) {
                     $this->showQrCode = false;
                 } else {
                     $this->showQrCode = true;
                 }
 
-                auth()->user()->update($formData);
+                $this->user->update($formData);
 
                 $this->enableTwoFactorAuthentication(app(EnableTwoFactorAuthentication::class));
             });
@@ -171,7 +187,7 @@ class TwoFactor extends Page implements HasForms
     public function disableAction(): Action
     {
         return Action::make('disable')
-            ->label(auth()->user()->two_factor_confirmed_at ? __('Deactivate') : __('Cancel'))
+            ->label($this->user->two_factor_confirmed_at ? __('Deactivate') : __('Cancel'))
             ->color('danger')
             ->action(function ($data) {
                 $this->disableTwoFactorAuthentication(app(DisableTwoFactorAuthentication::class));
@@ -185,12 +201,12 @@ class TwoFactor extends Page implements HasForms
      * */
     private function showTwoFactor(): bool
     {
-        return ! empty(Auth::user()->two_factor_secret);
+        return ! empty($this->user->two_factor_secret);
     }
 
     public function enableTwoFactorAuthentication(EnableTwoFactorAuthentication $enable): void
     {
-        $enable(Auth::user());
+        $enable($this->user);
 
         $this->showingQrCode = true;
 
@@ -203,7 +219,7 @@ class TwoFactor extends Page implements HasForms
 
     public function confirmTwoFactorAuthentication(ConfirmTwoFactorAuthentication $confirm): void
     {
-        $confirm(Auth::user(), $this->otpCodeData['code']);
+        $confirm($this->user, $this->otpCodeData['code']);
 
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
@@ -212,7 +228,7 @@ class TwoFactor extends Page implements HasForms
 
     public function disableTwoFactorAuthentication(DisableTwoFactorAuthentication $disable): void
     {
-        $disable(Auth::user());
+        $disable($this->user);
 
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
@@ -226,7 +242,7 @@ class TwoFactor extends Page implements HasForms
 
     public function regenerateRecoveryCodes(GenerateNewRecoveryCodes $generate): void
     {
-        $generate(Auth::user());
+        $generate($this->user);
 
         $this->showingRecoveryCodes = true;
     }
