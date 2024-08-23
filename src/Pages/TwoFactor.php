@@ -72,7 +72,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn($state) => filled($state))
+                ->dehydrateStateUsing(fn ($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -172,8 +172,9 @@ class TwoFactor extends Page implements HasForms
             });
     }
 
-    /** 
-     * This method is used in the view 
+    /**
+     * This method is used in the view
+     *
      * @phpstan-ignore-next-line
      * */
     private function showTwoFactor(): bool
