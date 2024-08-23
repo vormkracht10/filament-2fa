@@ -5,7 +5,7 @@ namespace Vormkracht10\TwoFactorAuth\Tests\PHPStan;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\Type;
-use RectorPrefix202408\OndraM\CiDetector\TrinaryLogic;
+use PHPStan\TrinaryLogic;
 
 class CustomPropertyReflection implements PropertyReflection
 {
