@@ -94,3 +94,4 @@ class CustomPropertyReflection implements PropertyReflection
         return true;
     }
 }
+}
