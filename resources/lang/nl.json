@@ -27,6 +27,7 @@
     "Your account has been secured with two factor authentication": "Uw account is beveiligd met tweestaps-verificatie",
     "Your security code for :app": "Uw beveiligingscode voor :app",
     "Your security code is": "Uw beveiligingscode is",
+    "The provided two factor authentication code was invalid.": "De verstrekte tweestaps-verificatiecode was ongeldig.",
     "Generate new recovery codes": "Genereer nieuwe herstelcodes",
     "You can disable two factor authentication at any time by using the button below": "U kunt tweestaps-verificatie op elk moment uitschakelen met de onderstaande knop"
 }
