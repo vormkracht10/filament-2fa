@@ -2,9 +2,9 @@
 
 namespace Vormkracht10\TwoFactorAuth\Listeners;
 
-use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
-use Laravel\Fortify\Events\TwoFactorAuthenticationEnabled;
 use Vormkracht10\TwoFactorAuth\Notifications\SendOTP;
+use Laravel\Fortify\Events\TwoFactorAuthenticationEnabled;
+use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
 
 class SendTwoFactorCodeListener
 {
@@ -21,6 +21,8 @@ class SendTwoFactorCodeListener
      */
     public function handle(TwoFactorAuthenticationChallenged | TwoFactorAuthenticationEnabled $event): void
     {
-        $event->user->notify(app(SendOTP::class));
+        /** @var object $user */
+        $user = $event->user;
+        $user->notify(app(SendOTP::class));
     }
 }
