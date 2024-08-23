@@ -1,11 +1,11 @@
-# Filament Two Factor Auth 
+# Filament Two Factor Authentication (2FA) plugin
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/filament-two-factor-auth.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-two-factor-auth)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/filament-two-factor-auth/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vormkracht10/filament-two-factor-auth/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/filament-two-factor-auth.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-two-factor-auth)
 
 
-This package helps you integrate Laravel Fortify with ease in your Filament apps. We provide the views and logic to enable two factor authentication in your Filament app. Possible authentication methods are:
+This package adds Two Factor Authentication for your Laravel Filament app, using the first party package Laravel Fortify. We provide the views and logic to enable Two Factor Authentication (2FA) in your Filament app. Possible authentication methods are:
 
 - Email
 - SMS
@@ -13,8 +13,8 @@ This package helps you integrate Laravel Fortify with ease in your Filament apps
 
 ## Features and screenshots
 
-### Enable two factor authentication
-![Enable two factor authentication](./docs/two-factor-page.png)
+### Enable Two Factor Authentication (2FA)
+![Enable Two Factor Authentication (2FA)](./docs/two-factor-page.png)
 
 ### Using authenticator app as two factor method
 ![Authenticator app](./docs/authenticator-app.png)
@@ -25,8 +25,8 @@ This package helps you integrate Laravel Fortify with ease in your Filament apps
 ### Recovery codes
 ![Recovery codes](./docs/recovery-codes.png)
 
-### Two factor authentication challenge
-![Two factor challenge](./docs/code-challenge.png)
+### Two Factor authentication challenge
+![Two Factor challenge](./docs/code-challenge.png)
 
 
 ## Installation
