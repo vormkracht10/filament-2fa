@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
 
-use App\Models\User;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Filament\Actions\Action;
@@ -28,7 +27,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public ?User $challengedUser = null;
+    public ?object $challengedUser = null;
 
     public function mount(TwoFactorLoginRequest $request): void
     {

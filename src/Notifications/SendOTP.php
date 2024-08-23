@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\TwoFactorAuth\Notifications;
 
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -75,7 +74,7 @@ class SendOTP extends Notification implements ShouldQueue
      * @throws SecretKeyTooShortException
      * @throws InvalidCharactersException
      */
-    public function getTwoFactorCode(User $notifiable): ?string
+    public function getTwoFactorCode(object $notifiable): ?string
     {
         if (! $notifiable->two_factor_secret) {
             return null;
