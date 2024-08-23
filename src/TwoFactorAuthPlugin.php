@@ -22,13 +22,13 @@ class TwoFactorAuthPlugin implements Plugin
                 'two-factor-authentication' => MenuItem::make()
                     ->icon('heroicon-o-lock-closed')
                     ->label(__('Two-Factor Authentication'))
-                    ->url(fn (): string => TwoFactor::getUrl()),
+                    ->url(fn(): string => TwoFactor::getUrl()),
             ])
             ->pages([
                 config('filament-two-factor-auth.two_factor_settings'),
                 config('filament-two-factor-auth.challenge'),
             ])
-            ->viteTheme('vendor/vormkracht10/filament-two-factor-auth/resources/dist/filament-two-factor-auth.css');
+            ->viteTheme('vendor/vormkracht10/filament-2fa/resources/dist/filament-two-factor-auth.css');
     }
 
     public function boot(Panel $panel): void
