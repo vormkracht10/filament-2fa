@@ -2,22 +2,22 @@
 
 namespace Vormkracht10\TwoFactorAuth\Pages;
 
-use Filament\Forms\Form;
-use Filament\Pages\Page;
 use Filament\Actions\Action;
-use Laravel\Fortify\Features;
-use Illuminate\Support\Collection;
 use Filament\Forms\Components\Radio;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
 use Filament\Notifications\Notification;
+use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
-use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
-use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
+use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
+use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
+use Laravel\Fortify\Features;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 
 class TwoFactor extends Page implements HasForms
 {
@@ -87,7 +87,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn($state) => filled($state))
+                ->dehydrateStateUsing(fn ($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -117,10 +117,9 @@ class TwoFactor extends Page implements HasForms
             Radio::make('option')
                 ->label(__('Authentication method'))
                 ->hiddenLabel()
-                ->options($options)
+                ->options($options),
         ])->statePath('twoFactorData');
     }
-
 
     public function otpCodeForm(Form $form): Form
     {
