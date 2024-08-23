@@ -2,21 +2,22 @@
 
 namespace Vormkracht10\TwoFactorAuth\Pages;
 
-use Filament\Actions\Action;
-use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Illuminate\Contracts\Support\Htmlable;
+use Filament\Actions\Action;
+use Laravel\Fortify\Features;
+use Illuminate\Support\Collection;
+use Filament\Forms\Components\Radio;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Illuminate\Contracts\Support\Htmlable;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
+use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
+use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
-use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
-use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
-use Laravel\Fortify\Features;
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 
 class TwoFactor extends Page implements HasForms
 {
@@ -63,6 +64,7 @@ class TwoFactor extends Page implements HasForms
         $this->user = Auth::user();
 
         if (
+            $this->user !== null &&
             Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm') &&
             is_null($this->user->two_factor_confirmed_at)
         ) {
@@ -85,7 +87,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -95,23 +97,30 @@ class TwoFactor extends Page implements HasForms
 
     public function twoFactorOptionForm(Form $form): Form
     {
+        /** @var array<int, TwoFactorType> $configOptions */
+        $configOptions = config('filament-two-factor-auth.options', [
+            TwoFactorType::email,
+            TwoFactorType::phone,
+            TwoFactorType::authenticator,
+        ]);
+
+        /** @var Collection<int, TwoFactorType> $collection */
+        $collection = collect($configOptions);
+
+        /** @var array<string, string> $options */
+        $options = $collection
+            ->mapWithKeys(function (TwoFactorType $option): array {
+                return [$option->value => $option->getLabel()];
+            })->toArray();
+
         return $form->schema([
             Radio::make('option')
                 ->label(__('Authentication method'))
                 ->hiddenLabel()
-                ->options(
-                    /** @var \Illuminate\Support\Collection<int, TwoFactorType> $options */
-                    collect(config('filament-two-factor-auth.options', [
-                        TwoFactorType::email,
-                        TwoFactorType::phone,
-                        TwoFactorType::authenticator,
-                    ]))
-                        ->mapWithKeys(function (TwoFactorType $option): array {
-                            return [$option->value => $option->getLabel()];
-                        })
-                ),
+                ->options($options)
         ])->statePath('twoFactorData');
     }
+
 
     public function otpCodeForm(Form $form): Form
     {
