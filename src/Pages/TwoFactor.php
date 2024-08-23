@@ -67,17 +67,12 @@ class TwoFactor extends Page implements HasForms
         }
     }
 
-    public function requireConfirmation(): bool
-    {
-        return ! $this->passwordIsConfirmed();
-    }
-
     public function getConfirmationForm(): array
     {
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -173,15 +168,14 @@ class TwoFactor extends Page implements HasForms
             ->label(auth()->user()->two_factor_confirmed_at ? __('Deactivate') : __('Cancel'))
             ->color('danger')
             ->action(function ($data) {
-                if (isset($data['current_password']) && $data['current_password']) {
-                    $this->userConfirmedPassword();
-                }
-
                 $this->disableTwoFactorAuthentication(app(DisableTwoFactorAuthentication::class));
             });
     }
 
-    /** This method is used in the view */
+    /** 
+     * This method is used in the view 
+     * @phpstan-ignore-next-line
+     * */
     private function showTwoFactor(): bool
     {
         return ! empty(Auth::user()->two_factor_secret);
