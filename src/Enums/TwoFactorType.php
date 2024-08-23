@@ -15,7 +15,7 @@ enum TwoFactorType: string implements HasLabel
 
     public static function values(): array
     {
-        return array_map(fn ($type) => $type->label(), self::cases());
+        return array_map(fn($type) => $type->getLabel(), self::cases());
     }
 
     public function getLabel(): ?string

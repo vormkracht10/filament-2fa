@@ -77,7 +77,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -141,9 +141,7 @@ class TwoFactor extends Page implements HasForms
                     $this->showQrCode = true;
                 }
 
-                if (count($formData) > 0) {
-                    auth()->user()->update($formData);
-                }
+                auth()->user()->update($formData);
 
                 $this->enableTwoFactorAuthentication(app(EnableTwoFactorAuthentication::class));
             });
