@@ -83,4 +83,14 @@ class CustomPropertyReflection implements PropertyReflection
     {
         return false;
     }
+
+    public function isReadable(): bool
+    {
+        return true;
+    }
+
+    public function isWritable(): bool
+    {
+        return true;
+    }
 }
