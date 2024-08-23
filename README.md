@@ -2,6 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/filament-2fa.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-2fa)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/filament-2fa/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vormkracht10/filament-2fa/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![PHPStan](https://github.com/vormkracht10/filament-2fa/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/vormkracht10/filament-2fa/actions/workflows/phpstan.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/filament-2fa.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-2fa)
 
 This package adds Two Factor Authentication for your Laravel Filament app, using the first party package Laravel Fortify. We provide the views and logic to enable Two Factor Authentication (2FA) in your Filament app. Possible authentication methods are:
