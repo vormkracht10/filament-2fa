@@ -30,7 +30,7 @@ class SendOTP extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(mixed $notifiable): array
     {
         if ($notifiable->two_factor_type === TwoFactorType::email) {
             return ['mail'];
@@ -49,8 +49,12 @@ class SendOTP extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): Mailable
+    public function toMail(mixed $notifiable): Mailable
     {
+        if (! $notifiable->two_factor_secret) {
+            throw new \Exception('User does not have a two factor secret.');
+        }
+
         return (new TwoFactorCodeMail($this->getTwoFactorCode($notifiable)))
             ->to($notifiable->email);
     }
@@ -60,7 +64,7 @@ class SendOTP extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(mixed $notifiable): array
     {
         return [
             //
@@ -72,12 +76,8 @@ class SendOTP extends Notification implements ShouldQueue
      * @throws SecretKeyTooShortException
      * @throws InvalidCharactersException
      */
-    public function getTwoFactorCode(object $notifiable): ?string
+    public function getTwoFactorCode(mixed $notifiable): string
     {
-        if (! $notifiable->two_factor_secret) {
-            return null;
-        }
-
         return GenerateOTP::for(
             decrypt($notifiable->two_factor_secret)
         );

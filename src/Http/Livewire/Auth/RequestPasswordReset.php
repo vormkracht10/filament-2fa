@@ -21,7 +21,7 @@ class RequestPasswordReset extends Page implements HasForms
     public function mount(): void
     {
         if (Filament::auth()->check()) {
-            redirect()->intended(Filament::getCurrentPanel()->getUrl());
+            redirect()->intended(Filament::getCurrentPanel()?->getUrl() ?? config('fortify.home'));
         }
 
         if (session('status')) {

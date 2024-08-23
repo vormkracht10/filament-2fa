@@ -21,7 +21,7 @@ class SendTwoFactorCodeListener
      */
     public function handle(TwoFactorAuthenticationChallenged | TwoFactorAuthenticationEnabled $event): void
     {
-        /** @var object $user */
+        /** @var mixed $user */
         $user = $event->user;
         $user->notify(app(SendOTP::class));
     }

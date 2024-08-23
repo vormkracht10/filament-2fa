@@ -21,6 +21,7 @@ use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
+use Livewire\Features\SupportRedirects\Redirector;
 use Vormkracht10\TwoFactorAuth\Http\Middleware\RedirectIfTwoFactorAuthenticatable;
 use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
 
@@ -30,13 +31,13 @@ class Login extends BaseLogin
 
     protected static string $view = 'filament-two-factor-auth::auth.login';
 
-    public $email = '';
+    public string $email = '';
 
-    public $password = '';
+    public string $password = '';
 
-    public $resetPasswordEnabled = false;
+    public bool $resetPasswordEnabled = false;
 
-    public $registrationEnabled = false;
+    public bool $registrationEnabled = false;
 
     public function mount(): void
     {
@@ -73,22 +74,24 @@ class Login extends BaseLogin
         ];
     }
 
-    public function loginWithFortify()
+    public function loginWithFortify(): LoginResponse | Redirector | null
     {
-        session()->put('panel', Filament::getCurrentPanel()->getId());
+        session()->put('panel', Filament::getCurrentPanel()?->getId() ?? null);
 
         try {
             $this->rateLimit(5);
         } catch (TooManyRequestsException $exception) {
+            $notificationBody = __('filament-panels::pages/auth/login.notifications.throttled.body', [
+                'seconds' => $exception->secondsUntilAvailable,
+                'minutes' => ceil($exception->secondsUntilAvailable / 60),
+            ]);
+
             Notification::make()
                 ->title(__('filament-panels::pages/auth/login.notifications.throttled.title', [
                     'seconds' => $exception->secondsUntilAvailable,
                     'minutes' => ceil($exception->secondsUntilAvailable / 60),
                 ]))
-                ->body(array_key_exists('body', __('filament-panels::pages/auth/login.notifications.throttled') ?: []) ? __('filament-panels::pages/auth/login.notifications.throttled.body', [
-                    'seconds' => $exception->secondsUntilAvailable,
-                    'minutes' => ceil($exception->secondsUntilAvailable / 60),
-                ]) : null)
+                ->body(is_array($notificationBody) ? null : $notificationBody)
                 ->danger()
                 ->send();
 
@@ -107,6 +110,12 @@ class Login extends BaseLogin
 
             $user = Filament::auth()->user();
 
+            if (! Filament::getCurrentPanel()) {
+                Filament::auth()->logout();
+
+                throw new \Exception('Current panel is not set.');
+            }
+
             if (
                 ($user instanceof FilamentUser) &&
                 (! $user->canAccessPanel(Filament::getCurrentPanel()))
@@ -122,7 +131,7 @@ class Login extends BaseLogin
         });
     }
 
-    protected function loginPipeline(Request $request)
+    protected function loginPipeline(Request $request): Pipeline
     {
         if (Fortify::$authenticateThroughCallback) {
             return (new Pipeline(app()))->send($request)->through(array_filter(
@@ -149,9 +158,9 @@ class Login extends BaseLogin
     {
         return TextInput::make('password')
             ->label(__('filament-panels::pages/auth/login.form.password.label'))
-            ->hint(filament()->hasPasswordReset() ? new HtmlString(Blade::render('<x-filament::link href="/forgot-password"> {{ __(\'filament-panels::pages/auth/login.actions.request_password_reset.label\') }}</x-filament::link>')) : null)
+            ->hint(Filament::hasPasswordReset() ? new HtmlString(Blade::render('<x-filament::link href="/forgot-password"> {{ __(\'filament-panels::pages/auth/login.actions.request_password_reset.label\') }}</x-filament::link>')) : null)
             ->password()
-            ->revealable(filament()->arePasswordsRevealable())
+            ->revealable(Filament::arePasswordsRevealable())
             ->autocomplete('current-password')
             ->required()
             ->extraInputAttributes(['tabindex' => 2]);

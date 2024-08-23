@@ -5,7 +5,6 @@ namespace Vormkracht10\TwoFactorAuth\Tests\PHPStan;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
-use PHPStan\Type\ObjectType;
 
 class UserPropertiesClassReflectionExtension implements PropertiesClassReflectionExtension
 {
@@ -16,8 +15,6 @@ class UserPropertiesClassReflectionExtension implements PropertiesClassReflectio
 
     public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
     {
-        $type = new ObjectType('Carbon\Carbon');
-
-        return new CustomPropertyReflection($classReflection, $type);
+        return new CustomPropertyReflection($classReflection);
     }
 }

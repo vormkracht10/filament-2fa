@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
 
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
@@ -23,10 +22,15 @@ class PasswordConfirmation extends Component implements HasForms
         }
     }
 
+    /**
+     * Get the form schema.
+     *
+     * @return array<int, \Filament\Forms\Components\TextInput>
+     */
     protected function getFormSchema(): array
     {
         return [
-            TextInput::make('password')
+            \Filament\Forms\Components\TextInput::make('password')
                 ->extraInputAttributes(['name' => 'password'])
                 ->label(__('Password'))
                 ->password()

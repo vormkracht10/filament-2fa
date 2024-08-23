@@ -13,6 +13,11 @@ enum TwoFactorType: string implements HasLabel
     case email = 'email';
     case phone = 'phone';
 
+    /**
+     * Get the values of the enum.
+     *
+     * @return array<int, string|null>
+     */
     public static function values(): array
     {
         return array_map(fn ($type) => $type->getLabel(), self::cases());

@@ -214,7 +214,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         $this->app->singleton(TwoFactorChallengeViewResponse::class, TwoFactorChallengeViewResponse::class);
     }
 
-    protected function getAssetPackageName(): ?string
+    protected function getAssetPackageName(): string
     {
         return 'vormkracht10/filament-two-factor-auth';
     }
