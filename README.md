@@ -113,6 +113,12 @@ protected $listen = [
 ];
 ```
 
+If you want to customize the views (including email), you can publish them using the following command:
+
+```bash
+php artisan vendor:publish --tag=filament-two-factor-auth-views
+```
+
 ## Usage
 
 ### Configuration
