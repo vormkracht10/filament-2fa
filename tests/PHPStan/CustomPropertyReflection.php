@@ -68,4 +68,19 @@ class CustomPropertyReflection implements PropertyReflection
     {
         return false;
     }
+
+    public function getReadableType(): Type
+    {
+        return $this->type;
+    }
+
+    public function getWritableType(): Type
+    {
+        return $this->type;
+    }
+
+    public function canChangeTypeAfterAssignment(): bool
+    {
+        return false;
+    }
 }
