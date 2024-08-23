@@ -76,7 +76,7 @@ class Login extends BaseLogin
 
     public function loginWithFortify(): LoginResponse|Redirector|null
     {
-        session()->put('panel', Filament::getCurrentPanel()->getId());
+        session()->put('panel', Filament::getCurrentPanel()?->getId() ?? null);
 
         try {
             $this->rateLimit(5);
@@ -109,6 +109,12 @@ class Login extends BaseLogin
             }
 
             $user = Filament::auth()->user();
+
+            if (! Filament::getCurrentPanel()) {
+                Filament::auth()->logout();
+
+                throw new \Exception('Current panel is not set.');
+            }
 
             if (
                 ($user instanceof FilamentUser) &&

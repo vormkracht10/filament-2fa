@@ -16,7 +16,7 @@ enum TwoFactorType: string implements HasLabel
     /**
      * Get the values of the enum.
      *
-     * @return array<string>
+     * @return array<int, string|null>
      */
     public static function values(): array
     {

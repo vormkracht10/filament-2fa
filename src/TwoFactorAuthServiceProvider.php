@@ -128,7 +128,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                  * This route name is used multiple places in filament.
                  */
                 Route::prefix(config('filament.path'))->group(function () {
-                    Route::get('/filament-login', fn () => Redirect::route('login'))
+                    Route::get('/filament-login', fn() => Redirect::route('login'))
                         ->name('auth.login');
                 });
             });
@@ -214,7 +214,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         $this->app->singleton(TwoFactorChallengeViewResponse::class, TwoFactorChallengeViewResponse::class);
     }
 
-    protected function getAssetPackageName(): ?string
+    protected function getAssetPackageName(): string
     {
         return 'vormkracht10/filament-two-factor-auth';
     }
