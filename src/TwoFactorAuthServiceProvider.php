@@ -216,7 +216,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
 
     protected function getAssetPackageName(): string
     {
-        return 'vormkracht10/filament-two-factor-auth';
+        return 'vormkracht10/filament-2fa';
     }
 
     /**
@@ -225,9 +225,9 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // AlpineComponent::make('filament-two-factor-auth', __DIR__ . '/../resources/dist/components/filament-two-factor-auth.js'),
-            Css::make('filament-two-factor-auth-styles', __DIR__ . '/../resources/dist/filament-two-factor-auth.css'),
-            Js::make('filament-two-factor-auth-scripts', __DIR__ . '/../resources/dist/filament-two-factor-auth.js'),
+            // AlpineComponent::make('filament-2fa', __DIR__ . '/../resources/dist/components/filament-2fa.js'),
+            Css::make('filament-2fa-styles', __DIR__ . '/../resources/dist/filament-two-factor-auth.css'),
+            Js::make('filament-2fa-scripts', __DIR__ . '/../resources/dist/filament-two-factor-auth.js'),
         ];
     }
 
