@@ -8,7 +8,9 @@ parameters:
         - config
         - database
     tmpDir: build/phpstan
-    checkOctaneCompatibility: true
-    checkModelProperties: true
-    checkMissingIterableValueType: false
 
+services:
+    -
+        class: Vormkracht10\TwoFactorAuth\Tests\PHPStan\UserPropertiesClassReflectionExtension
+        tags:
+            - phpstan.broker.propertiesClassReflectionExtension
