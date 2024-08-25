@@ -64,6 +64,10 @@ php artisan filament-two-factor-auth:install
 Then add the plugin to your `PanelProvider`:
 
 ```php
+use Vormkracht10\TwoFactorAuth\TwoFactorAuthPlugin;
+
+// ...
+
 ->plugin(TwoFactorAuthPlugin::make())
 ```
 
