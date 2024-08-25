@@ -5,6 +5,10 @@ on:
     paths:
       - '**.php'
       - 'phpstan.neon.dist'
+  push:
+    paths:
+      - '**.php'
+      - 'phpstan.neon.dist'
 
 jobs:
   phpstan:
