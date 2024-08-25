@@ -17,7 +17,7 @@
                 @csrf
                 {{ $this->form }}
 
-                <x-filament::button type="submit" class="w-full mt-4" color="info">
+                <x-filament::button type="submit" class="w-full mt-4" color="primary">
                     {{ __('Reset Password') }}
                 </x-filament::button>
             </form>

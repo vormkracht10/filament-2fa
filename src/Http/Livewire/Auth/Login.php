@@ -169,7 +169,7 @@ class Login extends BaseLogin
     protected function getAuthenticateFormAction(): Action
     {
         return Action::make('authenticate')
-            ->color('info')
+            ->color('primary')
             ->label(__('filament-panels::pages/auth/login.form.actions.authenticate.label'))
             ->submit('authenticate');
     }
