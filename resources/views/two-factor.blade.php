@@ -6,7 +6,7 @@
                     {{ __('Secure your account') }}
                 </h2>
 
-                @if (!$showingRecoveryCodes && auth()->user()->two_factor_confirmed_at)
+                @if (!$showingRecoveryCodes && $user->two_factor_confirmed_at)
                     <p class="mt-1 text-sm leading-6 dark:bg-white mb-4">
                         {{ __('Your account has been secured with two factor authentication') }}.
                     </p>
@@ -22,15 +22,15 @@
                     {{ __('You can disable two factor authentication at any time by using the button below') }}.
                 </x-slot>
 
-                @if (! $showingRecoveryCodes && auth()->user()->two_factor_confirmed_at)
+                @if (!$showingRecoveryCodes && $user->two_factor_confirmed_at)
                     {{ $this->disableAction() }}
                 @else
                     <x-slot name="description">
-                        {{ __('You have :amount options to confirm your identity, please choose one of the options below to continue',['amount' => $this->twoFactorOptionsCount]) }}.
+                        {{ __('You have :amount options to confirm your identity, please choose one of the options below to continue', ['amount' => $this->twoFactorOptionsCount]) }}.
                     </x-slot>
                 @endif
 
-                @if (!auth()->user()->hasEnabledTwoFactorAuthentication() || $this->showingRecoveryCodes)
+                @if (!$user->hasEnabledTwoFactorAuthentication() || $this->showingRecoveryCodes)
                     @if (!$this->showTwoFactor())
                         {{ $this->twoFactorOptionForm }}
 
@@ -53,13 +53,13 @@
                                                         {!! __('Or scan the QR code with your authenticator app') !!}.
                                                     </div>
                                                     <div class="flex items-center justify-center mt-2">
-                                                        {!! auth()->user()->twoFactorQrCodeSvg() !!}
+                                                        {!! $user->twoFactorQrCodeSvg() !!}
                                                     </div>
-                                                    <br/>
+                                                    <br />
                                                     <p class="text-sm">
-                                                        {!! __('The secret key to setup the authenticator app is') !!}: <br/>
+                                                        {!! __('The secret key to setup the authenticator app is') !!}: <br />
                                                         <span
-                                                                class="font-bold mt-4">{{ decrypt(auth()->user()->two_factor_secret) }}</span>
+                                                            class="font-bold mt-4">{{ decrypt($user->two_factor_secret) }}</span>
                                                     </p>
                                                 @endunless
                                             </div>
@@ -73,7 +73,7 @@
                                             ) !!}.
                                             <div class="flex items-center justify-center">
                                                 <div class="mt-2 text-left text-sm">
-                                                    @foreach ((array) auth()->user()->recoveryCodes() as $index => $code)
+                                                    @foreach ((array) $user->recoveryCodes() as $index => $code)
                                                         <p class="mt-2">{{ $code }}</p>
                                                     @endforeach
                                                 </div>
@@ -88,7 +88,7 @@
                                     @endif
 
                                     <div class="mt-6 flex items-center justify-end gap-x-6">
-                                        @if (!$showingRecoveryCodes && !auth()->user()->two_factor_confirmed_at)
+                                        @if (!$showingRecoveryCodes && !$user->two_factor_confirmed_at)
                                             {{ $this->disableAction() }}
                                         @endif
 
