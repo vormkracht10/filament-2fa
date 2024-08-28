@@ -19,10 +19,10 @@
                 <div class="flex items-center justify-between">
                     <x-filament::button color="secondary" class="w-full" type="button" tag="a" outlined
                         href="{{ route('login') }}">
-                        {{ __('Cancel')}}
+                        {{ __('Cancel') }}
                     </x-filament::button>
 
-                    <x-filament::button type="submit" class="w-full" color="info">
+                    <x-filament::button type="submit" class="w-full" color="primary">
                         {{ __('Submit') }}
                     </x-filament::button>
 

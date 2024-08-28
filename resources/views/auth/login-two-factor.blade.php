@@ -9,7 +9,11 @@
     <h2 class="mt-5 text-lg font-semibold text-gray-900 text-center">
         {{ __('Authenticate with your code') }}
     </h2>
-    {{ $this->resend }}
+    @if ($twoFactorType === 'email' || $twoFactorType === 'phone')
+        <div wire:poll.5s>
+            {{ $this->resend }}
+        </div>
+    @endif
     <form method="POST" action="{{ route('two-factor.login') }}" class="space-y-8">
 
         @csrf
@@ -22,3 +26,12 @@
         </div>
     </form>
 </x-filament-panels::page.simple>
+
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        @this.on('resent', () => {
+            // Immediately disable the button
+            Livewire.dispatch('$refresh');
+        });
+    });
+</script>
