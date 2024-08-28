@@ -177,6 +177,7 @@ class Login extends BaseLogin
             ->submit('authenticate');
     }
 
+    /** @param array<string, mixed> $credentials */
     protected function validateCredentials(array $credentials): bool
     {
         $provider = Filament::auth()->getProvider();
