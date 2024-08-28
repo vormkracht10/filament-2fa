@@ -35,7 +35,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     public ?string $twoFactorType = null;
 
     #[Reactive]
-    public $lastResendTime = 0;
+    public int $lastResendTime = 0;
 
     public function mount(TwoFactorLoginRequest $request): void
     {
