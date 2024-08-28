@@ -98,6 +98,30 @@ protected function casts(): array
 
 > ❗ When using `fillable` instead of `guarded` on your model, make sure to add `two_factor_type` to the `$fillable` array.
 
+### Register the event listener
+
+#### Laravel 11
+
+In case you're using Laravel 11, you need to register the event listener in your `AppServiceProvider` boot method:
+
+```php
+use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
+use Laravel\Fortify\Events\TwoFactorAuthenticationEnabled;
+use Vormkracht10\TwoFactorAuth\Listeners\SendTwoFactorCodeListener;
+
+// ...
+
+public function boot(): void
+{
+    Event::listen([
+        TwoFactorAuthenticationChallenged::class,
+        TwoFactorAuthenticationEnabled::class
+    ], SendTwoFactorCodeListener::class);
+}
+```
+
+#### Laravel < 11
+
 In case you're not using Laravel 11 yet, you will probably need to manually register the event listener in your `EventServiceProvider`:
 
 ```php
