@@ -14,6 +14,9 @@ use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Vormkracht10\TwoFactorAuth\Notifications\SendOTP;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Reactive;
+use Illuminate\Support\Facades\Cache;
 
 class LoginTwoFactor extends Page implements HasActions, HasForms
 {
@@ -29,10 +32,21 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
 
     public mixed $challengedUser = null;
 
+    public ?string $twoFactorType = null;
+
+    #[Reactive]
+    public $lastResendTime = 0;
+
     public function mount(TwoFactorLoginRequest $request): void
     {
         if ($request->challengedUser()) {
             $this->challengedUser = $request->challengedUser();
+            $this->twoFactorType = $this->challengedUser->two_factor_type->value;
+
+            // Set initial cooldown if not already set
+            if (!Cache::has('resend_cooldown_' . $this->challengedUser->id)) {
+                Cache::put('resend_cooldown_' . $this->challengedUser->id, true, now()->addSeconds(30));
+            }
         }
     }
 
@@ -41,24 +55,42 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
         return false;
     }
 
+    #[Computed]
+    public function canResend(): bool
+    {
+        return !Cache::has('resend_cooldown_' . $this->challengedUser->id);
+    }
+
     public function resend(): Action
     {
         return Action::make('resend')
             ->label(__('Resend'))
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->action(function () {
-                if (! $this->throttle()) {
-                    return;
-                }
+            ->disabled(fn() => !$this->canResend())
+            ->action(fn() => $this->handleResend());
+    }
 
-                $this->challengedUser->notify(app(SendOTP::class));
+    public function handleResend(): void
+    {
+        if (!$this->canResend()) {
+            return;
+        }
 
-                Notification::make()
-                    ->title(__('Successfully resend the OTP code'))
-                    ->success()
-                    ->send();
-            });
+        if (!$this->throttle()) {
+            return;
+        }
+
+        $this->challengedUser->notify(app(SendOTP::class));
+
+        Cache::put('resend_cooldown_' . $this->challengedUser->id, true, now()->addSeconds(30));
+
+        $this->dispatch('resent');
+
+        Notification::make()
+            ->title(__('Successfully resend the OTP code'))
+            ->success()
+            ->send();
     }
 
     private function throttle(): bool
