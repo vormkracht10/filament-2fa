@@ -1,12 +1,13 @@
 <?php
 
+use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Login;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Register;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordReset;
 use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\LoginTwoFactor;
 use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordConfirmation;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordReset;
 use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\RequestPasswordReset;
-use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 return [
 
@@ -26,6 +27,28 @@ return [
         TwoFactorType::phone,
         TwoFactorType::authenticator,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Register
+    |--------------------------------------------------------------------------
+    |
+    | This value determines whether users may register in the application.
+    |
+    */
+    'register' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tenant
+    |--------------------------------------------------------------------------
+    |
+    | Set to true if you're using Filament in a multi-tenant setup. If true, you
+    | need to manually set the user menu item for the two factor authentication
+    | page panel class. Take a look at the documentation for more information.
+    |
+    */
+    'tenant' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -49,6 +72,7 @@ return [
     |
     */
     'login' => Login::class,
+    'register' => Register::class,
     'challenge' => LoginTwoFactor::class,
     'two_factor_settings' => TwoFactor::class,
     'password_reset' => PasswordReset::class,
