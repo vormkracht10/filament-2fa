@@ -88,7 +88,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -258,7 +258,7 @@ class TwoFactor extends Page implements HasForms
         $this->showingConfirmation = false;
         $this->showingRecoveryCodes = false;
 
-        $this->mount();
+        $this->user->refresh();
     }
 
     public function showRecoveryCodes(): void
