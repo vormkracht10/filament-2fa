@@ -12,6 +12,7 @@ use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
@@ -178,8 +179,19 @@ class TwoFactor extends Page implements HasForms
             ->label(__('Confirm'))
             ->color('primary')
             ->action(function ($data) {
+                if (count($this->otpCodeData) === 0) {
+                    $this->throwFailureValidationException();
+                }
+
                 $this->confirmTwoFactorAuthentication(app(ConfirmTwoFactorAuthentication::class));
             });
+    }
+
+    protected function throwFailureValidationException(): never
+    {
+        throw ValidationException::withMessages([
+            'otpCodeData.code' => __('The code you entered is invalid.'),
+        ]);
     }
 
     public function regenerateAction(): Action
@@ -227,11 +239,15 @@ class TwoFactor extends Page implements HasForms
 
     public function confirmTwoFactorAuthentication(ConfirmTwoFactorAuthentication $confirm): void
     {
-        $confirm($this->user, $this->otpCodeData['code']);
+        try {
+            $confirm($this->user, $this->otpCodeData['code']);
 
-        $this->showingQrCode = false;
-        $this->showingConfirmation = false;
-        $this->showingRecoveryCodes = true;
+            $this->showingQrCode = false;
+            $this->showingConfirmation = false;
+            $this->showingRecoveryCodes = true;
+        } catch (\Exception $e) {
+            $this->throwFailureValidationException();
+        }
     }
 
     public function disableTwoFactorAuthentication(DisableTwoFactorAuthentication $disable): void
