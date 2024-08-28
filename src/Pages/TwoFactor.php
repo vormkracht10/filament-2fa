@@ -88,7 +88,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -181,8 +181,6 @@ class TwoFactor extends Page implements HasForms
             ->action(function ($data) {
                 if (count($this->otpCodeData) === 0) {
                     $this->throwFailureValidationException();
-
-                    return;
                 }
 
                 $this->confirmTwoFactorAuthentication(app(ConfirmTwoFactorAuthentication::class));
