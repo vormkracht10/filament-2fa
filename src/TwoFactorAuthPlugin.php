@@ -24,7 +24,7 @@ class TwoFactorAuthPlugin implements Plugin
             ])
             ->viteTheme('vendor/vormkracht10/filament-2fa/resources/dist/filament-two-factor-auth.css');
 
-        if (! config('filament-two-factor-auth.tenant')) {
+        if (! config('filament-two-factor-auth.enabled_features.multi_tenancy')) {
             $panel->userMenuItems([
                 'two-factor-authentication' => MenuItem::make()
                     ->icon('heroicon-o-lock-closed')
@@ -33,7 +33,7 @@ class TwoFactorAuthPlugin implements Plugin
             ]);
         }
 
-        if (config('filament-two-factor-auth.register')) {
+        if (config('filament-two-factor-auth.enabled_features.register')) {
             $panel->registration(config('filament-two-factor-auth.register'));
         }
     }

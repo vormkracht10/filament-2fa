@@ -28,27 +28,29 @@ return [
         TwoFactorType::authenticator,
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Register
-    |--------------------------------------------------------------------------
-    |
-    | This value determines whether users may register in the application.
-    |
-    */
-    'register' => true,
+    'enabled_features' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Register
+        |--------------------------------------------------------------------------
+        |
+        | This value determines whether users may register in the application.
+        |
+        */
+        'register' => true,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Tenant
-    |--------------------------------------------------------------------------
-    |
-    | Set to true if you're using Filament in a multi-tenant setup. If true, you
-    | need to manually set the user menu item for the two factor authentication
-    | page panel class. Take a look at the documentation for more information.
-    |
-    */
-    'tenant' => false,
+        /*
+        |--------------------------------------------------------------------------
+        | Tenant
+        |--------------------------------------------------------------------------
+        |
+        | Set to true if you're using Filament in a multi-tenant setup. If true, you
+        | need to manually set the user menu item for the two factor authentication
+        | page panel class. Take a look at the documentation for more information.
+        |
+        */
+        'multi_tenancy' => false,
+    ],
 
     /*
     |--------------------------------------------------------------------------
