@@ -12,11 +12,11 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
-use Vormkracht10\TwoFactorAuth\Notifications\SendOTP;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Reactive;
-use Illuminate\Support\Facades\Cache;
+use Vormkracht10\TwoFactorAuth\Notifications\SendOTP;
 
 class LoginTwoFactor extends Page implements HasActions, HasForms
 {
@@ -44,7 +44,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             $this->twoFactorType = $this->challengedUser->two_factor_type->value;
 
             // Set initial cooldown if not already set
-            if (!Cache::has('resend_cooldown_' . $this->challengedUser->id)) {
+            if (! Cache::has('resend_cooldown_' . $this->challengedUser->id)) {
                 Cache::put('resend_cooldown_' . $this->challengedUser->id, true, now()->addSeconds(30));
             }
         }
@@ -58,7 +58,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     #[Computed]
     public function canResend(): bool
     {
-        return !Cache::has('resend_cooldown_' . $this->challengedUser->id);
+        return ! Cache::has('resend_cooldown_' . $this->challengedUser->id);
     }
 
     public function resend(): Action
@@ -67,17 +67,17 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             ->label(__('Resend'))
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->disabled(fn() => !$this->canResend())
-            ->action(fn() => $this->handleResend());
+            ->disabled(fn () => ! $this->canResend())
+            ->action(fn () => $this->handleResend());
     }
 
     public function handleResend(): void
     {
-        if (!$this->canResend()) {
+        if (! $this->canResend()) {
             return;
         }
 
-        if (!$this->throttle()) {
+        if (! $this->throttle()) {
             return;
         }
 
