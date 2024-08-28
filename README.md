@@ -180,6 +180,7 @@ return [
     // ...
 
     'login' => Login::class,
+    'register' => Register::class,
     'challenge' => LoginTwoFactor::class,
     'two_factor_settings' => TwoFactor::class,
     'password_reset' => PasswordReset::class,
