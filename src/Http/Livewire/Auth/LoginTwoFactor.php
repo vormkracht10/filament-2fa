@@ -65,6 +65,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     {
         return Action::make('resend')
             ->label(__('Resend'))
+            ->color('primary')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
             ->disabled(fn() => ! $this->canResend())
