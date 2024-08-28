@@ -67,8 +67,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             ->label(__('Resend'))
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->disabled(fn () => ! $this->canResend())
-            ->action(fn () => $this->handleResend());
+            ->disabled(fn() => ! $this->canResend())
+            ->action(fn() => $this->handleResend());
     }
 
     public function handleResend(): void
@@ -124,12 +124,12 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     {
         return [
             TextInput::make('code')
+                ->required()
                 ->extraInputAttributes(['name' => 'code'])
                 ->label(__('Code')),
             TextInput::make('recovery_code')
                 ->extraInputAttributes(['name' => 'recovery_code'])
                 ->label(__('Recovery code')),
-
         ];
     }
 }
