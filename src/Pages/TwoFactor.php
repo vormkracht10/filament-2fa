@@ -2,22 +2,23 @@
 
 namespace Vormkracht10\TwoFactorAuth\Pages;
 
-use Filament\Actions\Action;
-use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Illuminate\Contracts\Support\Htmlable;
+use Filament\Actions\Action;
+use Laravel\Fortify\Features;
 use Illuminate\Support\Collection;
+use Filament\Forms\Components\Radio;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Validation\ValidationException;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
+use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
+use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
-use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
-use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
-use Laravel\Fortify\Features;
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 
 class TwoFactor extends Page implements HasForms
 {
@@ -87,7 +88,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -178,8 +179,21 @@ class TwoFactor extends Page implements HasForms
             ->label(__('Confirm'))
             ->color('primary')
             ->action(function ($data) {
+                if (count($this->otpCodeData) === 0) {
+                    $this->throwFailureValidationException();
+
+                    return;
+                }
+
                 $this->confirmTwoFactorAuthentication(app(ConfirmTwoFactorAuthentication::class));
             });
+    }
+
+    protected function throwFailureValidationException(): never
+    {
+        throw ValidationException::withMessages([
+            'otpCodeData.code' => __('The code you entered is invalid.'),
+        ]);
     }
 
     public function regenerateAction(): Action
@@ -227,11 +241,15 @@ class TwoFactor extends Page implements HasForms
 
     public function confirmTwoFactorAuthentication(ConfirmTwoFactorAuthentication $confirm): void
     {
-        $confirm($this->user, $this->otpCodeData['code']);
+        try {
+            $confirm($this->user, $this->otpCodeData['code']);
 
-        $this->showingQrCode = false;
-        $this->showingConfirmation = false;
-        $this->showingRecoveryCodes = true;
+            $this->showingQrCode = false;
+            $this->showingConfirmation = false;
+            $this->showingRecoveryCodes = true;
+        } catch (\Exception $e) {
+            $this->throwFailureValidationException();
+        }
     }
 
     public function disableTwoFactorAuthentication(DisableTwoFactorAuthentication $disable): void
