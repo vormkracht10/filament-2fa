@@ -1,13 +1,13 @@
 <?php
 
-use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Login;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Register;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordReset;
 use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\LoginTwoFactor;
 use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordConfirmation;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordReset;
+use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Register;
 use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\RequestPasswordReset;
+use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 return [
 
