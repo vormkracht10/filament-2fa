@@ -102,8 +102,11 @@ class Login extends BaseLogin
 
         $request = request()->merge($data);
 
-        return $this->loginPipeline($request)->then(function (Request $request) use ($data) {
+        if (! $this->validateCredentials($this->getCredentialsFromFormData($data))) {
+            $this->throwFailureValidationException();
+        }
 
+        return $this->loginPipeline($request)->then(function (Request $request) use ($data) {
             if (! Filament::auth()->attempt($this->getCredentialsFromFormData($data), $data['remember'] ?? false)) {
                 $this->throwFailureValidationException();
             }
@@ -172,5 +175,14 @@ class Login extends BaseLogin
             ->color('primary')
             ->label(__('filament-panels::pages/auth/login.form.actions.authenticate.label'))
             ->submit('authenticate');
+    }
+
+    /** @param array<string, mixed> $credentials */
+    protected function validateCredentials(array $credentials): bool
+    {
+        $provider = Filament::auth()->getProvider();
+        $user = $provider->retrieveByCredentials($credentials);
+
+        return $user && $provider->validateCredentials($user, $credentials);
     }
 }
