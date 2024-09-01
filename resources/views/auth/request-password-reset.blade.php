@@ -25,8 +25,6 @@
                     <x-filament::button type="submit" class="w-full" color="primary">
                         {{ __('Submit') }}
                     </x-filament::button>
-
-
                 </div>
             </form>
 
