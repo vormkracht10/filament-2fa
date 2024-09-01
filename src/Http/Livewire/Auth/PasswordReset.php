@@ -15,7 +15,7 @@ class PasswordReset extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static string $layout = 'filament-two-factor-auth::layouts.login';
+    protected static string $layout = 'filament.layouts.login';
 
     public ?string $email = '';
 
@@ -66,10 +66,10 @@ class PasswordReset extends Page implements HasForms
                 ->required(),
             Hidden::make('email')
                 ->extraAttributes(['name' => 'email'])
-                ->afterStateHydrated(fn ($component) => $component->state(request()->get('email'))),
+                ->afterStateHydrated(fn($component) => $component->state(request()->get('email'))),
             Hidden::make('token')
                 ->extraAttributes(['name' => 'token'])
-                ->afterStateHydrated(fn ($component) => $component->state(request()->route('token'))),
+                ->afterStateHydrated(fn($component) => $component->state(request()->route('token'))),
         ];
     }
 

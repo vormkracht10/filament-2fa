@@ -14,7 +14,7 @@ class RequestPasswordReset extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static string $layout = 'filament-two-factor-auth::layouts.login';
+    protected static string $layout = 'filament.layouts.login';
 
     public ?string $email = '';
 
