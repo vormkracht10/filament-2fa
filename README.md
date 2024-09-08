@@ -15,23 +15,23 @@ This package adds Two Factor Authentication for your Laravel Filament app, using
 
 ### Enable Two Factor Authentication (2FA)
 
-![Enable Two Factor Authentication (2FA)](https://github.com/vormkracht10/filament-2fa/blob/main/docs/two-factor-page.png)
+![Enable Two Factor Authentication (2FA)](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/two-factor-page.png)
 
 ### Using authenticator app as two factor method
 
-![Authenticator app](https://github.com/vormkracht10/filament-2fa/blob/main/docs/authenticator-app.png)
+![Authenticator app](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/authenticator-app.png)
 
 ### Using email or SMS as two factor method
 
-![Email or SMS](https://github.com/vormkracht10/filament-2fa/blob/main/docs/email-or-sms.png)
+![Email or SMS](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/email-or-sms.png)
 
 ### Recovery codes
 
-![Recovery codes](https://github.com/vormkracht10/filament-2fa/blob/main/docs/recovery-codes.png)
+![Recovery codes](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/recovery-codes.png)
 
 ### Two Factor authentication challenge
 
-![Two Factor challenge](https://github.com/vormkracht10/filament-2fa/blob/main/docs/code-challenge.png)
+![Two Factor challenge](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/code-challenge.png)
 
 ## Installation
 
