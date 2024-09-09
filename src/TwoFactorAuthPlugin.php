@@ -5,13 +5,28 @@ namespace Vormkracht10\TwoFactorAuth;
 use Filament\Contracts\Plugin;
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
+use Vormkracht10\TwoFactorAuth\Http\Middleware\Force2Factor;
 use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 class TwoFactorAuthPlugin implements Plugin
 {
+    private bool $forced = false;
+
     public function getId(): string
     {
         return 'filament-two-factor-auth';
+    }
+
+    public function forced(bool $forced = true): self
+    {
+        $this->forced = $forced;
+
+        return $this;
+    }
+
+    public function isForced(): bool
+    {
+        return $this->forced;
     }
 
     public function register(Panel $panel): void
@@ -23,6 +38,12 @@ class TwoFactorAuthPlugin implements Plugin
                 config('filament-two-factor-auth.challenge'),
             ])
             ->viteTheme('vendor/vormkracht10/filament-2fa/resources/dist/filament-two-factor-auth.css');
+
+        if ($this->isForced()) {
+            $panel->authMiddleware([
+                Force2Factor::class,
+            ]);
+        }
 
         if (! config('filament-two-factor-auth.enabled_features.multi_tenancy')) {
             $panel->userMenuItems([
