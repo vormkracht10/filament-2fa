@@ -16,7 +16,7 @@ class Force2Factor
         }
 
         if (! $user->two_factor_confirmed_at) {
-            // TODO: Redirect to the two-factor page.
+            return redirect()->to(route('filament.' . filament()->getCurrentPanel()->getId() .  '.pages.two-factor'));
         }
 
         return $next($request);
