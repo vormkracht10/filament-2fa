@@ -96,7 +96,8 @@ protected function casts(): array
 }
 ```
 
-> ❗ When using `fillable` instead of `guarded` on your model, make sure to add `two_factor_type` to the `$fillable` array.
+> [!WARNING]
+> When using `fillable` instead of `guarded` on your model, make sure to add `two_factor_type` to the `$fillable` array.
 
 ### Register the event listener
 
@@ -158,18 +159,58 @@ You can simply add or remove (comment) the methods you want to use:
 ```php
 return [
     'options' => [
-        TwoFactorType::email,
-        TwoFactorType::phone,
         TwoFactorType::authenticator,
+        TwoFactorType::email,
+        // TwoFactorType::phone,
     ],
 
-    'sms_service' => null, // For example: MessageBird::class
+    'sms_service' => null, // For example 'vonage', 'twilio', 'nexmo', etc.
+    'send_otp_class' => null,
 ];
 ```
 
 If you want to use the SMS method, you need to provide an SMS service. You can check the [Laravel Notifications documentation](https://laravel-notification-channels.com/about/) for ready-to-use services.
 
-**Also make sure your user model has a `phone` attribute.**
+#### Example with Vonage
+
+Like the example in the [Laravel documentation](https://laravel.com/docs/11.x/notifications#formatting-sms-notifications) you need to create the `toVonage()` method in your notification class. That's why we recommend creating a custom notification class that extends the original `SendOTP` class from this package:
+
+```php
+<?php
+
+namespace App\Notifications;
+
+use Vormkracht10\TwoFactorAuth\Notifications\SendOTP as NotificationsSendOTP;
+use Illuminate\Notifications\Messages\VonageMessage;
+
+class SendOTP extends NotificationsSendOTP
+{
+    /**
+     * Get the Vonage / SMS representation of the notification.
+     */
+    public function toVonage(mixed $notifiable): VonageMessage
+    {
+        return (new VonageMessage)
+            ->content('Your OTP is: ' . $this->getTwoFactorCode($notifiable));
+    }
+}
+```
+
+You can get the two factor code for the user by calling the `getTwoFactorCode` method on the notification class.
+
+Then you need to set the `send_otp_class` in the `config/filament-two-factor-auth.php` file:
+
+```php
+return [
+    // ...
+
+    'sms_service' => 'vonage',
+    'send_otp_class' => App\Notifications\SendOTP::class,
+];
+```
+
+> [!NOTE]
+> Make sure your user or notifiable model has a `routeNotificationForVonage` method that returns the phone number. Please check the documentation of the SMS service you're using for more information.
 
 ### Customization
 
