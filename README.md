@@ -96,7 +96,8 @@ protected function casts(): array
 }
 ```
 
-> ❗ When using `fillable` instead of `guarded` on your model, make sure to add `two_factor_type` to the `$fillable` array.
+> [!WARNING]
+> When using `fillable` instead of `guarded` on your model, make sure to add `two_factor_type` to the `$fillable` array.
 
 ### Register the event listener
 
