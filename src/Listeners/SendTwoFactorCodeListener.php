@@ -23,6 +23,6 @@ class SendTwoFactorCodeListener
     {
         /** @var mixed $user */
         $user = $event->user;
-        $user->notify(app(SendOTP::class));
+        $user->notify(app(config('send_otp_class', SendOTP::class)));
     }
 }
