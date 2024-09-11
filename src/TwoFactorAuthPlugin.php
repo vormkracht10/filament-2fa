@@ -3,6 +3,7 @@
 namespace Vormkracht10\TwoFactorAuth;
 
 use Filament\Contracts\Plugin;
+use Filament\Facades\Filament;
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
 use Vormkracht10\TwoFactorAuth\Http\Middleware\ForceTwoFactor;
@@ -11,22 +12,11 @@ use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 class TwoFactorAuthPlugin implements Plugin
 {
     private bool $forced = false;
+    private bool $hasTenancy = false;
 
     public function getId(): string
     {
         return 'filament-two-factor-auth';
-    }
-
-    public function forced(bool $forced = true): self
-    {
-        $this->forced = $forced;
-
-        return $this;
-    }
-
-    public function isForced(): bool
-    {
-        return $this->forced;
     }
 
     public function register(Panel $panel): void
@@ -40,7 +30,8 @@ class TwoFactorAuthPlugin implements Plugin
             ->viteTheme('vendor/vormkracht10/filament-2fa/resources/dist/filament-two-factor-auth.css');
 
         if ($this->isForced()) {
-            $panel->tenantMiddleware([
+            $middlewareMethod = $this->hasTenancy() ? 'tenantMiddleware' : 'middleware';
+            $panel->$middlewareMethod([
                 ForceTwoFactor::class,
             ]);
         }
@@ -75,5 +66,29 @@ class TwoFactorAuthPlugin implements Plugin
         $plugin = filament(app(static::class)->getId());
 
         return $plugin;
+    }
+
+    public function forced(bool $forced = true): self
+    {
+        $this->forced = $forced;
+
+        return $this;
+    }
+
+    public function isForced(): bool
+    {
+        return $this->forced;
+    }
+
+    public function withTenancy(bool $hasTenancy = true): self
+    {
+        $this->hasTenancy = $hasTenancy;
+
+        return $this;
+    }
+
+    public function hasTenancy(): bool
+    {
+        return $this->hasTenancy;
     }
 }

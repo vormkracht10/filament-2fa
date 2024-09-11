@@ -18,6 +18,7 @@ class ForceTwoFactor
 
         if ($user && ! $user->two_factor_confirmed_at) {
             $currentPanel = Filament::getCurrentPanel();
+
             if ($currentPanel) {
                 return redirect()->to(route('filament.' . $currentPanel->getId() .  '.pages.two-factor', [
                     'tenant' => Filament::getTenant(),
