@@ -3,6 +3,7 @@
 namespace Vormkracht10\TwoFactorAuth\Http\Middleware;
 
 use Closure;
+use Filament\Facades\Filament;
 use Illuminate\Http\Request;
 
 class Force2Factor
@@ -17,7 +18,7 @@ class Force2Factor
 
         if (! $user->two_factor_confirmed_at) {
             return redirect()->to(route('filament.' . filament()->getCurrentPanel()->getId() .  '.pages.two-factor', [
-                'tenant' => filament()->getTenant()
+                'tenant' => Filament::getTenant(),
             ]));
         }
 
