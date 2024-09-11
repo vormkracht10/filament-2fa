@@ -5,7 +5,7 @@ namespace Vormkracht10\TwoFactorAuth;
 use Filament\Contracts\Plugin;
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
-use Vormkracht10\TwoFactorAuth\Http\Middleware\Force2Factor;
+use Vormkracht10\TwoFactorAuth\Http\Middleware\ForceTwoFactor;
 use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 class TwoFactorAuthPlugin implements Plugin
@@ -41,7 +41,7 @@ class TwoFactorAuthPlugin implements Plugin
 
         if ($this->isForced()) {
             $panel->tenantMiddleware([
-                Force2Factor::class,
+                ForceTwoFactor::class,
             ]);
         }
 
