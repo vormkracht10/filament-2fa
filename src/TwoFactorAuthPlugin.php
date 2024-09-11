@@ -40,7 +40,7 @@ class TwoFactorAuthPlugin implements Plugin
             ->viteTheme('vendor/vormkracht10/filament-2fa/resources/dist/filament-two-factor-auth.css');
 
         if ($this->isForced()) {
-            $panel->authMiddleware([
+            $panel->tenantMiddleware([
                 Force2Factor::class,
             ]);
         }
@@ -50,7 +50,7 @@ class TwoFactorAuthPlugin implements Plugin
                 'two-factor-authentication' => MenuItem::make()
                     ->icon('heroicon-o-lock-closed')
                     ->label(__('Two-Factor Authentication'))
-                    ->url(fn (): string => TwoFactor::getUrl()),
+                    ->url(fn(): string => TwoFactor::getUrl()),
             ]);
         }
 
