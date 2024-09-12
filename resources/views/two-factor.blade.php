@@ -1,9 +1,10 @@
 <x-filament-panels::page>
+
     <div class="space-y-10 divide-y divide-gray-900/10 ">
         <div class="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
             <div class="pr-4 sm:px-0">
                 <h2 class="text-base font-semibold leading-7 dark:bg-white">
-                    {{ __('Secure your account') }}
+                    {{ __('Secure your account') }} sdfsadfsa
                 </h2>
 
                 @if (!$showingRecoveryCodes && $user->two_factor_confirmed_at)
