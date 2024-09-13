@@ -6,7 +6,7 @@
             {{ $this->registerAction }}
         </x-slot>
     @endif
-    <h2 class="mt-5 text-lg font-semibold text-gray-900 text-center">
+    <h2 class="mt-5 text-lg font-semibold text-gray-900 text-center dark:text-gray-100">
         {{ __('Authenticate with your code') }}
     </h2>
     @if ($twoFactorType === 'email' || $twoFactorType === 'phone')
