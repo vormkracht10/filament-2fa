@@ -20,7 +20,7 @@ class ForceTwoFactor
             $currentPanel = Filament::getCurrentPanel();
 
             if ($currentPanel) {
-                return redirect()->to(route('filament.' . $currentPanel->getId() .  '.pages.two-factor', [
+                return redirect()->to(route('filament.' . $currentPanel->getId() . '.pages.two-factor', [
                     'tenant' => Filament::getTenant(),
                 ]))->with('two_factor_redirect_message', __('Your administrator requires you to enable two-factor authentication.'));
             }
