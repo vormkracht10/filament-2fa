@@ -62,7 +62,8 @@ class TwoFactor extends Page implements HasForms
     {
         if (session('two_factor_redirect_message')) {
             Notification::make()
-                ->title(session('two_factor_redirect_message'))
+                ->title(__('Two-Factor Authentication mandatory'))
+                ->body(session('two_factor_redirect_message'))
                 ->danger()
                 ->persistent()
                 ->send();
@@ -96,7 +97,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
