@@ -209,6 +209,21 @@ use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 ])
 ```
 
+### Forcing Two Factor Authentication
+
+If you want to force users to enable Two Factor Authentication, you can add this to your `PanelProvider`:
+
+```php
+->plugins([
+    TwoFactorAuthPlugin::make()->forced(),
+])
+```
+
+To uc
+
+> [!WARNING]
+> When you're using the `forced` method, make sure to set the `multi_tenancy` option to `true` in the `filament-two-factor-auth.php` config filewhen you're using a multi-tenant setup. Otherwise, the forced setting will not work. We cannot check the tenant in the `PanelProvider` because the user is not authenticated yet.
+
 ## Testing
 
 ```bash

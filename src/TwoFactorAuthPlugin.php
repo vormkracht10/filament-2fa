@@ -30,7 +30,7 @@ class TwoFactorAuthPlugin implements Plugin
             ->viteTheme('vendor/vormkracht10/filament-2fa/resources/dist/filament-two-factor-auth.css');
 
         if ($this->isForced()) {
-            $middlewareMethod = $this->hasTenancy() ? 'tenantMiddleware' : 'middleware';
+            $middlewareMethod = config('filament-two-factor-auth.enabled_features.multi_tenancy') ? 'tenantMiddleware' : 'middleware';
             $panel->$middlewareMethod([
                 ForceTwoFactor::class,
             ]);
@@ -68,7 +68,7 @@ class TwoFactorAuthPlugin implements Plugin
         return $plugin;
     }
 
-    public function forced(bool $forced = true): self
+    public function forced(bool $forced = true, bool $withTenancy = false): self
     {
         $this->forced = $forced;
 
@@ -78,17 +78,5 @@ class TwoFactorAuthPlugin implements Plugin
     public function isForced(): bool
     {
         return $this->forced;
-    }
-
-    public function withTenancy(bool $hasTenancy = true): self
-    {
-        $this->hasTenancy = $hasTenancy;
-
-        return $this;
-    }
-
-    public function hasTenancy(): bool
-    {
-        return $this->hasTenancy;
     }
 }
