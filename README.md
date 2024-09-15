@@ -220,7 +220,24 @@ If you want to force users to enable Two Factor Authentication, you can add this
 ```
 
 > [!WARNING]
-> When you're using the `forced` method, make sure to set the `multi_tenancy` option to `true` in the `filament-two-factor-auth.php` config filewhen you're using a multi-tenant setup. Otherwise, the forced setting will not work. We cannot check the tenant in the `PanelProvider` because the user is not authenticated yet.
+> When you're using the `forced` method, make sure to set the `multi_tenancy` option to `true` in the `filament-two-factor-auth.php` config file when you're using a multi-tenant setup. Otherwise, the forced setting will not work. We cannot check the tenant in the `PanelProvider` because the user is not authenticated yet.
+
+#### Customizing the forced message
+
+If you want to customize the forced message, you can publish the language file:
+
+```bash
+php artisan vendor:publish --tag="filament-two-factor-auth-translations"
+```
+
+Then you can customize the message in the `lang/vendor/filament-two-factor-auth/en.json` file. You should change the following keys:
+
+```json
+{
+    "Your administrator requires you to enable two-factor authentication.": "Your custom message here.",
+    "Two-Factor Authentication mandatory": "Your custom title here."
+}
+```
 
 ## Testing
 
