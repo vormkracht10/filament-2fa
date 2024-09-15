@@ -4,7 +4,7 @@
 
             @csrf
             <x-filament::button type="submit" class="w-full">
-                {{ __('Verifyl') }}
+                {{ __('Verify') }}
             </x-filament::button>
         </form>
     </div>

@@ -2,6 +2,15 @@
 
 All notable changes to `filament-2fa` will be documented in this file.
 
+## v1.3.0 - 2024-09-10
+
+### What's Changed
+
+* [Fix] Layouts by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/25
+* [Feature] Improve documentation about sms services by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/29
+
+**Full Changelog**: https://github.com/vormkracht10/filament-2fa/compare/v1.2.0...v1.3.0
+
 ## v1.2.0 - 2024-08-28
 
 ### What's Changed

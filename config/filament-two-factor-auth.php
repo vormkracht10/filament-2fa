@@ -23,9 +23,9 @@ return [
     |
     */
     'options' => [
-        TwoFactorType::email,
-        TwoFactorType::phone,
         TwoFactorType::authenticator,
+        TwoFactorType::email,
+        // TwoFactorType::phone,
     ],
 
     'enabled_features' => [
@@ -57,12 +57,14 @@ return [
     | SMS Service
     |--------------------------------------------------------------------------
     |
-    | This value determines which SMS service to use. For ready-to-use notification
-    | channels, you can check out the documentation (SMS) here:
-    | https://laravel-notification-channels.com/
+    | To use an SMS service, you need to install the corresponding package.
+    | You then have to create a App\Notifications\SendOTP class that extends
+    | the Vormkracht10\TwoFactorAuth\Notifications\SendOTP class. After that,
+    | you can set the class alias in the sms_service key.
     |
     */
-    'sms_service' => null, // For example: MessageBird::class
+    'sms_service' => null, // For example 'vonage', 'twilio', 'nexmo', etc.
+    'send_otp_class' => null,
 
     /*
     |--------------------------------------------------------------------------
