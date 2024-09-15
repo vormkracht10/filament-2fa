@@ -3,12 +3,16 @@
 namespace Vormkracht10\TwoFactorAuth;
 
 use Filament\Contracts\Plugin;
+use Filament\Facades\Filament;
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
+use Vormkracht10\TwoFactorAuth\Http\Middleware\ForceTwoFactor;
 use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 class TwoFactorAuthPlugin implements Plugin
 {
+    private bool $forced = false;
+
     public function getId(): string
     {
         return 'filament-two-factor-auth';
@@ -24,12 +28,19 @@ class TwoFactorAuthPlugin implements Plugin
             ])
             ->viteTheme('vendor/vormkracht10/filament-2fa/resources/dist/filament-two-factor-auth.css');
 
+        if ($this->isForced()) {
+            $middlewareMethod = config('filament-two-factor-auth.enabled_features.multi_tenancy') ? 'tenantMiddleware' : 'middleware';
+            $panel->$middlewareMethod([
+                ForceTwoFactor::class,
+            ]);
+        }
+
         if (! config('filament-two-factor-auth.enabled_features.multi_tenancy')) {
             $panel->userMenuItems([
                 'two-factor-authentication' => MenuItem::make()
                     ->icon('heroicon-o-lock-closed')
                     ->label(__('Two-Factor Authentication'))
-                    ->url(fn (): string => TwoFactor::getUrl()),
+                    ->url(fn(): string => TwoFactor::getUrl()),
             ]);
         }
 
@@ -54,5 +65,17 @@ class TwoFactorAuthPlugin implements Plugin
         $plugin = filament(app(static::class)->getId());
 
         return $plugin;
+    }
+
+    public function forced(bool $forced = true, bool $withTenancy = false): self
+    {
+        $this->forced = $forced;
+
+        return $this;
+    }
+
+    public function isForced(): bool
+    {
+        return $this->forced;
     }
 }

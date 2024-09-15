@@ -60,6 +60,15 @@ class TwoFactor extends Page implements HasForms
 
     public function mount(): void
     {
+        if (session('two_factor_redirect_message')) {
+            Notification::make()
+                ->title(__('Two-Factor Authentication mandatory'))
+                ->body(session('two_factor_redirect_message'))
+                ->danger()
+                ->persistent()
+                ->send();
+        }
+
         $this->twoFactorOptionsCount = config('filament-two-factor-auth.options') ? count(config('filament-two-factor-auth.options')) : 0;
 
         $this->user = Auth::user();
@@ -88,7 +97,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
