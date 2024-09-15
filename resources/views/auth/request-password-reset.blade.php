@@ -8,7 +8,7 @@
                     <span class="text-3xl font-bold xs:text-2xl">{{ config('app.name') }}</span>
                 </a>
             </div>
-            <h2 class="mt-20 text-lg font-semibold text-gray-900">
+            <h2 class="mt-20 text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {{ __('Reset Password') }}
             </h2>
 
