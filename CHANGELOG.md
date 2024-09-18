@@ -2,6 +2,15 @@
 
 All notable changes to `filament-2fa` will be documented in this file.
 
+## v1.5.0 - 2024-09-18
+
+### What's Changed
+
+* [Fix] Add missing return type for custom middleware by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/37
+* [Feature] improve successfully seting 2FA by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/38
+
+**Full Changelog**: https://github.com/vormkracht10/filament-2fa/compare/v1.4.0...v1.5.0
+
 ## v1.4.0 - 2024-09-15
 
 ### What's Changed
