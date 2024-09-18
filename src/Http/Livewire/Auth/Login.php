@@ -12,6 +12,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Notifications\Notification;
 use Filament\Pages\Auth\Login as BaseLogin;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
@@ -74,7 +75,7 @@ class Login extends BaseLogin
         ];
     }
 
-    public function loginWithFortify(): LoginResponse | Redirector | null
+    public function loginWithFortify(): LoginResponse | Redirector | Response | null
     {
         session()->put('panel', Filament::getCurrentPanel()?->getId() ?? null);
 
