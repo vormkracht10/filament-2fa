@@ -199,10 +199,22 @@ class TwoFactor extends Page implements HasForms
     public function regenerateAction(): Action
     {
         return Action::make('regenerate')
-            ->label(__('Generate new recovery codes'))
+            ->label(__('Regenerate'))
             ->color('primary')
             ->action(function () {
                 $this->regenerateRecoveryCodes(app(GenerateNewRecoveryCodes::class));
+            });
+    }
+
+    public function downloadAction(): Action
+    {
+        return Action::make('download')
+            ->label(__('Download'))
+            ->color('primary')
+            ->action(function () {                
+                return response()->streamDownload(function () {
+                    echo implode(PHP_EOL, $this->user->recoveryCodes());
+                }, 'recovery-codes.txt');
             });
     }
 
