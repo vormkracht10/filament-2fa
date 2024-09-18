@@ -80,13 +80,6 @@ class TwoFactor extends Page implements HasForms
         ) {
             app(DisableTwoFactorAuthentication::class)($this->user);
         }
-
-        if (session('status') == 'two-factor-authentication-enabled') {
-            Notification::make()
-                ->title(__('Two-Factor Authentication enabled'))
-                ->success()
-                ->send();
-        }
     }
 
     /**
@@ -251,6 +244,13 @@ class TwoFactor extends Page implements HasForms
         try {
             $confirm($this->user, $this->otpCodeData['code']);
 
+            Notification::make()
+                ->title(__('Two-Factor Authentication activated'))
+                ->body(__('From now on, you will be asked for a code when you log in.'))
+                ->success()
+                ->duration(5000)
+                ->send();
+
             $this->showingQrCode = false;
             $this->showingConfirmation = false;
             $this->showingRecoveryCodes = true;
@@ -262,6 +262,13 @@ class TwoFactor extends Page implements HasForms
     public function disableTwoFactorAuthentication(DisableTwoFactorAuthentication $disable): void
     {
         $disable($this->user);
+
+        Notification::make()
+                ->title(__('Two-Factor Authentication deactivated'))
+                ->body(__('You can now log in without a code.'))
+                ->success()
+                ->duration(5000)
+                ->send();
 
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
