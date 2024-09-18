@@ -211,7 +211,7 @@ class TwoFactor extends Page implements HasForms
         return Action::make('download')
             ->label(__('Download'))
             ->color('primary')
-            ->action(function () {                
+            ->action(function () {
                 return response()->streamDownload(function () {
                     echo implode(PHP_EOL, $this->user->recoveryCodes());
                 }, 'recovery-codes.txt');
