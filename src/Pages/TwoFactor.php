@@ -2,23 +2,25 @@
 
 namespace Vormkracht10\TwoFactorAuth\Pages;
 
-use Filament\Actions\Action;
-use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
+use App\Models\User;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Illuminate\Contracts\Support\Htmlable;
+use Filament\Actions\Action;
+use Laravel\Fortify\Features;
 use Illuminate\Support\Collection;
+use Filament\Forms\Components\Radio;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Validation\ValidationException;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
+use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
+use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
-use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
-use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
-use Laravel\Fortify\Features;
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 
 class TwoFactor extends Page implements HasForms
 {
@@ -90,7 +92,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -143,12 +145,56 @@ class TwoFactor extends Page implements HasForms
         ];
     }
 
+    public function translatedType(string $type): string
+    {
+        return match ($type) {
+            TwoFactorType::email => __('Email'),
+            TwoFactorType::phone => __('Phone'),
+            TwoFactorType::authenticator => __('Authenticator app'),
+            default => $type,
+        };
+    }
+
     public function enableAction(): Action
     {
         return Action::make('enable')
             ->label(__('Activate'))
+            ->requiresConfirmation()
+            ->modalHeading(__('Activate Two-Factor Authentication'))
+            ->modalDescription(__('Please confirm this is your :type before proceeding.', [
+                'type' => $this->translatedType(isset($this->twoFactorData['option']) ? $this->twoFactorData['option'] : ''),
+            ]))
+            ->form(function (array $data): array {
+                // TODO: Make this more dynamic
+                if ($this->twoFactorData['option'] === TwoFactorType::email->value) {
+                    return [
+                        TextInput::make('email')
+                            ->label(__('Email'))
+                            ->default($this->user->email)
+                            ->dehydrateStateUsing(fn($state) => filled($state))
+                            ->required()
+                            ->email()
+                            ->inlineLabel(),
+                    ];
+                }
+
+                if ($this->twoFactorData['option'] === TwoFactorType::phone->value) {
+
+                    return [
+                        TextInput::make('phone')
+                            ->label(__('Phone number'))
+                            ->default($this->user->phone)
+                            ->dehydrateStateUsing(fn($state) => filled($state))
+                            ->required()
+                            ->inlineLabel(),
+                    ];
+                }
+
+                return [];
+            })
             ->color('primary')
             ->action(function ($data) {
+                // TODO: Check if user changed email or phone number, and update accordingly
                 $formData = [];
 
                 if (isset($data['email'])) {
