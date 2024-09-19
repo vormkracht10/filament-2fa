@@ -90,7 +90,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -159,28 +159,14 @@ class TwoFactor extends Page implements HasForms
             ->color('primary')
             ->label(__('Activate'));
 
-        if ($this->twoFactorData['option'] !== TwoFactorType::authenticator->value) {
+        if (isset($this->twoFactorData['option']) && $this->twoFactorData['option'] !== TwoFactorType::authenticator->value) {
             $action->requiresConfirmation()
                 ->modalHeading(__('Activate Two-Factor Authentication'))
                 ->modalDescription(__('Please confirm this is your :type before continuing.', [
-                    'type' => $this->translatedType(isset($this->twoFactorData['option']) ? $this->twoFactorData['option'] : ''),
+                    'type' => $this->translatedType($this->twoFactorData['option']),
                 ]))
                 ->form(function (): array {
-                    $fields = [
-                        TwoFactorType::email->value => [
-                            'name' => 'email',
-                            'label' => __('Email'),
-                            'default' => $this->user->email,
-                            'rules' => ['required', 'email'],
-                        ],
-                        TwoFactorType::phone->value => [
-                            'name' => 'phone',
-                            'label' => __('Phone number'),
-                            'default' => $this->user->phone,
-                            'rules' => ['required'],
-                        ],
-                    ];
-
+                    $fields = $this->getConfirmableFields();
                     $option = $this->twoFactorData['option'];
 
                     if (isset($fields[$option])) {
@@ -225,6 +211,47 @@ class TwoFactor extends Page implements HasForms
 
             $this->enableTwoFactorAuthentication(app(EnableTwoFactorAuthentication::class));
         });
+    }
+
+    private function getConfirmableFields()
+    {
+        $confirmableOptions = config('filament-two-factor-auth.options', [
+            TwoFactorType::email,
+            TwoFactorType::phone,
+        ]);
+
+        $fields = [];
+
+        foreach ($confirmableOptions as $option) {
+            switch ($option) {
+                case TwoFactorType::authenticator:
+                    $fields[$option->value] = [
+                        'name' => 'authenticator',
+                        'label' => __('Authenticator'),
+                        'default' => null, // Set default value if needed
+                        'rules' => ['required'],
+                    ];
+                    break;
+                case TwoFactorType::email:
+                    $fields[$option->value] = [
+                        'name' => 'email',
+                        'label' => __('Email'),
+                        'default' => $this->user->email,
+                        'rules' => ['required', 'email'],
+                    ];
+                    break;
+                case TwoFactorType::phone:
+                    $fields[$option->value] = [
+                        'name' => 'phone',
+                        'label' => __('Phone number'),
+                        'default' => $this->user->{config('filament-two-factor-auth.phone_number_field', 'phone')},
+                        'rules' => ['required'],
+                    ];
+                    break;
+            }
+        }
+
+        return $fields;
     }
 
     public function confirmAction(): Action
