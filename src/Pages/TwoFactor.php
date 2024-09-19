@@ -90,7 +90,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -146,81 +146,85 @@ class TwoFactor extends Page implements HasForms
     public function translatedType(string $type): string
     {
         return match ($type) {
-            TwoFactorType::email => __('Email'),
-            TwoFactorType::phone => __('Phone'),
-            TwoFactorType::authenticator => __('Authenticator app'),
+            TwoFactorType::email->value => __('email'),
+            TwoFactorType::phone->value => __('phone'),
+            TwoFactorType::authenticator->value => __('authenticator app'),
             default => $type,
         };
     }
 
     public function enableAction(): Action
     {
-        return Action::make('enable')
-            ->label(__('Activate'))
-            ->requiresConfirmation()
-            ->modalHeading(__('Activate Two-Factor Authentication'))
-            ->modalDescription(__('Please confirm this is your :type before continuing.', [
-                'type' => $this->translatedType(isset($this->twoFactorData['option']) ? $this->twoFactorData['option'] : ''),
-            ]))
-            ->form(function (): array {
-                $fields = [
-                    TwoFactorType::email->value => [
-                        'name' => 'email',
-                        'label' => __('Email'),
-                        'default' => $this->user->email,
-                        'rules' => ['required', 'email'],
-                    ],
-                    TwoFactorType::phone->value => [
-                        'name' => 'phone',
-                        'label' => __('Phone number'),
-                        'default' => $this->user->phone,
-                        'rules' => ['required'],
-                    ],
-                ];
-
-                $option = $this->twoFactorData['option'];
-
-                if (isset($fields[$option])) {
-                    $field = $fields[$option];
-
-                    return [
-                        TextInput::make($field['name'])
-                            ->label($field['label'])
-                            ->default($field['default'])
-                            ->required()
-                            ->rules($field['rules'])
-                            ->inlineLabel(),
-                    ];
-                }
-
-                return [];
-            })
+        $action = Action::make('enable')
             ->color('primary')
-            ->action(function (array $data): void {
-                $formData = [];
+            ->label(__('Activate'));
 
-                if (isset($data['email'])) {
-                    $formData['email'] = $data['email'];
-                }
+        if (isset($this->twoFactorData['option']) && $this->twoFactorData['option'] !== TwoFactorType::authenticator->value) {
+            $action->requiresConfirmation()
+                ->modalHeading(__('Activate Two-Factor Authentication'))
+                ->modalDescription(__('Please confirm this is your :type before continuing.', [
+                    'type' => $this->translatedType(isset($this->twoFactorData['option']) ? $this->twoFactorData['option'] : ''),
+                ]))
+                ->form(function (): array {
+                    $fields = [
+                        TwoFactorType::email->value => [
+                            'name' => 'email',
+                            'label' => __('Email'),
+                            'default' => $this->user->email,
+                            'rules' => ['required', 'email'],
+                        ],
+                        TwoFactorType::phone->value => [
+                            'name' => 'phone',
+                            'label' => __('Phone number'),
+                            'default' => $this->user->phone,
+                            'rules' => ['required'],
+                        ],
+                    ];
 
-                if ($this->twoFactorData['option']) {
-                    $formData['two_factor_type'] = TwoFactorType::tryFrom($this->twoFactorData['option']);
-                }
+                    $option = $this->twoFactorData['option'];
 
-                /** @var array{two_factor_type: TwoFactorType|null, email?: mixed} $formData */
-                if (
-                    isset($formData['two_factor_type']) &&
-                    ($formData['two_factor_type'] === TwoFactorType::email || $formData['two_factor_type'] === TwoFactorType::phone)
-                ) {
-                    $this->showQrCode = false;
-                } else {
-                    $this->showQrCode = true;
-                }
+                    if (isset($fields[$option])) {
+                        $field = $fields[$option];
 
-                $this->user->update($formData);
+                        return [
+                            TextInput::make($field['name'])
+                                ->label($field['label'])
+                                ->default($field['default'])
+                                ->required()
+                                ->rules($field['rules'])
+                                ->inlineLabel(),
+                        ];
+                    }
 
-                $this->enableTwoFactorAuthentication(app(EnableTwoFactorAuthentication::class));
-            });
+                    return [];
+                });
+        }
+
+        return $action->action(function (array $data): void {
+            $formData = [];
+
+            if (isset($data['email'])) {
+                $formData['email'] = $data['email'];
+            }
+
+            if ($this->twoFactorData['option']) {
+                $formData['two_factor_type'] = TwoFactorType::tryFrom($this->twoFactorData['option']);
+            }
+
+            /** @var array{two_factor_type: TwoFactorType|null, email?: mixed} $formData */
+            if (
+                isset($formData['two_factor_type']) &&
+                ($formData['two_factor_type'] === TwoFactorType::email || $formData['two_factor_type'] === TwoFactorType::phone)
+            ) {
+                $this->showQrCode = false;
+            } else {
+                $this->showQrCode = true;
+            }
+
+            $this->user->update($formData);
+
+            $this->enableTwoFactorAuthentication(app(EnableTwoFactorAuthentication::class));
+        });
     }
 
     public function confirmAction(): Action
