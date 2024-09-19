@@ -275,12 +275,14 @@ class TwoFactor extends Page implements HasForms
     {
         $disable($this->user);
 
-        Notification::make()
-            ->title(__('Two-Factor Authentication deactivated'))
-            ->body(__('You can now log in without a code.'))
-            ->success()
-            ->duration(5000)
-            ->send();
+        if ($this->user->two_factor_confirmed_at) {
+            Notification::make()
+                ->title(__('Two-Factor Authentication deactivated'))
+                ->body(__('You can now log in without a code.'))
+                ->success()
+                ->duration(5000)
+                ->send();
+        }
 
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
