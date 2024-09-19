@@ -1,5 +1,6 @@
 {
     "Activate": "Activate",
+    "Activate Two-Factor Authentication": "Activate Two-Factor Authentication",
     "Add additional security to your account using two factor authentication": "Add additional security to your account using two factor authentication",
     "Authenticate with your code": "Authenticate with your code",
     "Authenticator app": "Authenticator app",
@@ -15,6 +16,8 @@
     "Login": "Login",
     "Or scan the QR code with your authenticator app": "Or scan the QR code with your authenticator app",
     "Password Confirmation": "Password Confirmation",
+    "Phone number": "Phone number",
+    "Please confirm this is your :type before continuing.": "Please confirm this is your :type before continuing.",
     "Recovery code": "Recovery code",
     "Regenerate": "Regenerate",
     "Resend": "Resend",

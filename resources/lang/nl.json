@@ -1,5 +1,6 @@
 {
     "Activate": "Activeer",
+    "Activate Two-Factor Authentication": "Activeer tweestapsverificatie",
     "Add additional security to your account using two factor authentication": "Voeg extra beveiliging toe aan uw account met tweestapsverificatie",
     "Authenticate with your code": "Verifieer met uw authenticatiecode",
     "Authenticator app": "Authenticator app",
@@ -15,6 +16,8 @@
     "Login": "Inloggen",
     "Or scan the QR code with your authenticator app": "Of scan de QR-code met uw authenticator-app",
     "Password Confirmation": "Wachtwoordbevestiging",
+    "Phone number": "Telefoonnummer",
+    "Please confirm this is your :type before continuing.": "Bevestig dat dit uw :type is voordat u doorgaat",
     "Recovery code": "Herstelcode",
     "Regenerate": "Opnieuw genereren",
     "Resend": "Opnieuw Verzenden",

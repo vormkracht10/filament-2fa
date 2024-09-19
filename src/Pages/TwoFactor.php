@@ -161,40 +161,44 @@ class TwoFactor extends Page implements HasForms
             ->label(__('Activate'))
             ->requiresConfirmation()
             ->modalHeading(__('Activate Two-Factor Authentication'))
-            ->modalDescription(__('Please confirm this is your :type before proceeding.', [
+            ->modalDescription(__('Please confirm this is your :type before continuing.', [
                 'type' => $this->translatedType(isset($this->twoFactorData['option']) ? $this->twoFactorData['option'] : ''),
             ]))
-            ->form(function (array $data): array {
-                // TODO: Make this more dynamic
-                if ($this->twoFactorData['option'] === TwoFactorType::email->value) {
+            ->form(function (): array {
+                $fields = [
+                    TwoFactorType::email->value => [
+                        'name' => 'email',
+                        'label' => __('Email'),
+                        'default' => $this->user->email,
+                        'rules' => ['required', 'email'],
+                    ],
+                    TwoFactorType::phone->value => [
+                        'name' => 'phone',
+                        'label' => __('Phone number'),
+                        'default' => $this->user->phone,
+                        'rules' => ['required'],
+                    ],
+                ];
+            
+                $option = $this->twoFactorData['option'];
+            
+                if (isset($fields[$option])) {
+                    $field = $fields[$option];
+            
                     return [
-                        TextInput::make('email')
-                            ->label(__('Email'))
-                            ->default($this->user->email)
-                            ->dehydrateStateUsing(fn($state) => filled($state))
+                        TextInput::make($field['name'])
+                            ->label($field['label'])
+                            ->default($field['default'])
                             ->required()
-                            ->email()
+                            ->rules($field['rules'])
                             ->inlineLabel(),
                     ];
                 }
-
-                if ($this->twoFactorData['option'] === TwoFactorType::phone->value) {
-
-                    return [
-                        TextInput::make('phone')
-                            ->label(__('Phone number'))
-                            ->default($this->user->phone)
-                            ->dehydrateStateUsing(fn($state) => filled($state))
-                            ->required()
-                            ->inlineLabel(),
-                    ];
-                }
-
+            
                 return [];
             })
             ->color('primary')
-            ->action(function ($data) {
-                // TODO: Check if user changed email or phone number, and update accordingly
+            ->action(function (array $data): void {
                 $formData = [];
 
                 if (isset($data['email'])) {
