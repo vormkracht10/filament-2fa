@@ -159,7 +159,7 @@ class TwoFactor extends Page implements HasForms
             ->color('primary')
             ->label(__('Activate'));
 
-        if (isset($this->twoFactorData['option']) && $this->twoFactorData['option'] !== TwoFactorType::authenticator->value) {
+        if ($this->twoFactorData['option'] !== TwoFactorType::authenticator->value) {
             $action->requiresConfirmation()
                 ->modalHeading(__('Activate Two-Factor Authentication'))
                 ->modalDescription(__('Please confirm this is your :type before continuing.', [
