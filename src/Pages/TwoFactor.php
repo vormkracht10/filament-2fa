@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\TwoFactorAuth\Pages;
 
-use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
@@ -178,12 +177,12 @@ class TwoFactor extends Page implements HasForms
                         'rules' => ['required'],
                     ],
                 ];
-            
+
                 $option = $this->twoFactorData['option'];
-            
+
                 if (isset($fields[$option])) {
                     $field = $fields[$option];
-            
+
                     return [
                         TextInput::make($field['name'])
                             ->label($field['label'])
@@ -193,7 +192,7 @@ class TwoFactor extends Page implements HasForms
                             ->inlineLabel(),
                     ];
                 }
-            
+
                 return [];
             })
             ->color('primary')
