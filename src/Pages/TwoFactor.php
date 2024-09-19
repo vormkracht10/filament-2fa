@@ -90,7 +90,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn($state) => filled($state))
+                ->dehydrateStateUsing(fn ($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -231,6 +231,7 @@ class TwoFactor extends Page implements HasForms
                         'default' => null, // Set default value if needed
                         'rules' => ['required'],
                     ];
+
                     break;
                 case TwoFactorType::email:
                     $fields[$option->value] = [
@@ -239,6 +240,7 @@ class TwoFactor extends Page implements HasForms
                         'default' => $this->user->email,
                         'rules' => ['required', 'email'],
                     ];
+
                     break;
                 case TwoFactorType::phone:
                     $fields[$option->value] = [
@@ -247,6 +249,7 @@ class TwoFactor extends Page implements HasForms
                         'default' => $this->user->{config('filament-two-factor-auth.phone_number_field', 'phone')},
                         'rules' => ['required'],
                     ];
+
                     break;
             }
         }
