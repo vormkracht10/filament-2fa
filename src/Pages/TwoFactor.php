@@ -356,8 +356,6 @@ class TwoFactor extends Page implements HasForms
 
     public function disableTwoFactorAuthentication(DisableTwoFactorAuthentication $disable): void
     {
-        $disable($this->user);
-
         if ($this->user->two_factor_confirmed_at) {
             Notification::make()
                 ->title(__('Two-Factor Authentication deactivated'))
@@ -366,6 +364,7 @@ class TwoFactor extends Page implements HasForms
                 ->duration(5000)
                 ->send();
         }
+        $disable($this->user);
 
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
