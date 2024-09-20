@@ -90,7 +90,7 @@ class TwoFactor extends Page implements HasForms
         return [
             TextInput::make('current_password')
                 ->label(__('Password'))
-                ->dehydrateStateUsing(fn ($state) => filled($state))
+                ->dehydrateStateUsing(fn($state) => filled($state))
                 ->required()
                 ->password()
                 ->inlineLabel()
@@ -213,7 +213,8 @@ class TwoFactor extends Page implements HasForms
         });
     }
 
-    private function getConfirmableFields()
+    /** @return array<int|string, array{name: 'authenticator'|'email'|'phone', label: string, default: mixed, rules: array{0: 'required', 1?: 'email'}}> */
+    private function getConfirmableFields(): array
     {
         $confirmableOptions = config('filament-two-factor-auth.options', [
             TwoFactorType::email,
