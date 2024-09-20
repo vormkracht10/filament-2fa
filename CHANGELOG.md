@@ -2,6 +2,17 @@
 
 All notable changes to `filament-2fa` will be documented in this file.
 
+## v1.6.0 - 2024-09-20
+
+### What's Changed
+
+* [Bug fix] Undefined method 'via' by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/41
+* [Bug fix] NPM error when building by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/42
+* Update forced method to accept Closure type by @CodeWithDennis in https://github.com/vormkracht10/filament-2fa/pull/43
+* [Feature] Show user phone or email before sending OTP by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/39
+
+**Full Changelog**: https://github.com/vormkracht10/filament-2fa/compare/v1.5.0...v1.6.0
+
 ## v1.5.0 - 2024-09-18
 
 ### What's Changed
