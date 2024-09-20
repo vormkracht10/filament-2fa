@@ -65,6 +65,7 @@ return [
     */
     'sms_service' => null, // For example 'vonage', 'twilio', 'nexmo', etc.
     'send_otp_class' => null,
+    'phone_number_field' => 'phone',
 
     /*
     |--------------------------------------------------------------------------
