@@ -99,6 +99,26 @@ protected function casts(): array
 > [!WARNING]
 > When using `fillable` instead of `guarded` on your model, make sure to add `two_factor_type` to the `$fillable` array.
 
+Also make sure to add the package files to your `vite.config.js` file:
+
+```js
+// ...
+
+export default defineConfig({
+    plugins: [
+        laravel({
+            input: [
+                // ...
+            ],
+            content: [
+                "./vendor/vormkracht10/filament-2fa/resources/**.*.blade.php",
+            ],
+            refresh: true,
+        }),
+    ],
+});
+```
+
 ### Register the event listener
 
 #### Laravel 11
