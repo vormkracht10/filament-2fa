@@ -2,15 +2,19 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
+use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
+use Filament\Support\Concerns\EvaluatesClosures;
 use Vormkracht10\TwoFactorAuth\Http\Middleware\ForceTwoFactor;
 use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 class TwoFactorAuthPlugin implements Plugin
 {
-    private bool $forced = false;
+    use EvaluatesClosures;
+
+    private Closure | bool | null $forced = false;
 
     public function getId(): string
     {
@@ -65,15 +69,15 @@ class TwoFactorAuthPlugin implements Plugin
         return $plugin;
     }
 
-    public function forced(bool $forced = true, bool $withTenancy = false): self
+    public function forced(Closure | bool | null $forced = true, bool $withTenancy = false): self
     {
         $this->forced = $forced;
 
         return $this;
     }
 
-    public function isForced(): bool
+    public function isForced(): Closure | bool | null
     {
-        return $this->forced;
+        return $this->evaluate($this->forced);
     }
 }
