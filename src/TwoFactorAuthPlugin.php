@@ -24,8 +24,7 @@ class TwoFactorAuthPlugin implements Plugin
             ->pages([
                 config('filament-two-factor-auth.two_factor_settings'),
                 config('filament-two-factor-auth.challenge'),
-            ])
-            ->viteTheme('vendor/vormkracht10/filament-2fa/resources/dist/filament-two-factor-auth.css');
+            ]);
 
         if ($this->isForced()) {
             $middlewareMethod = config('filament-two-factor-auth.enabled_features.multi_tenancy') ? 'tenantMiddleware' : 'middleware';
