@@ -19,7 +19,5 @@
                 {{ __('Confirm') }}
             </x-filament::button>
         </form>
-
-        <x-filament::notification-manager />
     </div>
 </div>
