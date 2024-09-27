@@ -37,12 +37,14 @@ class TwoFactorAuthPlugin implements Plugin
             ]);
         }
 
-        $panel->userMenuItems([
-            'two-factor-authentication' => MenuItem::make()
-                ->icon('heroicon-o-lock-closed')
-                ->label(__('Two-Factor Authentication'))
-                ->url(fn (): string => TwoFactor::getUrl()),
-        ]);
+        if (! config('filament-two-factor-auth.enabled_features.multi_tenancy')) {
+            $panel->userMenuItems([
+                'two-factor-authentication' => MenuItem::make()
+                    ->icon('heroicon-o-lock-closed')
+                    ->label(__('Two-Factor Authentication'))
+                    ->url(fn (): string => TwoFactor::getUrl()),
+            ]);
+        }
 
         if (config('filament-two-factor-auth.enabled_features.register')) {
             $panel->registration(config('filament-two-factor-auth.register'));

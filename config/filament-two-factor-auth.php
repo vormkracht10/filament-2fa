@@ -44,10 +44,9 @@ return [
         | Tenant
         |--------------------------------------------------------------------------
         |
-        | Set to true if you're using Filament in a multi-tenant setup. We need to know
-        | this to apply the correct middleware.
-        |
-        | @see https://github.com/vormkracht10/filament-2fa?tab=readme-ov-file#forcing-two-factor-authentication
+        | Set to true if you're using Filament in a multi-tenant setup. If true, you
+        | need to manually set the user menu item for the two factor authentication
+        | page panel class. Take a look at the documentation for more information.
         |
         */
         'multi_tenancy' => false,

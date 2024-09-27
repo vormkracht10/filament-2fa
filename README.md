@@ -253,6 +253,24 @@ return [
 
 Make sure you extend the original classes from the package.
 
+### Multi-tenant setup
+
+If you're using Filament in a multi-tenant setup, you need to set the `tenant` option to `true` in the `config/filament-two-factor-auth.php` file. You also need to set the `userMenuItems` in your panel config. Take a look at the example below:
+
+```php
+use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
+
+// ...
+
+->userMenuItems([
+    // ...
+    'two-factor-authentication' => MenuItem::make()
+        ->icon('heroicon-o-lock-closed')
+        ->label(__('Two-Factor Authentication'))
+        ->url(fn(): string => TwoFactor::getUrl(['tenant' => auth()->user()->organization->getRouteKey()])),
+])
+```
+
 ### Forcing Two Factor Authentication
 
 If you want to force users to enable Two Factor Authentication, you can add this to your `PanelProvider`:
