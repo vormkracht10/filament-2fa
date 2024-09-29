@@ -68,8 +68,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             ->color('primary')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->disabled(fn () => ! $this->canResend())
-            ->action(fn () => $this->handleResend());
+            ->disabled(fn() => ! $this->canResend())
+            ->action(fn() => $this->handleResend());
     }
 
     public function handleResend(): void
@@ -126,7 +126,10 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
         return [
             TextInput::make('code')
                 ->required()
-                ->extraInputAttributes(['name' => 'code'])
+                ->extraInputAttributes([
+                    'name' => 'code',
+                    'autocomplete' => 'one-time-code',
+                ])
                 ->label(__('Code')),
             TextInput::make('recovery_code')
                 ->extraInputAttributes(['name' => 'recovery_code'])
