@@ -136,7 +136,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
                     'name' => 'code',
                     'autocomplete' => 'one-time-code',
                 ])
-                ->afterStateUpdated(fn(Set $set, ?string $state) => $set('recovery_code', $state))
+                ->afterStateUpdated(fn (Set $set, ?string $state) => $set('recovery_code', $state))
                 ->live(),
         ];
     }
