@@ -1,7 +1,7 @@
 name: Bug Report
 description: Report an Issue or Bug with the Package
-title: "[Bug]: "
-labels: ["bug"]
+title: '[Bug]: '
+labels: ['bug']
 body:
   - type: markdown
     attributes:
@@ -23,6 +23,13 @@ body:
       placeholder: When I do X I see Y.
     validations:
       required: true
+  - type: input
+    id: repository
+    attributes:
+      label: Repository
+      description: If you have a public repository or a reproduction repository, please provide the link here.
+    validations:
+      required: false
   - type: input
     id: package-version
     attributes:
