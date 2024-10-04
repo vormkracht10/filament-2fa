@@ -2,33 +2,36 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
-use Filament\Support\Assets\AlpineComponent;
-use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
-use Laravel\Fortify\Contracts\TwoFactorLoginResponse as TwoFactorLoginResponseContract;
-use Laravel\Fortify\Features;
-use Laravel\Fortify\Fortify;
-use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Features;
+use Filament\Support\Assets\Js;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Asset;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Spatie\LaravelPackageTools\Package;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\Redirect;
+use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\Facades\FilamentAsset;
+use Illuminate\Support\Facades\RateLimiter;
+use Filament\Support\Assets\AlpineComponent;
+use Livewire\Features\SupportTesting\Testable;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
-use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
-use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
-use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorLoginResponse;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Vormkracht10\TwoFactorAuth\Testing\TestsTwoFactorAuth;
+use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
+use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorLoginResponse;
+use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
+use Laravel\Fortify\Contracts\TwoFactorLoginResponse as TwoFactorLoginResponseContract;
 
 class TwoFactorAuthServiceProvider extends PackageServiceProvider
 {
@@ -47,9 +50,40 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
             ->hasCommands($this->getCommands())
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
-                    ->publishConfigFile()
-                    ->publishMigrations()
-                    ->askToRunMigrations()
+                    ->startWith(function (InstallCommand $command) {
+                        $command->comment('Welcome to the Filament Two Factor Auth installation process!');
+
+                        if ($command->confirm('Would you like to publish the assets?', true)) {
+                            $command->publishAssets();
+                        }
+
+                        if ($command->confirm('Would you like to publish the config file?', true)) {
+                            $command->publishConfigFile();
+                        }
+
+                        if ($command->confirm('Would you like to publish the migrations?', true)) {
+                            $command->publishMigrations();
+                        }
+
+                        if ($command->confirm('Would you like to run the migrations now?', true)) {
+                            $command->comment('Running migrations...');
+
+                            $command->call('migrate');
+                        }
+
+                        if ($command->confirm('Would you like us to set the two factor type to "authenticator" for existing users?', true)) {
+
+                            if (Schema::hasTable('users') && Schema::hasColumn('users', 'two_factor_type')) {
+                                $command->comment('Setting two factor type to "authenticator" for existing users...');
+
+                                DB::table('users')
+                                    ->where('two_factor_confirmed_at', '!=', null)
+                                    ->update(['two_factor_type' => TwoFactorType::authenticator]);
+                            } else {
+                                $command->comment('Table users does not exist or not have column two_factor_type.');
+                            }
+                        }
+                    })
                     ->askToStarRepoOnGitHub('vormkracht10/filament-two-factor-auth');
             });
 
@@ -128,7 +162,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                  * This route name is used multiple places in filament.
                  */
                 Route::prefix(config('filament.path'))->group(function () {
-                    Route::get('/filament-login', fn () => Redirect::route('login'))
+                    Route::get('/filament-login', fn() => Redirect::route('login'))
                         ->name('auth.login');
                 });
             });
