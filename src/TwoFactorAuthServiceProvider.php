@@ -54,16 +54,14 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                         if ($command->confirm('Would you like to publish the config file?', true)) {
                             $command->comment('Publishing config...');
                             $command->callSilently('vendor:publish', [
-                                '--tag' =>
-                                "{$package->shortName()}-config",
+                                '--tag' => "{$package->shortName()}-config",
                             ]);
                         }
 
                         if ($command->confirm('Would you like to publish the migrations?', true)) {
                             $command->comment('Publishing migrations...');
                             $command->callSilently('vendor:publish', [
-                                '--tag' =>
-                                "{$package->shortName()}-migrations",
+                                '--tag' => "{$package->shortName()}-migrations",
                             ]);
                         }
 
@@ -74,13 +72,13 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
 
                             if ($command->confirm('Would you like us to set the two factor type to "authenticator" for existing users?', true)) {
 
-                                if (!Schema::hasTable('users')) {
+                                if (! Schema::hasTable('users')) {
                                     $command->error('Table users does not exist.');
 
                                     return;
                                 }
 
-                                if (!Schema::hasColumn('users', 'two_factor_type')) {
+                                if (! Schema::hasColumn('users', 'two_factor_type')) {
                                     $command->error('Column two_factor_type does not exist in table users. Please run the migrations first.');
 
                                     return;
