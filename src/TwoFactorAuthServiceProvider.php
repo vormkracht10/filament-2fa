@@ -48,39 +48,49 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
          */
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
-            ->hasInstallCommand(function (InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) use ($package) {
                 $command
-                    ->startWith(function (InstallCommand $command) {
-                        $command->comment('Welcome to the Filament Two Factor Auth installation process!');
-
-                        if ($command->confirm('Would you like to publish the assets?', true)) {
-                            $command->publishAssets();
-                        }
-
+                    ->startWith(function (InstallCommand $command) use ($package) {
                         if ($command->confirm('Would you like to publish the config file?', true)) {
-                            $command->publishConfigFile();
+                            $command->comment('Publishing config...');
+                            $command->callSilently('vendor:publish', [
+                                '--tag' =>
+                                "{$package->shortName()}-config",
+                            ]);
                         }
 
                         if ($command->confirm('Would you like to publish the migrations?', true)) {
-                            $command->publishMigrations();
+                            $command->comment('Publishing migrations...');
+                            $command->callSilently('vendor:publish', [
+                                '--tag' =>
+                                "{$package->shortName()}-migrations",
+                            ]);
                         }
 
                         if ($command->confirm('Would you like to run the migrations now?', true)) {
                             $command->comment('Running migrations...');
 
                             $command->call('migrate');
-                        }
 
-                        if ($command->confirm('Would you like us to set the two factor type to "authenticator" for existing users?', true)) {
+                            if ($command->confirm('Would you like us to set the two factor type to "authenticator" for existing users?', true)) {
 
-                            if (Schema::hasTable('users') && Schema::hasColumn('users', 'two_factor_type')) {
+                                if (!Schema::hasTable('users')) {
+                                    $command->error('Table users does not exist.');
+
+                                    return;
+                                }
+
+                                if (!Schema::hasColumn('users', 'two_factor_type')) {
+                                    $command->error('Column two_factor_type does not exist in table users. Please run the migrations first.');
+
+                                    return;
+                                }
+
                                 $command->comment('Setting two factor type to "authenticator" for existing users...');
 
                                 DB::table('users')
                                     ->where('two_factor_confirmed_at', '!=', null)
                                     ->update(['two_factor_type' => TwoFactorType::authenticator]);
-                            } else {
-                                $command->comment('Table users does not exist or not have column two_factor_type.');
                             }
                         }
                     })
