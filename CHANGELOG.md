@@ -2,6 +2,15 @@
 
 All notable changes to `filament-2fa` will be documented in this file.
 
+## v1.7.0 - 2024-10-04
+
+### What's Changed
+
+* [Improvement] Remove unnecessary check on tenant for menu item by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/45
+* Set two factor type for users that already enabled 2FA by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/49
+
+**Full Changelog**: https://github.com/vormkracht10/filament-2fa/compare/v1.6.0...v1.7.0
+
 ## v1.6.0 - 2024-09-20
 
 ### What's Changed
