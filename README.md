@@ -61,6 +61,9 @@ You can then easily install the plugin by running the following command:
 php artisan filament-two-factor-auth:install
 ```
 
+> [!NOTE]
+> If you used Laravel Fortify before, you probably already have users with 2FA enabled. In that case, you should let the install command set the default `two_factor_type` for existing users. Else you may run into issues.
+
 Then add the plugin to your `PanelProvider`:
 
 ```php
