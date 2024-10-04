@@ -11,9 +11,11 @@ use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Contracts\TwoFactorLoginResponse as TwoFactorLoginResponseContract;
@@ -25,6 +27,7 @@ use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
 use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
 use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorLoginResponse;
@@ -45,11 +48,50 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
          */
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
-            ->hasInstallCommand(function (InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) use ($package) {
                 $command
-                    ->publishConfigFile()
-                    ->publishMigrations()
-                    ->askToRunMigrations()
+                    ->startWith(function (InstallCommand $command) use ($package) {
+                        if ($command->confirm('Would you like to publish the config file?', true)) {
+                            $command->comment('Publishing config...');
+                            $command->callSilently('vendor:publish', [
+                                '--tag' => "{$package->shortName()}-config",
+                            ]);
+                        }
+
+                        if ($command->confirm('Would you like to publish the migrations?', true)) {
+                            $command->comment('Publishing migrations...');
+                            $command->callSilently('vendor:publish', [
+                                '--tag' => "{$package->shortName()}-migrations",
+                            ]);
+                        }
+
+                        if ($command->confirm('Would you like to run the migrations now?', true)) {
+                            $command->comment('Running migrations...');
+
+                            $command->call('migrate');
+
+                            if ($command->confirm('Would you like us to set the two factor type to "authenticator" for existing users?', true)) {
+
+                                if (! Schema::hasTable('users')) {
+                                    $command->error('Table users does not exist.');
+
+                                    return;
+                                }
+
+                                if (! Schema::hasColumn('users', 'two_factor_type')) {
+                                    $command->error('Column two_factor_type does not exist in table users. Please run the migrations first.');
+
+                                    return;
+                                }
+
+                                $command->comment('Setting two factor type to "authenticator" for existing users...');
+
+                                DB::table('users')
+                                    ->where('two_factor_confirmed_at', '!=', null)
+                                    ->update(['two_factor_type' => TwoFactorType::authenticator]);
+                            }
+                        }
+                    })
                     ->askToStarRepoOnGitHub('vormkracht10/filament-two-factor-auth');
             });
 
