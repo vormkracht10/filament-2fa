@@ -2,36 +2,36 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
-use Livewire\Livewire;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Laravel\Fortify\Fortify;
-use Laravel\Fortify\Features;
-use Filament\Support\Assets\Js;
-use Filament\Support\Assets\Css;
+use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
-use Illuminate\Support\Facades\DB;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentIcon;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
-use Spatie\LaravelPackageTools\Package;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Support\Facades\Redirect;
-use Filament\Support\Facades\FilamentIcon;
-use Filament\Support\Facades\FilamentAsset;
-use Illuminate\Support\Facades\RateLimiter;
-use Filament\Support\Assets\AlpineComponent;
-use Livewire\Features\SupportTesting\Testable;
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Vormkracht10\TwoFactorAuth\Testing\TestsTwoFactorAuth;
-use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
-use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
+use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
-use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorLoginResponse;
-use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
 use Laravel\Fortify\Contracts\TwoFactorLoginResponse as TwoFactorLoginResponseContract;
+use Laravel\Fortify\Features;
+use Laravel\Fortify\Fortify;
+use Livewire\Features\SupportTesting\Testable;
+use Livewire\Livewire;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
+use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
+use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
+use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorLoginResponse;
+use Vormkracht10\TwoFactorAuth\Testing\TestsTwoFactorAuth;
 
 class TwoFactorAuthServiceProvider extends PackageServiceProvider
 {
@@ -162,7 +162,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                  * This route name is used multiple places in filament.
                  */
                 Route::prefix(config('filament.path'))->group(function () {
-                    Route::get('/filament-login', fn() => Redirect::route('login'))
+                    Route::get('/filament-login', fn () => Redirect::route('login'))
                         ->name('auth.login');
                 });
             });
