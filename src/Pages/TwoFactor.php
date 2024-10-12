@@ -204,7 +204,9 @@ class TwoFactor extends Page implements HasForms
                         ->danger()
                         ->send();
                 return;
-            }            /** @var array{two_factor_type: TwoFactorType|null, email?: mixed} $formData */
+            }
+
+            /** @var array{two_factor_type: TwoFactorType|null, email?: mixed} $formData */
 
             if (
                 isset($formData['two_factor_type']) &&
