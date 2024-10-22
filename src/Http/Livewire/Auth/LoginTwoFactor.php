@@ -37,8 +37,6 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
 
     public ?string $code = null;
 
-    public ?string $recovery_code = null;
-
     #[Reactive]
     public int $lastResendTime = 0;
 
@@ -73,8 +71,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             ->color('primary')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->disabled(fn () => ! $this->canResend())
-            ->action(fn () => $this->handleResend());
+            ->disabled(fn() => ! $this->canResend())
+            ->action(fn() => $this->handleResend());
     }
 
     public function handleResend(): void
@@ -135,9 +133,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
                 ->extraInputAttributes([
                     'name' => 'code',
                     'autocomplete' => 'one-time-code',
-                ])
-                ->afterStateUpdated(fn (Set $set, ?string $state) => $set('recovery_code', $state))
-                ->live(),
+                    'onchange' => 'document.getElementById("recovery_code").value = this.value'
+                ]),
         ];
     }
 }
