@@ -25,9 +25,9 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     use InteractsWithForms;
     use WithRateLimiting;
 
-    protected static string $layout = 'filament-two-factor-auth::layouts.login';
+    protected static string $layout = 'filament-2fa::layouts.login';
 
-    protected static string $view = 'filament-two-factor-auth::auth.login-two-factor';
+    protected static string $view = 'filament-2fa::auth.login-two-factor';
 
     protected static bool $shouldRegisterNavigation = false;
 
@@ -73,8 +73,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             ->color('primary')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->disabled(fn () => ! $this->canResend())
-            ->action(fn () => $this->handleResend());
+            ->disabled(fn() => ! $this->canResend())
+            ->action(fn() => $this->handleResend());
     }
 
     public function handleResend(): void
@@ -136,7 +136,7 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
                     'name' => 'code',
                     'autocomplete' => 'one-time-code',
                 ])
-                ->afterStateUpdated(fn (Set $set, ?string $state) => $set('recovery_code', $state))
+                ->afterStateUpdated(fn(Set $set, ?string $state) => $set('recovery_code', $state))
                 ->live(),
         ];
     }

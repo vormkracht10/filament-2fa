@@ -46,7 +46,7 @@ class TwoFactor extends Page implements HasForms
 
     public mixed $user = null;
 
-    protected static string $view = 'filament-two-factor-auth::two-factor';
+    protected static string $view = 'filament-2fa::two-factor';
 
     public static function shouldRegisterNavigation(): bool
     {

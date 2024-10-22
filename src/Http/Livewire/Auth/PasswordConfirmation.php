@@ -40,7 +40,7 @@ class PasswordConfirmation extends Component implements HasForms
 
     public function render(): View
     {
-        return view('filament-two-factor-auth::auth.password-confirmation')
+        return view('filament-2fa::auth.password-confirmation')
             ->layout('filament::components.layouts.app', [
                 'title' => __('Password Confirmation'),
                 'breadcrumbs' => [
