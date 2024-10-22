@@ -68,10 +68,10 @@ class PasswordReset extends Page implements HasForms
                 ->required(),
             Hidden::make('email')
                 ->extraAttributes(['name' => 'email'])
-                ->afterStateHydrated(fn($component) => $component->state(request()->get('email'))),
+                ->afterStateHydrated(fn ($component) => $component->state(request()->get('email'))),
             Hidden::make('token')
                 ->extraAttributes(['name' => 'token'])
-                ->afterStateHydrated(fn($component) => $component->state(request()->route('token'))),
+                ->afterStateHydrated(fn ($component) => $component->state(request()->route('token'))),
         ];
     }
 
