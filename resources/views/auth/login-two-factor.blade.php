@@ -8,13 +8,13 @@
     </div>
     @endif
     <form method="POST" action="{{ route('two-factor.login') }}" class="space-y-8">
-
         @csrf
-        {{ $this->form }}
-
+        
         <div style="display: none">
-            <input type="text" id="recovery_code" wire:model="recovery_code" name="recovery_code" value="">
+            <input type="text" id="recovery_code" name="recovery_code" value="">
         </div>
+
+        {{ $this->form }}
 
         <div class="flex items-center justify-between mt-6">
             <x-filament::button type="submit" class="w-full" color="primary">
