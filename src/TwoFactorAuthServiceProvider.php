@@ -170,7 +170,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                  * This route name is used multiple places in filament.
                  */
                 Route::prefix(config('filament.path'))->group(function () {
-                    Route::get('/filament-login', fn () => Redirect::route('login'))
+                    Route::get('/filament-login', fn() => Redirect::route('login'))
                         ->name('auth.login');
                 });
             });
@@ -268,8 +268,8 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-2fa', __DIR__ . '/../resources/dist/components/filament-2fa.js'),
-            Css::make('filament-2fa-styles', __DIR__ . '/../resources/dist/filament-two-factor-auth.css'),
-            Js::make('filament-2fa-scripts', __DIR__ . '/../resources/dist/filament-two-factor-auth.js'),
+            Css::make('filament-2fa-styles', __DIR__ . '/../resources/dist/filament-2fa.css'),
+            Js::make('filament-2fa-scripts', __DIR__ . '/../resources/dist/filament-2fa.js'),
         ];
     }
 

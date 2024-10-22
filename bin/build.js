@@ -46,5 +46,5 @@ const defaultOptions = {
 compile({
     ...defaultOptions,
     entryPoints: ['./resources/js/index.js'],
-    outfile: './resources/dist/filament-two-factor-auth.js',
+    outfile: './resources/dist/filament-2fa.js',
 })
