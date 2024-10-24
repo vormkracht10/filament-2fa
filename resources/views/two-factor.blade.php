@@ -54,7 +54,9 @@
                                                         {!! __('Or scan the QR code with your authenticator app') !!}.
                                                     </div>
                                                     <div class="flex items-center justify-center mt-2">
-                                                        {!! $user->twoFactorQrCodeSvg() !!}
+                                                        <div class="border-4 border-white">
+                                                            {!! $user->twoFactorQrCodeSvg() !!}
+                                                        </div>
                                                     </div>
                                                     <br />
                                                     <p class="text-sm">
