@@ -3,16 +3,16 @@
     <div class="space-y-10 divide-y divide-gray-900/10 ">
         <div class="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
             <div class="pr-4 sm:px-0">
-                <h2 class="text-base font-semibold leading-7 dark:bg-white">
+                <h2 class="text-base font-semibold leading-7">
                     {{ __('Secure your account') }}
                 </h2>
 
                 @if (!$showingRecoveryCodes && $user->two_factor_confirmed_at)
-                    <p class="mt-1 text-sm leading-6 dark:bg-white mb-4">
+                    <p class="mt-1 text-sm leading-6 mb-4">
                         {{ __('Your account has been secured with two factor authentication') }}.
                     </p>
                 @else
-                    <p class="mt-1 text-sm leading-6 dark:bg-white mb-4">
+                    <p class="mt-1 text-sm leading-6 mb-4">
                         {{ __('Add additional security to your account using two factor authentication') }}.
                     </p>
                 @endif
