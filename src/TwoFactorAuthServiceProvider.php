@@ -35,9 +35,9 @@ use Vormkracht10\TwoFactorAuth\Testing\TestsTwoFactorAuth;
 
 class TwoFactorAuthServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'filament-two-factor-auth';
+    public static string $name = 'filament-2fa';
 
-    public static string $viewNamespace = 'filament-two-factor-auth';
+    public static string $viewNamespace = 'filament-2fa';
 
     public function configurePackage(Package $package): void
     {
@@ -92,7 +92,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                             }
                         }
                     })
-                    ->askToStarRepoOnGitHub('vormkracht10/filament-two-factor-auth');
+                    ->askToStarRepoOnGitHub('vormkracht10/filament-2fa');
             });
 
         $configFileName = $package->shortName();
@@ -137,8 +137,8 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
-                    $file->getRealPath() => base_path("stubs/filament-two-factor-auth/{$file->getFilename()}"),
-                ], 'filament-two-factor-auth-stubs');
+                    $file->getRealPath() => base_path("stubs/filament-2fa/{$file->getFilename()}"),
+                ], 'filament-2fa-stubs');
             }
         }
 
@@ -179,7 +179,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     protected function forceFortifyConfig(): void
     {
         config([
-            'filament.auth.pages.login' => config('filament-two-factor-auth.login'),
+            'filament.auth.pages.login' => config('filament-2fa.login'),
             'fortify.views' => true,
             'fortify.home' => config('filament.home_url'),
             'forms.dark_mode' => config('filament.dark_mode'),
@@ -207,27 +207,27 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
 
         if (Features::enabled(Features::resetPasswords())) {
             Fortify::requestPasswordResetLinkView(function () {
-                return app()->call(config('filament-two-factor-auth.request_password_reset'));
+                return app()->call(config('filament-2fa.request_password_reset'));
             });
 
             Fortify::resetPasswordView(function ($request) {
-                return app()->call(config('filament-two-factor-auth.password_reset'));
+                return app()->call(config('filament-2fa.password_reset'));
             });
         }
 
         if (Features::enabled(Features::emailVerification())) {
             Fortify::verifyEmailView(function () {
-                return view('filament-two-factor-auth::auth.verify-email');
+                return view('filament-2fa::auth.verify-email');
             });
         }
 
         Fortify::confirmPasswordView(function () {
-            return app()->call(config('filament-two-factor-auth.password_confirmation'));
+            return app()->call(config('filament-2fa.password_confirmation'));
         });
 
         if (Features::enabled(Features::twoFactorAuthentication())) {
             Fortify::twoFactorChallengeView(function () {
-                return app()->call(config('filament-two-factor-auth.challenge'));
+                return app()->call(config('filament-2fa.challenge'));
             });
         }
     }
@@ -236,19 +236,19 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     {
         Livewire::component(
             'password-reset',
-            config('filament-two-factor-auth.password_reset')
+            config('filament-2fa.password_reset')
         );
         Livewire::component(
             'request-password-reset',
-            config('filament-two-factor-auth.request_password_reset')
+            config('filament-2fa.request_password_reset')
         );
         Livewire::component(
             'login-two-factor',
-            config('filament-two-factor-auth.challenge')
+            config('filament-2fa.challenge')
         );
         Livewire::component(
             'two-factor',
-            config('filament-two-factor-auth.two_factor_settings')
+            config('filament-2fa.two_factor_settings')
         );
 
         $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
@@ -268,8 +268,8 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-2fa', __DIR__ . '/../resources/dist/components/filament-2fa.js'),
-            Css::make('filament-2fa-styles', __DIR__ . '/../resources/dist/filament-two-factor-auth.css'),
-            Js::make('filament-2fa-scripts', __DIR__ . '/../resources/dist/filament-two-factor-auth.js'),
+            Css::make('filament-2fa-styles', __DIR__ . '/../resources/dist/filament-2fa.css'),
+            Js::make('filament-2fa-scripts', __DIR__ . '/../resources/dist/filament-2fa.js'),
         ];
     }
 

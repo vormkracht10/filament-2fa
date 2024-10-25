@@ -1,4 +1,5 @@
-# Filament Two Factor Authentication (2FA) plugin
+# Filament 2FA plugin
+*Two Factor Authentication for Laravel Filament*
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/filament-2fa.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-2fa)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/filament-2fa/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vormkracht10/filament-2fa/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -58,7 +59,7 @@ php artisan migrate
 You can then easily install the plugin by running the following command:
 
 ```bash
-php artisan filament-two-factor-auth:install
+php artisan filament-2fa:install
 ```
 
 > [!NOTE]
@@ -168,14 +169,14 @@ protected $listen = [
 If you want to customize the views (including email), you can publish them using the following command:
 
 ```bash
-php artisan vendor:publish --tag=filament-two-factor-auth-views
+php artisan vendor:publish --tag=filament-2fa-views
 ```
 
 ## Usage
 
 ### Configuration
 
-The authentication methods can be configured in the `config/filament-two-factor-auth.php` file (which is published during the install command).
+The authentication methods can be configured in the `config/filament-2fa.php` file (which is published during the install command).
 
 You can simply add or remove (comment) the methods you want to use:
 
@@ -222,7 +223,7 @@ class SendOTP extends NotificationsSendOTP
 
 You can get the two factor code for the user by calling the `getTwoFactorCode` method on the notification class.
 
-Then you need to set the `send_otp_class` in the `config/filament-two-factor-auth.php` file:
+Then you need to set the `send_otp_class` in the `config/filament-2fa.php` file:
 
 ```php
 return [
@@ -238,7 +239,7 @@ return [
 
 ### Customization
 
-If you want to fully customize the pages, you can override the classes in the `config/filament-two-factor-auth.php` file:
+If you want to fully customize the pages, you can override the classes in the `config/filament-2fa.php` file:
 
 ```php
 return [
@@ -258,7 +259,7 @@ Make sure you extend the original classes from the package.
 
 ### Multi-tenant setup
 
-If you're using Filament in a multi-tenant setup, you need to set the `tenant` option to `true` in the `config/filament-two-factor-auth.php` file. You also need to set the `userMenuItems` in your panel config. Take a look at the example below:
+If you're using Filament in a multi-tenant setup, you need to set the `tenant` option to `true` in the `config/filament-2fa.php` file. You also need to set the `userMenuItems` in your panel config. Take a look at the example below:
 
 ```php
 use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
@@ -267,7 +268,7 @@ use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 ->userMenuItems([
     // ...
-    'two-factor-authentication' => MenuItem::make()
+    '2fa' => MenuItem::make()
         ->icon('heroicon-o-lock-closed')
         ->label(__('Two-Factor Authentication'))
         ->url(fn(): string => TwoFactor::getUrl(['tenant' => auth()->user()->organization->getRouteKey()])),
@@ -285,17 +286,17 @@ If you want to force users to enable Two Factor Authentication, you can add this
 ```
 
 > [!WARNING]
-> When you're using the `forced` method, make sure to set the `multi_tenancy` option to `true` in the `filament-two-factor-auth.php` config file when you're using a multi-tenant setup. Otherwise, the forced setting will not work. We cannot check the tenant in the `PanelProvider` because the user is not authenticated yet.
+> When you're using the `forced` method, make sure to set the `multi_tenancy` option to `true` in the `filament-2fa.php` config file when you're using a multi-tenant setup. Otherwise, the forced setting will not work. We cannot check the tenant in the `PanelProvider` because the user is not authenticated yet.
 
 #### Customizing the forced message
 
 If you want to customize the forced message, you can publish the language file:
 
 ```bash
-php artisan vendor:publish --tag="filament-two-factor-auth-translations"
+php artisan vendor:publish --tag="filament-2fa-translations"
 ```
 
-Then you can customize the message in the `lang/vendor/filament-two-factor-auth/en.json` file. You should change the following keys:
+Then you can customize the message in the `lang/vendor/filament-2fa/en.json` file. You should change the following keys:
 
 ```json
 {

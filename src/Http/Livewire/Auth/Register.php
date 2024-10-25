@@ -9,7 +9,7 @@ class Register extends BaseRegister
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static string $view = 'filament-two-factor-auth::auth.register';
+    protected static string $view = 'filament-2fa::auth.register';
 
     public function register(): ?RegistrationResponse
     {

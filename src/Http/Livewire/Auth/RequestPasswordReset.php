@@ -53,7 +53,7 @@ class RequestPasswordReset extends Page implements HasForms
 
     public function render(): View
     {
-        return view('filament-two-factor-auth::auth.request-password-reset', $this->getViewData())
+        return view('filament-2fa::auth.request-password-reset', $this->getViewData())
             ->layout($this->getLayout(), [
                 'livewire' => $this,
                 'maxContentWidth' => $this->getMaxContentWidth(),

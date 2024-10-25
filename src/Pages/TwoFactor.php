@@ -46,7 +46,7 @@ class TwoFactor extends Page implements HasForms
 
     public mixed $user = null;
 
-    protected static string $view = 'filament-two-factor-auth::two-factor';
+    protected static string $view = 'filament-2fa::two-factor';
 
     public static function shouldRegisterNavigation(): bool
     {
@@ -69,7 +69,7 @@ class TwoFactor extends Page implements HasForms
                 ->send();
         }
 
-        $this->twoFactorOptionsCount = config('filament-two-factor-auth.options') ? count(config('filament-two-factor-auth.options')) : 0;
+        $this->twoFactorOptionsCount = config('filament-2fa.options') ? count(config('filament-2fa.options')) : 0;
 
         $this->user = Auth::user();
 
@@ -101,7 +101,7 @@ class TwoFactor extends Page implements HasForms
     public function twoFactorOptionForm(Form $form): Form
     {
         /** @var array<int, TwoFactorType> $configOptions */
-        $configOptions = config('filament-two-factor-auth.options', [
+        $configOptions = config('filament-2fa.options', [
             TwoFactorType::email,
             TwoFactorType::phone,
             TwoFactorType::authenticator,
@@ -224,7 +224,7 @@ class TwoFactor extends Page implements HasForms
     /** @return array<int|string, array{name: 'authenticator'|'email'|'phone', label: string, default: mixed, rules: array{0: 'required', 1?: 'email'}}> */
     private function getConfirmableFields(): array
     {
-        $confirmableOptions = config('filament-two-factor-auth.options', [
+        $confirmableOptions = config('filament-2fa.options', [
             TwoFactorType::email,
             TwoFactorType::phone,
         ]);
@@ -255,7 +255,7 @@ class TwoFactor extends Page implements HasForms
                     $fields[$option->value] = [
                         'name' => 'phone',
                         'label' => __('Phone number'),
-                        'default' => $this->user->{config('filament-two-factor-auth.phone_number_field', 'phone')},
+                        'default' => $this->user->{config('filament-2fa.phone_number_field', 'phone')},
                         'rules' => ['required'],
                     ];
 

@@ -9,6 +9,7 @@ use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Set;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
@@ -24,15 +25,17 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     use InteractsWithForms;
     use WithRateLimiting;
 
-    protected static string $layout = 'filament-two-factor-auth::layouts.login';
+    protected static string $layout = 'filament-2fa::layouts.login';
 
-    protected static string $view = 'filament-two-factor-auth::auth.login-two-factor';
+    protected static string $view = 'filament-2fa::auth.login-two-factor';
 
     protected static bool $shouldRegisterNavigation = false;
 
     public mixed $challengedUser = null;
 
     public ?string $twoFactorType = null;
+
+    public ?string $code = null;
 
     #[Reactive]
     public int $lastResendTime = 0;
@@ -125,15 +128,13 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     {
         return [
             TextInput::make('code')
+                ->label(__('Code'))
                 ->required()
                 ->extraInputAttributes([
                     'name' => 'code',
                     'autocomplete' => 'one-time-code',
-                ])
-                ->label(__('Code')),
-            TextInput::make('recovery_code')
-                ->extraInputAttributes(['name' => 'recovery_code'])
-                ->label(__('Recovery code')),
+                    'onchange' => 'document.getElementById("recovery_code").value = this.value',
+                ]),
         ];
     }
 }

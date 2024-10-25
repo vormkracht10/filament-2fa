@@ -2,6 +2,26 @@
 
 All notable changes to `filament-2fa` will be documented in this file.
 
+## Merged two factor code inputs (2fa code and recovery code) - 2024-10-22
+
+Breaking changes:
+
+- Added hidden recovery code input to merge 2fa and recovery code input to one input (better UX)
+- Changed vendor namespace of package from `filament-two-factor-auth` to `filament-2fa`
+
+How to upgrade:
+
+- Change `vormkracht10/filament-two-factor-auth` to `vormkracht10/filament-2fa` and require `2.0.0` in `composer.json` and run `composer update`
+- Rename `config/filament-two-factor-auth.php` to `config/filament-2fa.php` (when config is published)
+- Rename `views/vendor/filament-two-factor-auth` to `views/vendor/filament-2fa` (when views are published)
+- Make sure `vendor/filament-2fa/auth/login-two-factor.blade.php` contains a hidden input named `recovery_code`:
+
+```html
+<div style="display: none">
+    <input type="text" id="recovery_code" wire:model="recovery_code" name="recovery_code" value="">
+</div>```
+
+```
 ## v1.7.0 - 2024-10-04
 
 ### What's Changed

@@ -30,7 +30,7 @@ class Login extends BaseLogin
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static string $view = 'filament-two-factor-auth::auth.login';
+    protected static string $view = 'filament-2fa::auth.login';
 
     public string $email = '';
 

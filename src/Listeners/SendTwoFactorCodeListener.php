@@ -23,6 +23,6 @@ class SendTwoFactorCodeListener
     {
         /** @var mixed $user */
         $user = $event->user;
-        $user->notify(app(config('filament-two-factor-auth.send_otp_class') ?? SendOTP::class));
+        $user->notify(app(config('filament-2fa.send_otp_class') ?? SendOTP::class));
     }
 }

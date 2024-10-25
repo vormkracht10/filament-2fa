@@ -18,26 +18,26 @@ class TwoFactorAuthPlugin implements Plugin
 
     public function getId(): string
     {
-        return 'filament-two-factor-auth';
+        return 'filament-2fa';
     }
 
     public function register(Panel $panel): void
     {
         $panel
-            ->login(config('filament-two-factor-auth.login'))
+            ->login(config('filament-2fa.login'))
             ->pages([
-                config('filament-two-factor-auth.two_factor_settings'),
-                config('filament-two-factor-auth.challenge'),
+                config('filament-2fa.two_factor_settings'),
+                config('filament-2fa.challenge'),
             ]);
 
         if ($this->isForced()) {
-            $middlewareMethod = config('filament-two-factor-auth.enabled_features.multi_tenancy') ? 'tenantMiddleware' : 'middleware';
+            $middlewareMethod = config('filament-2fa.enabled_features.multi_tenancy') ? 'tenantMiddleware' : 'middleware';
             $panel->$middlewareMethod([
                 ForceTwoFactor::class,
             ]);
         }
 
-        if (! config('filament-two-factor-auth.enabled_features.multi_tenancy')) {
+        if (! config('filament-2fa.enabled_features.multi_tenancy')) {
             $panel->userMenuItems([
                 'two-factor-authentication' => MenuItem::make()
                     ->icon('heroicon-o-lock-closed')
@@ -46,8 +46,8 @@ class TwoFactorAuthPlugin implements Plugin
             ]);
         }
 
-        if (config('filament-two-factor-auth.enabled_features.register')) {
-            $panel->registration(config('filament-two-factor-auth.register'));
+        if (config('filament-2fa.enabled_features.register')) {
+            $panel->registration(config('filament-2fa.register'));
         }
     }
 
