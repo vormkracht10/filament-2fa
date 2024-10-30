@@ -270,8 +270,8 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-2fa', __DIR__ . '/../resources/dist/components/filament-2fa.js'),
-            Css::make('filament-2fa-styles', __DIR__ . '/../resources/dist/filament-2fa.css'),
-            Js::make('filament-2fa-scripts', __DIR__ . '/../resources/dist/filament-2fa.js'),
+            // Css::make('filament-2fa-styles', __DIR__ . '/../resources/dist/filament-2fa.css'),
+            // Js::make('filament-2fa-scripts', __DIR__ . '/../resources/dist/filament-2fa.js'),
         ];
     }
 
