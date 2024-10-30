@@ -115,7 +115,10 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+        $this->forceFortifyConfig();
+    }
 
     public function packageBooted(): void
     {
@@ -145,8 +148,6 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         // Testing
         Testable::mixin(new TestsTwoFactorAuth);
 
-        $this->forceFortifyConfig();
-
         $this->registerContractsAndComponents();
 
         $this->defineRateLimiters();
@@ -170,7 +171,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                  * This route name is used multiple places in filament.
                  */
                 Route::prefix(config('filament.path'))->group(function () {
-                    Route::get('/filament-login', fn () => Redirect::route('login'))
+                    Route::get('/filament-login', fn() => Redirect::route('login'))
                         ->name('auth.login');
                 });
             });
@@ -180,6 +181,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     {
         config([
             'filament.auth.pages.login' => config('filament-2fa.login'),
+            'fortify.prefix' => 'fortify',
             'fortify.views' => true,
             'fortify.home' => config('filament.home_url'),
             'forms.dark_mode' => config('filament.dark_mode'),
