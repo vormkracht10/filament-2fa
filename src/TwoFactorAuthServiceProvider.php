@@ -115,7 +115,10 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+        $this->forceFortifyConfig();
+    }
 
     public function packageBooted(): void
     {
@@ -144,8 +147,6 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
 
         // Testing
         Testable::mixin(new TestsTwoFactorAuth);
-
-        $this->forceFortifyConfig();
 
         $this->registerContractsAndComponents();
 
@@ -180,6 +181,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     {
         config([
             'filament.auth.pages.login' => config('filament-2fa.login'),
+            'fortify.prefix' => 'fortify',
             'fortify.views' => true,
             'fortify.home' => config('filament.home_url'),
             'forms.dark_mode' => config('filament.dark_mode'),
@@ -268,8 +270,8 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-2fa', __DIR__ . '/../resources/dist/components/filament-2fa.js'),
-            Css::make('filament-2fa-styles', __DIR__ . '/../resources/dist/filament-2fa.css'),
-            Js::make('filament-2fa-scripts', __DIR__ . '/../resources/dist/filament-2fa.js'),
+            // Css::make('filament-2fa-styles', __DIR__ . '/../resources/dist/filament-2fa.css'),
+            // Js::make('filament-2fa-scripts', __DIR__ . '/../resources/dist/filament-2fa.js'),
         ];
     }
 
