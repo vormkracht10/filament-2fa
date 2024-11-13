@@ -107,7 +107,7 @@ class TwoFactor extends Page implements HasForms
             TwoFactorType::authenticator,
         ]);
 
-        /** @var Collection<TwoFactorType> $collection */
+        /** @var Collection<int,TwoFactorType> $collection */
         $collection = collect($configOptions);
 
         /** @var array<string, string> $options */
