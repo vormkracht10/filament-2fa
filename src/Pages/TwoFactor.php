@@ -69,7 +69,11 @@ class TwoFactor extends Page implements HasForms
                 ->send();
         }
 
-        $this->twoFactorOptionsCount = config('filament-2fa.options') ? count(config('filament-2fa.options')) : 0;
+        if (config('filament-2fa.options')) {
+            $this->twoFactorOptionsCount = count(config('filament-2fa.options'));
+        } else {
+            $this->twoFactorOptionsCount = 0;
+        }
 
         $this->user = Auth::user();
 
