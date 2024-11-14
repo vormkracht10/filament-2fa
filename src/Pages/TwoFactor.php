@@ -203,13 +203,13 @@ class TwoFactor extends Page implements HasForms
                 }
             } catch (\Exception $e) {
                 Notification::make()
-                        ->title('Error!')
-                        ->body(__('Please select a method of authentication.'))
-                        ->danger()
-                        ->send();
+                    ->title('Error!')
+                    ->body(__('Please select a method of authentication.'))
+                    ->danger()
+                    ->send();
+
                 return;
             }            /** @var array{two_factor_type: TwoFactorType|null, email?: mixed} $formData */
-
             if (
                 isset($formData['two_factor_type']) &&
                 ($formData['two_factor_type'] === TwoFactorType::email || $formData['two_factor_type'] === TwoFactorType::phone)
