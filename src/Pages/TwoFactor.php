@@ -69,7 +69,11 @@ class TwoFactor extends Page implements HasForms
                 ->send();
         }
 
-        $this->twoFactorOptionsCount = config('filament-2fa.options') ? count(config('filament-2fa.options')) : 0;
+        if (config('filament-2fa.options')) {
+            $this->twoFactorOptionsCount = count(config('filament-2fa.options'));
+        } else {
+            $this->twoFactorOptionsCount = 0;
+        }
 
         $this->user = Auth::user();
 
@@ -107,7 +111,7 @@ class TwoFactor extends Page implements HasForms
             TwoFactorType::authenticator,
         ]);
 
-        /** @var Collection<int, TwoFactorType> $collection */
+        /** @var Collection<int,TwoFactorType> $collection */
         $collection = collect($configOptions);
 
         /** @var array<string, string> $options */
@@ -193,11 +197,19 @@ class TwoFactor extends Page implements HasForms
                 $formData['email'] = $data['email'];
             }
 
-            if ($this->twoFactorData['option']) {
-                $formData['two_factor_type'] = TwoFactorType::tryFrom($this->twoFactorData['option']);
-            }
+            try {
+                if ($this->twoFactorData['option']) {
+                    $formData['two_factor_type'] = TwoFactorType::tryFrom($this->twoFactorData['option']);
+                }
+            } catch (\Exception $e) {
+                Notification::make()
+                        ->title('Error!')
+                        ->body(__('Please select a method of authentication.'))
+                        ->danger()
+                        ->send();
+                return;
+            }            /** @var array{two_factor_type: TwoFactorType|null, email?: mixed} $formData */
 
-            /** @var array{two_factor_type: TwoFactorType|null, email?: mixed} $formData */
             if (
                 isset($formData['two_factor_type']) &&
                 ($formData['two_factor_type'] === TwoFactorType::email || $formData['two_factor_type'] === TwoFactorType::phone)
