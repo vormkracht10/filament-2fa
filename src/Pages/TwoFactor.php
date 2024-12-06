@@ -13,6 +13,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
@@ -251,7 +252,7 @@ class TwoFactor extends Page implements HasForms
                         'name' => 'email',
                         'label' => __('Email'),
                         'default' => $this->user->email,
-                        'rules' => ['required', 'email'],
+                        'rules' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user->id)],
                     ];
 
                     break;
