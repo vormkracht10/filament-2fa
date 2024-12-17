@@ -162,8 +162,7 @@ class Login extends BaseLogin
     {
         return TextInput::make('password')
             ->label(__('filament-panels::pages/auth/login.form.password.label'))
-            ->hint(Filament::hasPasswordReset() ? new HtmlString(Blade::render('<x-filament::link href="/forgot-password"> {{ __(\'filament-panels::pages/auth/login.actions.request_password_reset.label\') }}</x-filament::link>')) : null)
-            ->password()
+            ->hint(Filament::hasPasswordReset() ? new HtmlString(Blade::render('<x-filament::link :href="filament()->getRequestPasswordResetUrl()" tabindex="3"> {{ __(\'filament-panels::pages/auth/login.actions.request_password_reset.label\') }}</x-filament::link>')) : null)->password()
             ->revealable(Filament::arePasswordsRevealable())
             ->autocomplete('current-password')
             ->required()
