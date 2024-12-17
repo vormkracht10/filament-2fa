@@ -17,7 +17,7 @@
         {{ $this->form }}
 
         <div class="flex items-center justify-between mt-6">
-            <x-filament::button type="submit" class="w-full" color="primary">
+            <x-filament::button type="submit" class="w-full bg-primary-500">
                 {{ __('Login') }}
             </x-filament::button>
         </div>
