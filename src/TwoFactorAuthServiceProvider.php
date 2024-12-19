@@ -142,11 +142,8 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         }
 
         FilamentColor::register([
-            'default' => $color
+            'default' => $color,
         ]);
-
-
-
 
         FilamentAsset::registerScriptData(
             $this->getScriptData(),
@@ -191,7 +188,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                  * This route name is used multiple places in filament.
                  */
                 Route::prefix(config('filament.path'))->group(function () {
-                    Route::get('/filament-login', fn() => Redirect::route('login'))
+                    Route::get('/filament-login', fn () => Redirect::route('login'))
                         ->name('auth.login');
                 });
             });
