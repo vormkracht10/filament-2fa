@@ -9,7 +9,7 @@
     @endif
     <form method="POST" action="{{ route('two-factor.login') }}" class="space-y-8">
         @csrf
-        
+
         <div style="display: none">
             <input type="text" id="recovery_code" name="recovery_code" value="">
         </div>
@@ -17,7 +17,7 @@
         {{ $this->form }}
 
         <div class="flex items-center justify-between mt-6">
-            <x-filament::button type="submit" class="w-full" color="primary">
+            <x-filament::button type="submit" class="w-full" color="default">
                 {{ __('Login') }}
             </x-filament::button>
         </div>
