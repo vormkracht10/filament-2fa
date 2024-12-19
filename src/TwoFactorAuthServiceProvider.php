@@ -139,9 +139,6 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
             'default' => $color,
         ]);
 
-
-
-
         FilamentAsset::registerScriptData(
             $this->getScriptData(),
             $this->getAssetPackageName()
@@ -185,7 +182,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                  * This route name is used multiple places in filament.
                  */
                 Route::prefix(config('filament.path'))->group(function () {
-                    Route::get('/filament-login', fn() => Redirect::route('login'))
+                    Route::get('/filament-login', fn () => Redirect::route('login'))
                         ->name('auth.login');
                 });
             });
