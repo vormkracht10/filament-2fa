@@ -131,15 +131,9 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
         );
 
         $colors = filament()->getCurrentPanel()->getColors();
-        if (isset($colors['primary'])) {
-            if (is_string($colors['primary'])) {
-                $color = Color::hex($colors['primary']);
-            } else {
-                $color = $colors['primary'];
-            }
-        } else {
-            $color = \Filament\Support\Colors\Color::Amber;
-        }
+        $color = isset($colors['primary'])
+            ? (is_string($colors['primary']) ? Color::hex($colors['primary']) : $colors['primary'])
+            : \Filament\Support\Colors\Color::Amber;
 
         FilamentColor::register([
             'default' => $color,
@@ -188,7 +182,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                  * This route name is used multiple places in filament.
                  */
                 Route::prefix(config('filament.path'))->group(function () {
-                    Route::get('/filament-login', fn () => Redirect::route('login'))
+                    Route::get('/filament-login', fn() => Redirect::route('login'))
                         ->name('auth.login');
                 });
             });
