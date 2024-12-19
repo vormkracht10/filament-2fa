@@ -6,7 +6,9 @@ use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
+use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Filesystem\Filesystem;
@@ -128,6 +130,24 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
             $this->getAssetPackageName()
         );
 
+        $colors = filament()->getCurrentPanel()->getColors();
+        if (isset($colors['primary'])) {
+            if (is_string($colors['primary'])) {
+                $color = Color::hex($colors['primary']);
+            } else {
+                $color = $colors['primary'];
+            }
+        } else {
+            $color = \Filament\Support\Colors\Color::Amber;
+        }
+
+        FilamentColor::register([
+            'default' => $color
+        ]);
+
+
+
+
         FilamentAsset::registerScriptData(
             $this->getScriptData(),
             $this->getAssetPackageName()
@@ -171,7 +191,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
                  * This route name is used multiple places in filament.
                  */
                 Route::prefix(config('filament.path'))->group(function () {
-                    Route::get('/filament-login', fn () => Redirect::route('login'))
+                    Route::get('/filament-login', fn() => Redirect::route('login'))
                         ->name('auth.login');
                 });
             });
