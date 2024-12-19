@@ -2,38 +2,39 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
-use Filament\Support\Assets\AlpineComponent;
-use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
-use Filament\Support\Colors\Color;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentColor;
-use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Filesystem\Filesystem;
+use Livewire\Livewire;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Features;
+use Filament\Facades\Filament;
+use Filament\Support\Assets\Js;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Asset;
+use Filament\Support\Colors\Color;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
-use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
-use Laravel\Fortify\Contracts\TwoFactorLoginResponse as TwoFactorLoginResponseContract;
-use Laravel\Fortify\Features;
-use Laravel\Fortify\Fortify;
-use Livewire\Features\SupportTesting\Testable;
-use Livewire\Livewire;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\Redirect;
+use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentColor;
+use Illuminate\Support\Facades\RateLimiter;
+use Filament\Support\Assets\AlpineComponent;
+use Livewire\Features\SupportTesting\Testable;
 use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
-use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
-use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
-use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorLoginResponse;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Vormkracht10\TwoFactorAuth\Testing\TestsTwoFactorAuth;
+use Vormkracht10\TwoFactorAuth\Http\Responses\LoginResponse;
+use Vormkracht10\TwoFactorAuth\Commands\TwoFactorAuthCommand;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorLoginResponse;
+use Vormkracht10\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
+use Laravel\Fortify\Contracts\TwoFactorLoginResponse as TwoFactorLoginResponseContract;
 
 class TwoFactorAuthServiceProvider extends PackageServiceProvider
 {
@@ -130,7 +131,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
             $this->getAssetPackageName()
         );
 
-        $colors = filament()->getCurrentPanel()->getColors();
+        $colors = Filament::getCurrentPanel()?->getColors();
         $color = isset($colors['primary'])
             ? (is_string($colors['primary']) ? Color::hex($colors['primary']) : $colors['primary'])
             : \Filament\Support\Colors\Color::Amber;
