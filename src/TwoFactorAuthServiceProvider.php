@@ -2,11 +2,14 @@
 
 namespace Vormkracht10\TwoFactorAuth;
 
+use Filament\Facades\Filament;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
+use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Filesystem\Filesystem;
@@ -127,6 +130,15 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
             $this->getAssets(),
             $this->getAssetPackageName()
         );
+
+        $colors = Filament::getCurrentPanel()?->getColors();
+        $color = isset($colors['primary'])
+            ? (is_string($colors['primary']) ? Color::hex($colors['primary']) : $colors['primary'])
+            : \Filament\Support\Colors\Color::Amber;
+
+        FilamentColor::register([
+            'default' => $color,
+        ]);
 
         FilamentAsset::registerScriptData(
             $this->getScriptData(),
