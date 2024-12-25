@@ -290,6 +290,16 @@ If you want to force users to enable Two Factor Authentication, you can add this
 ])
 ```
 
+### Prevent showing the Two Factor Authentication page in user menu
+
+If you want to prevent showing the Two Factor Authentication page in the user menu, you can add this to your `PanelProvider`:
+
+```php
+->plugins([
+    TwoFactorAuthPlugin::make()->hideFromMenu(),
+])->showInUserMenu(false)
+```
+
 > [!WARNING]
 > When you're using the `forced` method, make sure to set the `multi_tenancy` option to `true` in the `filament-2fa.php` config file when you're using a multi-tenant setup. Otherwise, the forced setting will not work. We cannot check the tenant in the `PanelProvider` because the user is not authenticated yet.
 
