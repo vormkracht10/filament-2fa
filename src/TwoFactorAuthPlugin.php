@@ -16,6 +16,8 @@ class TwoFactorAuthPlugin implements Plugin
 
     private Closure | bool | null $forced = false;
 
+    private Closure | bool $showInUserMenu = true;
+
     public function getId(): string
     {
         return 'filament-2fa';
@@ -37,7 +39,7 @@ class TwoFactorAuthPlugin implements Plugin
             ]);
         }
 
-        if (! config('filament-2fa.enabled_features.multi_tenancy')) {
+        if (! config('filament-2fa.enabled_features.multi_tenancy') && $this->shouldShowInUserMenu()) {
             $panel->userMenuItems([
                 'two-factor-authentication' => MenuItem::make()
                     ->icon('heroicon-o-lock-closed')
@@ -79,5 +81,17 @@ class TwoFactorAuthPlugin implements Plugin
     public function isForced(): Closure | bool | null
     {
         return $this->evaluate($this->forced);
+    }
+
+    public function showInUserMenu(Closure | bool $showInUserMenu = true): self
+    {
+        $this->showInUserMenu = $showInUserMenu;
+
+        return $this;
+    }
+
+    public function shouldShowInUserMenu(): bool
+    {
+        return $this->evaluate($this->showInUserMenu);
     }
 }
