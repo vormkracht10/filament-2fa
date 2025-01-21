@@ -9,7 +9,6 @@ use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Set;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
@@ -71,8 +70,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             ->color('primary')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->disabled(fn() => ! $this->canResend())
-            ->action(fn() => $this->handleResend());
+            ->disabled(fn () => ! $this->canResend())
+            ->action(fn () => $this->handleResend());
     }
 
     public function handleResend(): void
