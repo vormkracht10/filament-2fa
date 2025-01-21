@@ -2,6 +2,32 @@
 
 All notable changes to `filament-2fa` will be documented in this file.
 
+## v2.1.0 - 2025-01-21
+
+### What's Changed
+
+* Fix config publish after package has been renamed by @rrelmy in https://github.com/vormkracht10/filament-2fa/pull/54
+* Fix white background in darkmode by @rrelmy in https://github.com/vormkracht10/filament-2fa/pull/55
+* Add white border around QRCode to improve legibility in darkmode by @rrelmy in https://github.com/vormkracht10/filament-2fa/pull/56
+* feat: add validation for empty options while setting two factor auth by @lucascnunes in https://github.com/vormkracht10/filament-2fa/pull/52
+* Fix email 2FA users_email_unique SQL error #61 by @cawecoy in https://github.com/vormkracht10/filament-2fa/pull/62
+* Fix password reset link by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/67
+* Theme colors not being used by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/68
+* Fix primary colors bug by @arduinomaster22 in https://github.com/vormkracht10/filament-2fa/pull/70
+* Optionally force not showing the user menu item by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/74
+* [Fix] Width of 2FA auth page by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/77
+* [Fix] Set default two_factor_type to email when not set by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/78
+* [Feature] Show error message when OTP code is invalid by @Baspa in https://github.com/vormkracht10/filament-2fa/pull/80
+
+### New Contributors
+
+* @rrelmy made their first contribution in https://github.com/vormkracht10/filament-2fa/pull/54
+* @lucascnunes made their first contribution in https://github.com/vormkracht10/filament-2fa/pull/52
+* @cawecoy made their first contribution in https://github.com/vormkracht10/filament-2fa/pull/62
+* @arduinomaster22 made their first contribution in https://github.com/vormkracht10/filament-2fa/pull/70
+
+**Full Changelog**: https://github.com/vormkracht10/filament-2fa/compare/v2.0.0...v2.1.0
+
 ## Merged two factor code inputs (2fa code and recovery code) - 2024-10-22
 
 Breaking changes:
@@ -20,6 +46,7 @@ How to upgrade:
 <div style="display: none">
     <input type="text" id="recovery_code" wire:model="recovery_code" name="recovery_code" value="">
 </div>```
+
 
 ```
 ## v1.7.0 - 2024-10-04
