@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Cache;
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Reactive;
+use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
 use Vormkracht10\TwoFactorAuth\Notifications\SendOTP;
 
 class LoginTwoFactor extends Page implements HasActions, HasForms
@@ -44,9 +45,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
     {
         if ($request->challengedUser()) {
             $this->challengedUser = $request->challengedUser();
-            $this->twoFactorType = $this->challengedUser->two_factor_type->value;
+            $this->twoFactorType = $this->challengedUser->two_factor_type?->value ?? TwoFactorType::email->value;
 
-            // Set initial cooldown if not already set
             if (! Cache::has('resend_cooldown_' . $this->challengedUser->id)) {
                 Cache::put('resend_cooldown_' . $this->challengedUser->id, true, now()->addSeconds(30));
             }
@@ -71,8 +71,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             ->color('primary')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->disabled(fn () => ! $this->canResend())
-            ->action(fn () => $this->handleResend());
+            ->disabled(fn() => ! $this->canResend())
+            ->action(fn() => $this->handleResend());
     }
 
     public function handleResend(): void
