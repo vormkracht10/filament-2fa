@@ -70,8 +70,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             ->color('primary')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->disabled(fn() => ! $this->canResend())
-            ->action(fn() => $this->handleResend());
+            ->disabled(fn () => ! $this->canResend())
+            ->action(fn () => $this->handleResend());
     }
 
     public function handleResend(): void
