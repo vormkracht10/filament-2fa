@@ -133,7 +133,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
                     'name' => 'code',
                     'autocomplete' => 'one-time-code',
                     'onchange' => 'document.getElementById("recovery_code").value = this.value',
-                ]),
+                ])
+                ->validationAttribute('authentication code'),
         ];
     }
 }
