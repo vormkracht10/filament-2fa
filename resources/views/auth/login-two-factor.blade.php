@@ -2,10 +2,17 @@
     <h2 class="mt-5 text-lg font-semibold text-gray-900 text-center dark:text-gray-100">
         {{ __('Authenticate with your code') }}
     </h2>
+
+    @if ($errors->any())
+        <div class="mt-4 bg-red-50 text-red-700 p-4 rounded-lg">
+            <p class="font-medium">{{ __('Invalid authentication code.') }}</p>
+        </div>
+    @endif
+
     @if ($twoFactorType === 'email' || $twoFactorType === 'phone')
-    <div wire:poll.5s>
-        {{ $this->resend }}
-    </div>
+        <div wire:poll.5s>
+            {{ $this->resend }}
+        </div>
     @endif
     <form method="POST" action="{{ route('two-factor.login') }}" class="space-y-8">
         @csrf

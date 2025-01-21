@@ -70,8 +70,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
             ->color('primary')
             ->extraAttributes(['class' => 'w-full text-xs'])
             ->link()
-            ->disabled(fn () => ! $this->canResend())
-            ->action(fn () => $this->handleResend());
+            ->disabled(fn() => ! $this->canResend())
+            ->action(fn() => $this->handleResend());
     }
 
     public function handleResend(): void
@@ -133,7 +133,8 @@ class LoginTwoFactor extends Page implements HasActions, HasForms
                     'name' => 'code',
                     'autocomplete' => 'one-time-code',
                     'onchange' => 'document.getElementById("recovery_code").value = this.value',
-                ]),
+                ])
+                ->validationAttribute('authentication code'),
         ];
     }
 }
