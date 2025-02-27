@@ -12,7 +12,7 @@ class ForceTwoFactor
     {
         $user = Filament::auth()->user();
 
-        if ($request->is('*/two-factor') || $request->is('*/logout')) {
+        if ($request->is('*two-factor') || $request->is('*logout')) {
             return $next($request);
         }
 
