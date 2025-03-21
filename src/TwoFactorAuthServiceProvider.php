@@ -51,6 +51,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
          */
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
+            ->hasTranslations()
             ->hasInstallCommand(function (InstallCommand $command) use ($package) {
                 $command
                     ->startWith(function (InstallCommand $command) use ($package) {
@@ -106,11 +107,6 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
 
         if (file_exists($package->basePath('/../database/migrations'))) {
             $package->hasMigrations($this->getMigrations());
-        }
-
-        if (file_exists($package->basePath('/../resources/lang'))) {
-            $package->hasTranslations();
-            $this->loadJsonTranslationsFrom($package->basePath('/../resources/lang'));
         }
 
         if (file_exists($package->basePath('/../resources/views'))) {
