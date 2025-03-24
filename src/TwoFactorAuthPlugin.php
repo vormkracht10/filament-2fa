@@ -43,7 +43,7 @@ class TwoFactorAuthPlugin implements Plugin
             $panel->userMenuItems([
                 'two-factor-authentication' => MenuItem::make()
                     ->icon('heroicon-o-lock-closed')
-                    ->label(__('Two-Factor Authentication'))
+                    ->label(fn (): string => __('Two-Factor Authentication'))
                     ->url(fn (): string => TwoFactor::getUrl()),
             ]);
         }
