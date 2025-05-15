@@ -174,7 +174,7 @@ class Login extends BaseLogin
         return Action::make('authenticate')
             ->color('primary')
             ->label(__('filament-panels::pages/auth/login.form.actions.authenticate.label'))
-            ->submit('authenticate');
+            ->submit('loginWithFortify');
     }
 
     /** @param array<string, mixed> $credentials */
