@@ -276,7 +276,7 @@ use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
     '2fa' => MenuItem::make()
         ->icon('heroicon-o-lock-closed')
         ->label(__('Two-Factor Authentication'))
-        ->url(fn(): string => TwoFactor::getUrl(['tenant' => auth()->user()->organization->getRouteKey()])),
+        ->url(fn(): string => TwoFactor::getUrl()),
 ])
 ```
 
