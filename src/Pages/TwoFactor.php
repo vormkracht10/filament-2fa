@@ -45,7 +45,7 @@ class TwoFactor extends Page implements HasForms
 
     public ?int $twoFactorOptionsCount = null;
 
-    /**@var Model $user */
+    /** @var Model $user */
     public mixed $user = null;
 
     protected static string $view = 'filament-2fa::two-factor';
