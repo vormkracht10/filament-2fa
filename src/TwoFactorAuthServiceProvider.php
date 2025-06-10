@@ -189,7 +189,7 @@ class TwoFactorAuthServiceProvider extends PackageServiceProvider
     {
         config([
             'filament.auth.pages.login' => config('filament-2fa.login'),
-            'fortify.prefix' => 'fortify',
+            'fortify.prefix' => config('fortify.prefix', 'fortify'),
             'fortify.views' => true,
             'fortify.home' => config('filament.home_url'),
             'forms.dark_mode' => config('filament.dark_mode'),
