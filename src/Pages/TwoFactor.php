@@ -45,6 +45,7 @@ class TwoFactor extends Page implements HasForms
 
     public ?int $twoFactorOptionsCount = null;
 
+    /**@var Model $user */
     public mixed $user = null;
 
     protected static string $view = 'filament-2fa::two-factor';
@@ -252,7 +253,7 @@ class TwoFactor extends Page implements HasForms
                         'name' => 'email',
                         'label' => __('Email'),
                         'default' => $this->user->email,
-                        'rules' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user->id)],
+                        'rules' => ['required', 'email', Rule::unique($this->user->getTable(), 'email')->ignore($this->user->id)],
                     ];
 
                     break;
