@@ -2,8 +2,8 @@
 
 namespace Backstage\TwoFactorAuth\Http\Livewire\Auth;
 
-use Filament\Pages\Auth\Register as BaseRegister;
 use Backstage\TwoFactorAuth\Http\Responses\RegistrationResponse;
+use Filament\Pages\Auth\Register as BaseRegister;
 
 class Register extends BaseRegister
 {

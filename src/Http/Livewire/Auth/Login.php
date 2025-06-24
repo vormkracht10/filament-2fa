@@ -2,6 +2,8 @@
 
 namespace Backstage\TwoFactorAuth\Http\Livewire\Auth;
 
+use Backstage\TwoFactorAuth\Http\Middleware\RedirectIfTwoFactorAuthenticatable;
+use Backstage\TwoFactorAuth\Http\Responses\LoginResponse;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
@@ -23,8 +25,6 @@ use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
 use Livewire\Features\SupportRedirects\Redirector;
-use Backstage\TwoFactorAuth\Http\Middleware\RedirectIfTwoFactorAuthenticatable;
-use Backstage\TwoFactorAuth\Http\Responses\LoginResponse;
 
 class Login extends BaseLogin
 {

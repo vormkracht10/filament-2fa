@@ -2,6 +2,12 @@
 
 namespace Backstage\TwoFactorAuth;
 
+use Backstage\TwoFactorAuth\Commands\TwoFactorAuthCommand;
+use Backstage\TwoFactorAuth\Enums\TwoFactorType;
+use Backstage\TwoFactorAuth\Http\Responses\LoginResponse;
+use Backstage\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
+use Backstage\TwoFactorAuth\Http\Responses\TwoFactorLoginResponse;
+use Backstage\TwoFactorAuth\Testing\TestsTwoFactorAuth;
 use Filament\Facades\Filament;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
@@ -29,12 +35,6 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Backstage\TwoFactorAuth\Commands\TwoFactorAuthCommand;
-use Backstage\TwoFactorAuth\Enums\TwoFactorType;
-use Backstage\TwoFactorAuth\Http\Responses\LoginResponse;
-use Backstage\TwoFactorAuth\Http\Responses\TwoFactorChallengeViewResponse;
-use Backstage\TwoFactorAuth\Http\Responses\TwoFactorLoginResponse;
-use Backstage\TwoFactorAuth\Testing\TestsTwoFactorAuth;
 
 class TwoFactorAuthServiceProvider extends PackageServiceProvider
 {

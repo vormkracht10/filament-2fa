@@ -2,8 +2,8 @@
 
 namespace Backstage\TwoFactorAuth\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Backstage\TwoFactorAuth\Traits\EnumArraySerializableTrait;
+use Filament\Support\Contracts\HasLabel;
 
 enum TwoFactorType: string implements HasLabel
 {
