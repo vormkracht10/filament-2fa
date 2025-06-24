@@ -2,6 +2,35 @@
 
 All notable changes to `filament-2fa` will be documented in this file.
 
+## v3.0.0 - 2025-06-24
+
+### Breaking changes
+
+- Changed namespace to `Backstage`
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/backstagephp/filament-2fa/pull/81
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/backstagephp/filament-2fa/pull/82
+* Fixed: infinity redirect loop when panel path is base url by @Michel-Verhoeven in https://github.com/backstagephp/filament-2fa/pull/83
+* Fixing translation override by @ccharz in https://github.com/backstagephp/filament-2fa/pull/88
+* Add German translations to language files by @thyseus in https://github.com/backstagephp/filament-2fa/pull/89
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot in https://github.com/backstagephp/filament-2fa/pull/90
+* Fix missing of loading button when Login by @informagenie in https://github.com/backstagephp/filament-2fa/pull/91
+* Update README by @Baspa in https://github.com/backstagephp/filament-2fa/pull/92
+* Update TwoFactor.php by @SinaMoradi9571 in https://github.com/backstagephp/filament-2fa/pull/94
+* Transfer repository to Backstage by @Baspa in https://github.com/backstagephp/filament-2fa/pull/97
+
+### New Contributors
+
+* @Michel-Verhoeven made their first contribution in https://github.com/backstagephp/filament-2fa/pull/83
+* @ccharz made their first contribution in https://github.com/backstagephp/filament-2fa/pull/88
+* @thyseus made their first contribution in https://github.com/backstagephp/filament-2fa/pull/89
+* @informagenie made their first contribution in https://github.com/backstagephp/filament-2fa/pull/91
+* @SinaMoradi9571 made their first contribution in https://github.com/backstagephp/filament-2fa/pull/94
+
+**Full Changelog**: https://github.com/backstagephp/filament-2fa/compare/v2.1.0...v3.0.0
+
 ## v2.1.0 - 2025-01-21
 
 ### What's Changed
@@ -46,6 +75,7 @@ How to upgrade:
 <div style="display: none">
     <input type="text" id="recovery_code" wire:model="recovery_code" name="recovery_code" value="">
 </div>```
+
 
 
 ```
