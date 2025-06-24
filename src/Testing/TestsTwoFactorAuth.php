@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth\Testing;
+namespace Backstage\TwoFactorAuth\Testing;
 
 use Livewire\Features\SupportTesting\Testable;
 

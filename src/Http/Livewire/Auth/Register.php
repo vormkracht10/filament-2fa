@@ -1,9 +1,9 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
+namespace Backstage\TwoFactorAuth\Http\Livewire\Auth;
 
 use Filament\Pages\Auth\Register as BaseRegister;
-use Vormkracht10\TwoFactorAuth\Http\Responses\RegistrationResponse;
+use Backstage\TwoFactorAuth\Http\Responses\RegistrationResponse;
 
 class Register extends BaseRegister
 {

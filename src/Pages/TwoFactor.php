@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth\Pages;
+namespace Backstage\TwoFactorAuth\Pages;
 
 use Filament\Actions\Action;
 use Filament\Forms\Components\Radio;
@@ -19,7 +19,7 @@ use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
 use Laravel\Fortify\Features;
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
+use Backstage\TwoFactorAuth\Enums\TwoFactorType;
 
 class TwoFactor extends Page implements HasForms
 {

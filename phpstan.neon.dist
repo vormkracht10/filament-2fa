@@ -14,6 +14,6 @@ parameters:
 
 services:
     -
-        class: Vormkracht10\TwoFactorAuth\Tests\PHPStan\UserPropertiesClassReflectionExtension
+        class: Backstage\TwoFactorAuth\Tests\PHPStan\UserPropertiesClassReflectionExtension
         tags:
             - phpstan.broker.propertiesClassReflectionExtension

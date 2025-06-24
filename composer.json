@@ -1,15 +1,15 @@
 {
-    "name": "vormkracht10/filament-2fa",
+    "name": "backstage/filament-2fa",
     "description": "This package helps you integrate Laravel Fortify with ease in your Filament apps. ",
     "keywords": [
         "vormkracht10",
         "laravel",
         "filament-2fa"
     ],
-    "homepage": "https://github.com/vormkracht10/filament-2fa",
+    "homepage": "https://github.com/backstagephp/filament-2fa",
     "support": {
-        "issues": "https://github.com/vormkracht10/filament-2fa/issues",
-        "source": "https://github.com/vormkracht10/filament-2fa"
+        "issues": "https://github.com/backstagephp/filament-2fa/issues",
+        "source": "https://github.com/backstagephp/filament-2fa"
     },
     "license": "MIT",
     "authors": [
@@ -40,13 +40,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Vormkracht10\\TwoFactorAuth\\": "src/",
-            "Vormkracht10\\TwoFactorAuth\\Database\\Factories\\": "database/factories/"
+            "Backstage\\TwoFactorAuth\\": "src/",
+            "Backstage\\TwoFactorAuth\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vormkracht10\\TwoFactorAuth\\Tests\\": "tests/"
+            "Backstage\\TwoFactorAuth\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -66,10 +66,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vormkracht10\\TwoFactorAuth\\TwoFactorAuthServiceProvider"
+                "Backstage\\TwoFactorAuth\\TwoFactorAuthServiceProvider"
             ],
             "aliases": {
-                "TwoFactorAuth": "Vormkracht10\\TwoFactorAuth\\Facades\\TwoFactorAuth"
+                "TwoFactorAuth": "Backstage\\TwoFactorAuth\\Facades\\TwoFactorAuth"
             }
         }
     },

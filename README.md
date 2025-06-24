@@ -1,9 +1,9 @@
 # Filament 2FA plugin
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/filament-2fa.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-2fa)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/filament-2fa/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vormkracht10/filament-2fa/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![PHPStan](https://img.shields.io/github/actions/workflow/status/vormkracht10/filament-2fa/phpstan.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/vormkracht10/filament-2fa/actions/workflows/phpstan.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/filament-2fa.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-2fa)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/backstagephp/filament-2fa.svg?style=flat-square)](https://packagist.org/packages/backstagephp/filament-2fa)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/backstagephp/filament-2fa/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/backstagephp/filament-2fa/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![PHPStan](https://img.shields.io/github/actions/workflow/status/backstagephp/filament-2fa/phpstan.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/backstagephp/filament-2fa/actions/workflows/phpstan.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/backstagephp/filament-2fa.svg?style=flat-square)](https://packagist.org/packages/backstagephp/filament-2fa)
 
 ## Nice to meet you, we're [Vormkracht10](https://vormkracht10.nl)
 
@@ -21,30 +21,30 @@ This package adds Two Factor Authentication for your Laravel Filament app, using
 
 ### Enable Two Factor Authentication (2FA)
 
-![Enable Two Factor Authentication (2FA)](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/two-factor-page.png)
+![Enable Two Factor Authentication (2FA)](https://raw.githubusercontent.com/backstagephp/filament-2fa/main/docs/two-factor-page.png)
 
 ### Using authenticator app as two factor method
 
-![Authenticator app](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/authenticator-app.png)
+![Authenticator app](https://raw.githubusercontent.com/backstagephp/filament-2fa/main/docs/authenticator-app.png)
 
 ### Using email or SMS as two factor method
 
-![Email or SMS](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/email-or-sms.png)
+![Email or SMS](https://raw.githubusercontent.com/backstagephp/filament-2fa/main/docs/email-or-sms.png)
 
 ### Recovery codes
 
-![Recovery codes](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/recovery-codes.png)
+![Recovery codes](https://raw.githubusercontent.com/backstagephp/filament-2fa/main/docs/recovery-codes.png)
 
 ### Two Factor authentication challenge
 
-![Two Factor challenge](https://raw.githubusercontent.com/vormkracht10/filament-2fa/main/docs/code-challenge.png)
+![Two Factor challenge](https://raw.githubusercontent.com/backstagephp/filament-2fa/main/docs/code-challenge.png)
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require vormkracht10/filament-2fa
+composer require backstage/filament-2fa
 ```
 
 If you don't have [Laravel Fortify](https://laravel.com/docs/11.x/fortify) installed yet, you can install it by running the following commands:
@@ -73,7 +73,7 @@ php artisan filament-2fa:install
 Then add the plugin to your `PanelProvider`:
 
 ```php
-use Vormkracht10\TwoFactorAuth\TwoFactorAuthPlugin;
+use Backstage\TwoFactorAuth\TwoFactorAuthPlugin;
 
 // ...
 
@@ -93,7 +93,7 @@ class User extends Authenticatable implements FilamentUser
 Also define the `two_factor_type` cast on your user model:
 
 ```php
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
+use Backstage\TwoFactorAuth\Enums\TwoFactorType;
 
 // ...
 
@@ -120,7 +120,7 @@ export default defineConfig({
                 // ...
             ],
             content: [
-                "./vendor/vormkracht10/filament-2fa/resources/**.*.blade.php",
+                "./vendor/backstage/filament-2fa/resources/**.*.blade.php",
             ],
             refresh: true,
         }),
@@ -137,7 +137,7 @@ In case you're using Laravel 11, you need to register the event listener in your
 ```php
 use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
 use Laravel\Fortify\Events\TwoFactorAuthenticationEnabled;
-use Vormkracht10\TwoFactorAuth\Listeners\SendTwoFactorCodeListener;
+use Backstage\TwoFactorAuth\Listeners\SendTwoFactorCodeListener;
 
 // ...
 
@@ -157,7 +157,7 @@ In case you're not using Laravel 11 yet, you will probably need to manually regi
 ```php
 use Laravel\Fortify\Events\TwoFactorAuthenticationEnabled;
 use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
-use Vormkracht10\TwoFactorAuth\Listeners\SendTwoFactorCodeListener;
+use Backstage\TwoFactorAuth\Listeners\SendTwoFactorCodeListener;
 
 // ...
 
@@ -210,7 +210,7 @@ Like the example in the [Laravel documentation](https://laravel.com/docs/11.x/no
 
 namespace App\Notifications;
 
-use Vormkracht10\TwoFactorAuth\Notifications\SendOTP as NotificationsSendOTP;
+use Backstage\TwoFactorAuth\Notifications\SendOTP as NotificationsSendOTP;
 use Illuminate\Notifications\Messages\VonageMessage;
 
 class SendOTP extends NotificationsSendOTP
@@ -267,7 +267,7 @@ Make sure you extend the original classes from the package.
 If you're using Filament in a multi-tenant setup, you need to set the `tenant` option to `true` in the `config/filament-2fa.php` file. You also need to set the `userMenuItems` in your panel config. Take a look at the example below:
 
 ```php
-use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
+use Backstage\TwoFactorAuth\Pages\TwoFactor;
 
 // ...
 
