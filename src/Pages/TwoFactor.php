@@ -2,6 +2,7 @@
 
 namespace Backstage\TwoFactorAuth\Pages;
 
+use Backstage\TwoFactorAuth\Enums\TwoFactorType;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
@@ -19,7 +20,6 @@ use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
 use Laravel\Fortify\Features;
-use Backstage\TwoFactorAuth\Enums\TwoFactorType;
 
 class TwoFactor extends Page implements HasForms
 {
@@ -45,7 +45,7 @@ class TwoFactor extends Page implements HasForms
 
     public ?int $twoFactorOptionsCount = null;
 
-    /** @var Model $user */
+    /** @var Model */
     public mixed $user = null;
 
     protected static string $view = 'filament-2fa::two-factor';

@@ -2,9 +2,9 @@
 
 namespace Backstage\TwoFactorAuth\Listeners;
 
+use Backstage\TwoFactorAuth\Notifications\SendOTP;
 use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
 use Laravel\Fortify\Events\TwoFactorAuthenticationEnabled;
-use Backstage\TwoFactorAuth\Notifications\SendOTP;
 
 class SendTwoFactorCodeListener
 {

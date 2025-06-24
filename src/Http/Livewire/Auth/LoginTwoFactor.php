@@ -2,6 +2,8 @@
 
 namespace Backstage\TwoFactorAuth\Http\Livewire\Auth;
 
+use Backstage\TwoFactorAuth\Enums\TwoFactorType;
+use Backstage\TwoFactorAuth\Notifications\SendOTP;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Filament\Actions\Action;
@@ -16,8 +18,6 @@ use Illuminate\Support\Facades\Cache;
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Reactive;
-use Backstage\TwoFactorAuth\Enums\TwoFactorType;
-use Backstage\TwoFactorAuth\Notifications\SendOTP;
 
 class LoginTwoFactor extends Page implements HasActions, HasForms
 {
