@@ -1,13 +1,13 @@
 <?php
 
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Login;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\LoginTwoFactor;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordConfirmation;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\PasswordReset;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\Register;
-use Vormkracht10\TwoFactorAuth\Http\Livewire\Auth\RequestPasswordReset;
-use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
+use Backstage\TwoFactorAuth\Enums\TwoFactorType;
+use Backstage\TwoFactorAuth\Http\Livewire\Auth\Login;
+use Backstage\TwoFactorAuth\Http\Livewire\Auth\LoginTwoFactor;
+use Backstage\TwoFactorAuth\Http\Livewire\Auth\PasswordConfirmation;
+use Backstage\TwoFactorAuth\Http\Livewire\Auth\PasswordReset;
+use Backstage\TwoFactorAuth\Http\Livewire\Auth\Register;
+use Backstage\TwoFactorAuth\Http\Livewire\Auth\RequestPasswordReset;
+use Backstage\TwoFactorAuth\Pages\TwoFactor;
 
 return [
 
@@ -59,7 +59,7 @@ return [
     |
     | To use an SMS service, you need to install the corresponding package.
     | You then have to create a App\Notifications\SendOTP class that extends
-    | the Vormkracht10\TwoFactorAuth\Notifications\SendOTP class. After that,
+    | the Backstage\TwoFactorAuth\Notifications\SendOTP class. After that,
     | you can set the class alias in the sms_service key.
     |
     */

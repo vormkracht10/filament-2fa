@@ -1,16 +1,16 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth\Facades;
+namespace Backstage\TwoFactorAuth\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Vormkracht10\TwoFactorAuth\TwoFactorAuth
+ * @see \Backstage\TwoFactorAuth\TwoFactorAuth
  */
 class TwoFactorAuth extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Vormkracht10\TwoFactorAuth\TwoFactorAuth::class;
+        return \Backstage\TwoFactorAuth\TwoFactorAuth::class;
     }
 }

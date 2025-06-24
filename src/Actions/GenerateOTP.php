@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth\Actions;
+namespace Backstage\TwoFactorAuth\Actions;
 
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth\Http\Livewire\Auth;
+namespace Backstage\TwoFactorAuth\Http\Livewire\Auth;
 
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;

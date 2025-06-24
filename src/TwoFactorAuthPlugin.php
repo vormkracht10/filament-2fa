@@ -1,14 +1,14 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth;
+namespace Backstage\TwoFactorAuth;
 
+use Backstage\TwoFactorAuth\Http\Middleware\ForceTwoFactor;
+use Backstage\TwoFactorAuth\Pages\TwoFactor;
 use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
-use Vormkracht10\TwoFactorAuth\Http\Middleware\ForceTwoFactor;
-use Vormkracht10\TwoFactorAuth\Pages\TwoFactor;
 
 class TwoFactorAuthPlugin implements Plugin
 {

@@ -1,7 +1,10 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth\Notifications;
+namespace Backstage\TwoFactorAuth\Notifications;
 
+use Backstage\TwoFactorAuth\Actions\GenerateOTP;
+use Backstage\TwoFactorAuth\Enums\TwoFactorType;
+use Backstage\TwoFactorAuth\Mail\TwoFactorCodeMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,9 +12,6 @@ use Illuminate\Notifications\Notification;
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
-use Vormkracht10\TwoFactorAuth\Actions\GenerateOTP;
-use Vormkracht10\TwoFactorAuth\Enums\TwoFactorType;
-use Vormkracht10\TwoFactorAuth\Mail\TwoFactorCodeMail;
 
 class SendOTP extends Notification implements ShouldQueue
 {

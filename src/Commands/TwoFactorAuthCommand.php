@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth\Commands;
+namespace Backstage\TwoFactorAuth\Commands;
 
 use Illuminate\Console\Command;
 

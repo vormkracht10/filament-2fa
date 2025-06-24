@@ -1,5 +1,5 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth;
+namespace Backstage\TwoFactorAuth;
 
 class TwoFactorAuth {}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\TwoFactorAuth\Tests\PHPStan;
+namespace Backstage\TwoFactorAuth\Tests\PHPStan;
 
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
@@ -10,7 +10,8 @@ class UserPropertiesClassReflectionExtension implements PropertiesClassReflectio
 {
     public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
     {
-        return $classReflection->getName() === 'Illuminate\Foundation\Auth\User' && $propertyName === 'two_factor_confirmed_at';
+        return $classReflection->getName() === 'Illuminate\Foundation\Auth\User' &&
+               in_array($propertyName, ['two_factor_confirmed_at', 'email']);
     }
 
     public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
