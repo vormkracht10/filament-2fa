@@ -10,7 +10,8 @@ class UserPropertiesClassReflectionExtension implements PropertiesClassReflectio
 {
     public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
     {
-        return $classReflection->getName() === 'Illuminate\Foundation\Auth\User' && $propertyName === 'two_factor_confirmed_at';
+        return $classReflection->getName() === 'Illuminate\Foundation\Auth\User' && 
+               in_array($propertyName, ['two_factor_confirmed_at', 'email']);
     }
 
     public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection

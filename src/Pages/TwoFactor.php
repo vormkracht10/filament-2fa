@@ -20,6 +20,7 @@ use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
 use Laravel\Fortify\Features;
 use Backstage\TwoFactorAuth\Enums\TwoFactorType;
+use Illuminate\Foundation\Auth\User;
 
 class TwoFactor extends Page implements HasForms
 {
@@ -45,7 +46,9 @@ class TwoFactor extends Page implements HasForms
 
     public ?int $twoFactorOptionsCount = null;
 
-    /** @var Model $user */
+    /**
+     * @var User|null $user
+     */
     public mixed $user = null;
 
     protected static string $view = 'filament-2fa::two-factor';
@@ -221,7 +224,9 @@ class TwoFactor extends Page implements HasForms
                 $this->showQrCode = true;
             }
 
-            $this->user->update($formData);
+            if ($this->user) {
+                $this->user->update($formData);
+            }
 
             $this->enableTwoFactorAuthentication(app(EnableTwoFactorAuthentication::class));
         });
@@ -252,8 +257,8 @@ class TwoFactor extends Page implements HasForms
                     $fields[$option->value] = [
                         'name' => 'email',
                         'label' => __('Email'),
-                        'default' => $this->user->email,
-                        'rules' => ['required', 'email', Rule::unique($this->user->getTable(), 'email')->ignore($this->user->id)],
+                        'default' => $this->user?->email,
+                        'rules' => ['required', 'email', $this->user ? Rule::unique($this->user->getTable(), 'email')->ignore($this->user->id) : 'unique:users,email'],
                     ];
 
                     break;
@@ -261,7 +266,7 @@ class TwoFactor extends Page implements HasForms
                     $fields[$option->value] = [
                         'name' => 'phone',
                         'label' => __('Phone number'),
-                        'default' => $this->user->{config('filament-2fa.phone_number_field', 'phone')},
+                        'default' => $this->user?->{config('filament-2fa.phone_number_field', 'phone')},
                         'rules' => ['required'],
                     ];
 
@@ -310,7 +315,8 @@ class TwoFactor extends Page implements HasForms
             ->color('primary')
             ->action(function () {
                 return response()->streamDownload(function () {
-                    echo implode(PHP_EOL, $this->user->recoveryCodes());
+                    /** @phpstan-ignore-next-line */
+                    echo implode(PHP_EOL, $this->user?->recoveryCodes() ?? []);
                 }, 'recovery-codes.txt');
             });
     }
@@ -318,7 +324,7 @@ class TwoFactor extends Page implements HasForms
     public function disableAction(): Action
     {
         return Action::make('disable')
-            ->label($this->user->two_factor_confirmed_at ? __('Deactivate') : __('Cancel'))
+            ->label($this->user?->two_factor_confirmed_at ? __('Deactivate') : __('Cancel'))
             ->color('danger')
             ->action(function ($data) {
                 $this->disableTwoFactorAuthentication(app(DisableTwoFactorAuthentication::class));
@@ -332,12 +338,14 @@ class TwoFactor extends Page implements HasForms
      * */
     private function showTwoFactor(): bool
     {
-        return ! empty($this->user->two_factor_secret);
+        return ! empty($this->user?->two_factor_secret);
     }
 
     public function enableTwoFactorAuthentication(EnableTwoFactorAuthentication $enable): void
     {
-        $enable($this->user);
+        if ($this->user) {
+            $enable($this->user);
+        }
 
         $this->showingQrCode = true;
 
@@ -350,27 +358,29 @@ class TwoFactor extends Page implements HasForms
 
     public function confirmTwoFactorAuthentication(ConfirmTwoFactorAuthentication $confirm): void
     {
-        try {
-            $confirm($this->user, $this->otpCodeData['code']);
+        if ($this->user) {
+            try {
+                $confirm($this->user, $this->otpCodeData['code']);
 
-            Notification::make()
-                ->title(__('Two-Factor Authentication activated'))
-                ->body(__('From now on, you will be asked for a code when you log in.'))
-                ->success()
-                ->duration(5000)
-                ->send();
+                Notification::make()
+                    ->title(__('Two-Factor Authentication activated'))
+                    ->body(__('From now on, you will be asked for a code when you log in.'))
+                    ->success()
+                    ->duration(5000)
+                    ->send();
 
-            $this->showingQrCode = false;
-            $this->showingConfirmation = false;
-            $this->showingRecoveryCodes = true;
-        } catch (\Exception $e) {
-            $this->throwFailureValidationException();
+                $this->showingQrCode = false;
+                $this->showingConfirmation = false;
+                $this->showingRecoveryCodes = true;
+            } catch (\Exception $e) {
+                $this->throwFailureValidationException();
+            }
         }
     }
 
     public function disableTwoFactorAuthentication(DisableTwoFactorAuthentication $disable): void
     {
-        if ($this->user->two_factor_confirmed_at) {
+        if ($this->user && $this->user->two_factor_confirmed_at) {
             Notification::make()
                 ->title(__('Two-Factor Authentication deactivated'))
                 ->body(__('You can now log in without a code.'))
@@ -378,13 +388,17 @@ class TwoFactor extends Page implements HasForms
                 ->duration(5000)
                 ->send();
         }
-        $disable($this->user);
+        if ($this->user) {
+            $disable($this->user);
+        }
 
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
         $this->showingRecoveryCodes = false;
 
-        $this->user->refresh();
+        if ($this->user) {
+            $this->user->refresh();
+        }
     }
 
     public function showRecoveryCodes(): void
